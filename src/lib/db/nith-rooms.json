@@ -1,0 +1,9022 @@
+[
+  {
+    "room_id": "HBH-G-101",
+    "hostel_id": "HBH",
+    "room_number": "G-101",
+    "floor": 0,
+    "floor_label": "Level G1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-G-102",
+    "hostel_id": "HBH",
+    "room_number": "G-102",
+    "floor": 0,
+    "floor_label": "Level G1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-G-107",
+    "hostel_id": "HBH",
+    "room_number": "G-107",
+    "floor": 0,
+    "floor_label": "Level G1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-G-108",
+    "hostel_id": "HBH",
+    "room_number": "G-108",
+    "floor": 0,
+    "floor_label": "Level G1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-G-109",
+    "hostel_id": "HBH",
+    "room_number": "G-109",
+    "floor": 0,
+    "floor_label": "Level G1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-G-110",
+    "hostel_id": "HBH",
+    "room_number": "G-110",
+    "floor": 0,
+    "floor_label": "Level G1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-G-133",
+    "hostel_id": "HBH",
+    "room_number": "G-133",
+    "floor": 0,
+    "floor_label": "Level G1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-G-134",
+    "hostel_id": "HBH",
+    "room_number": "G-134",
+    "floor": 0,
+    "floor_label": "Level G1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-G-135",
+    "hostel_id": "HBH",
+    "room_number": "G-135",
+    "floor": 0,
+    "floor_label": "Level G1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-G-136",
+    "hostel_id": "HBH",
+    "room_number": "G-136",
+    "floor": 0,
+    "floor_label": "Level G1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-G-137",
+    "hostel_id": "HBH",
+    "room_number": "G-137",
+    "floor": 0,
+    "floor_label": "Level G1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-G-138",
+    "hostel_id": "HBH",
+    "room_number": "G-138",
+    "floor": 0,
+    "floor_label": "Level G1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-101",
+    "hostel_id": "HBH",
+    "room_number": "101",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-102",
+    "hostel_id": "HBH",
+    "room_number": "102",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-107",
+    "hostel_id": "HBH",
+    "room_number": "107",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-108",
+    "hostel_id": "HBH",
+    "room_number": "108",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-109",
+    "hostel_id": "HBH",
+    "room_number": "109",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-110",
+    "hostel_id": "HBH",
+    "room_number": "110",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-111",
+    "hostel_id": "HBH",
+    "room_number": "111",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-112",
+    "hostel_id": "HBH",
+    "room_number": "112",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-113",
+    "hostel_id": "HBH",
+    "room_number": "113",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-114",
+    "hostel_id": "HBH",
+    "room_number": "114",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-115",
+    "hostel_id": "HBH",
+    "room_number": "115",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-116",
+    "hostel_id": "HBH",
+    "room_number": "116",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-118",
+    "hostel_id": "HBH",
+    "room_number": "118",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-119",
+    "hostel_id": "HBH",
+    "room_number": "119",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-124",
+    "hostel_id": "HBH",
+    "room_number": "124",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-125",
+    "hostel_id": "HBH",
+    "room_number": "125",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-127",
+    "hostel_id": "HBH",
+    "room_number": "127",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-128",
+    "hostel_id": "HBH",
+    "room_number": "128",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-129",
+    "hostel_id": "HBH",
+    "room_number": "129",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-130",
+    "hostel_id": "HBH",
+    "room_number": "130",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-131",
+    "hostel_id": "HBH",
+    "room_number": "131",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-132",
+    "hostel_id": "HBH",
+    "room_number": "132",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-133",
+    "hostel_id": "HBH",
+    "room_number": "133",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-134",
+    "hostel_id": "HBH",
+    "room_number": "134",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-135",
+    "hostel_id": "HBH",
+    "room_number": "135",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-136",
+    "hostel_id": "HBH",
+    "room_number": "136",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-137",
+    "hostel_id": "HBH",
+    "room_number": "137",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-138",
+    "hostel_id": "HBH",
+    "room_number": "138",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-139",
+    "hostel_id": "HBH",
+    "room_number": "139",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-140",
+    "hostel_id": "HBH",
+    "room_number": "140",
+    "floor": 1,
+    "floor_label": "Level 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-201",
+    "hostel_id": "HBH",
+    "room_number": "201",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-202",
+    "hostel_id": "HBH",
+    "room_number": "202",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-203",
+    "hostel_id": "HBH",
+    "room_number": "203",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-204",
+    "hostel_id": "HBH",
+    "room_number": "204",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-205",
+    "hostel_id": "HBH",
+    "room_number": "205",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-206",
+    "hostel_id": "HBH",
+    "room_number": "206",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-207",
+    "hostel_id": "HBH",
+    "room_number": "207",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-208",
+    "hostel_id": "HBH",
+    "room_number": "208",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-209",
+    "hostel_id": "HBH",
+    "room_number": "209",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-210",
+    "hostel_id": "HBH",
+    "room_number": "210",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-211",
+    "hostel_id": "HBH",
+    "room_number": "211",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-212",
+    "hostel_id": "HBH",
+    "room_number": "212",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-213",
+    "hostel_id": "HBH",
+    "room_number": "213",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-214",
+    "hostel_id": "HBH",
+    "room_number": "214",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-215",
+    "hostel_id": "HBH",
+    "room_number": "215",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-216",
+    "hostel_id": "HBH",
+    "room_number": "216",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-217",
+    "hostel_id": "HBH",
+    "room_number": "217",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-218",
+    "hostel_id": "HBH",
+    "room_number": "218",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-219",
+    "hostel_id": "HBH",
+    "room_number": "219",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-224",
+    "hostel_id": "HBH",
+    "room_number": "224",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-225",
+    "hostel_id": "HBH",
+    "room_number": "225",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-226",
+    "hostel_id": "HBH",
+    "room_number": "226",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-227",
+    "hostel_id": "HBH",
+    "room_number": "227",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-228",
+    "hostel_id": "HBH",
+    "room_number": "228",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-229",
+    "hostel_id": "HBH",
+    "room_number": "229",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-230",
+    "hostel_id": "HBH",
+    "room_number": "230",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-231",
+    "hostel_id": "HBH",
+    "room_number": "231",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-232",
+    "hostel_id": "HBH",
+    "room_number": "232",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-233",
+    "hostel_id": "HBH",
+    "room_number": "233",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-234",
+    "hostel_id": "HBH",
+    "room_number": "234",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-235",
+    "hostel_id": "HBH",
+    "room_number": "235",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-236",
+    "hostel_id": "HBH",
+    "room_number": "236",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-237",
+    "hostel_id": "HBH",
+    "room_number": "237",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-238",
+    "hostel_id": "HBH",
+    "room_number": "238",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-239",
+    "hostel_id": "HBH",
+    "room_number": "239",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-240",
+    "hostel_id": "HBH",
+    "room_number": "240",
+    "floor": 2,
+    "floor_label": "Level 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-301",
+    "hostel_id": "HBH",
+    "room_number": "301",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-302",
+    "hostel_id": "HBH",
+    "room_number": "302",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-303",
+    "hostel_id": "HBH",
+    "room_number": "303",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-304",
+    "hostel_id": "HBH",
+    "room_number": "304",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-305",
+    "hostel_id": "HBH",
+    "room_number": "305",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-306",
+    "hostel_id": "HBH",
+    "room_number": "306",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-307",
+    "hostel_id": "HBH",
+    "room_number": "307",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-308",
+    "hostel_id": "HBH",
+    "room_number": "308",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-309",
+    "hostel_id": "HBH",
+    "room_number": "309",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-310",
+    "hostel_id": "HBH",
+    "room_number": "310",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-311",
+    "hostel_id": "HBH",
+    "room_number": "311",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-312",
+    "hostel_id": "HBH",
+    "room_number": "312",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-313",
+    "hostel_id": "HBH",
+    "room_number": "313",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-314",
+    "hostel_id": "HBH",
+    "room_number": "314",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-315",
+    "hostel_id": "HBH",
+    "room_number": "315",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-316",
+    "hostel_id": "HBH",
+    "room_number": "316",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-317",
+    "hostel_id": "HBH",
+    "room_number": "317",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-318",
+    "hostel_id": "HBH",
+    "room_number": "318",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-319",
+    "hostel_id": "HBH",
+    "room_number": "319",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-320",
+    "hostel_id": "HBH",
+    "room_number": "320",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-321",
+    "hostel_id": "HBH",
+    "room_number": "321",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-322",
+    "hostel_id": "HBH",
+    "room_number": "322",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-323",
+    "hostel_id": "HBH",
+    "room_number": "323",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-324",
+    "hostel_id": "HBH",
+    "room_number": "324",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-325",
+    "hostel_id": "HBH",
+    "room_number": "325",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-326",
+    "hostel_id": "HBH",
+    "room_number": "326",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-327",
+    "hostel_id": "HBH",
+    "room_number": "327",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-328",
+    "hostel_id": "HBH",
+    "room_number": "328",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-329",
+    "hostel_id": "HBH",
+    "room_number": "329",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-330",
+    "hostel_id": "HBH",
+    "room_number": "330",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-331",
+    "hostel_id": "HBH",
+    "room_number": "331",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-332",
+    "hostel_id": "HBH",
+    "room_number": "332",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-333",
+    "hostel_id": "HBH",
+    "room_number": "333",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-334",
+    "hostel_id": "HBH",
+    "room_number": "334",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-335",
+    "hostel_id": "HBH",
+    "room_number": "335",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-336",
+    "hostel_id": "HBH",
+    "room_number": "336",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-337",
+    "hostel_id": "HBH",
+    "room_number": "337",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-338",
+    "hostel_id": "HBH",
+    "room_number": "338",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-339",
+    "hostel_id": "HBH",
+    "room_number": "339",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-340",
+    "hostel_id": "HBH",
+    "room_number": "340",
+    "floor": 3,
+    "floor_label": "Level 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-401",
+    "hostel_id": "HBH",
+    "room_number": "401",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-402",
+    "hostel_id": "HBH",
+    "room_number": "402",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-403",
+    "hostel_id": "HBH",
+    "room_number": "403",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-404",
+    "hostel_id": "HBH",
+    "room_number": "404",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-405",
+    "hostel_id": "HBH",
+    "room_number": "405",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-406",
+    "hostel_id": "HBH",
+    "room_number": "406",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-407",
+    "hostel_id": "HBH",
+    "room_number": "407",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-408",
+    "hostel_id": "HBH",
+    "room_number": "408",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-409",
+    "hostel_id": "HBH",
+    "room_number": "409",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-410",
+    "hostel_id": "HBH",
+    "room_number": "410",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-411",
+    "hostel_id": "HBH",
+    "room_number": "411",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-412",
+    "hostel_id": "HBH",
+    "room_number": "412",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-413",
+    "hostel_id": "HBH",
+    "room_number": "413",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-414",
+    "hostel_id": "HBH",
+    "room_number": "414",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-415",
+    "hostel_id": "HBH",
+    "room_number": "415",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-416",
+    "hostel_id": "HBH",
+    "room_number": "416",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-417",
+    "hostel_id": "HBH",
+    "room_number": "417",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-418",
+    "hostel_id": "HBH",
+    "room_number": "418",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-419",
+    "hostel_id": "HBH",
+    "room_number": "419",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-420",
+    "hostel_id": "HBH",
+    "room_number": "420",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-421",
+    "hostel_id": "HBH",
+    "room_number": "421",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-422",
+    "hostel_id": "HBH",
+    "room_number": "422",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-423",
+    "hostel_id": "HBH",
+    "room_number": "423",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-424",
+    "hostel_id": "HBH",
+    "room_number": "424",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-425",
+    "hostel_id": "HBH",
+    "room_number": "425",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-439",
+    "hostel_id": "HBH",
+    "room_number": "439",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-426",
+    "hostel_id": "HBH",
+    "room_number": "426",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-427",
+    "hostel_id": "HBH",
+    "room_number": "427",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-428",
+    "hostel_id": "HBH",
+    "room_number": "428",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-429",
+    "hostel_id": "HBH",
+    "room_number": "429",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-430",
+    "hostel_id": "HBH",
+    "room_number": "430",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-431",
+    "hostel_id": "HBH",
+    "room_number": "431",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-432",
+    "hostel_id": "HBH",
+    "room_number": "432",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-433",
+    "hostel_id": "HBH",
+    "room_number": "433",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-434",
+    "hostel_id": "HBH",
+    "room_number": "434",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-435",
+    "hostel_id": "HBH",
+    "room_number": "435",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-436",
+    "hostel_id": "HBH",
+    "room_number": "436",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-437",
+    "hostel_id": "HBH",
+    "room_number": "437",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-438",
+    "hostel_id": "HBH",
+    "room_number": "438",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-440",
+    "hostel_id": "HBH",
+    "room_number": "440",
+    "floor": 4,
+    "floor_label": "Level 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-501",
+    "hostel_id": "HBH",
+    "room_number": "501",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-502",
+    "hostel_id": "HBH",
+    "room_number": "502",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-503",
+    "hostel_id": "HBH",
+    "room_number": "503",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-504",
+    "hostel_id": "HBH",
+    "room_number": "504",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-505",
+    "hostel_id": "HBH",
+    "room_number": "505",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-506",
+    "hostel_id": "HBH",
+    "room_number": "506",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-507",
+    "hostel_id": "HBH",
+    "room_number": "507",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-508",
+    "hostel_id": "HBH",
+    "room_number": "508",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-509",
+    "hostel_id": "HBH",
+    "room_number": "509",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-510",
+    "hostel_id": "HBH",
+    "room_number": "510",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-511",
+    "hostel_id": "HBH",
+    "room_number": "511",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-512",
+    "hostel_id": "HBH",
+    "room_number": "512",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-513",
+    "hostel_id": "HBH",
+    "room_number": "513",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-514",
+    "hostel_id": "HBH",
+    "room_number": "514",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-515",
+    "hostel_id": "HBH",
+    "room_number": "515",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-516",
+    "hostel_id": "HBH",
+    "room_number": "516",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-517",
+    "hostel_id": "HBH",
+    "room_number": "517",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-518",
+    "hostel_id": "HBH",
+    "room_number": "518",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-519",
+    "hostel_id": "HBH",
+    "room_number": "519",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-520",
+    "hostel_id": "HBH",
+    "room_number": "520",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-521",
+    "hostel_id": "HBH",
+    "room_number": "521",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-522",
+    "hostel_id": "HBH",
+    "room_number": "522",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-523",
+    "hostel_id": "HBH",
+    "room_number": "523",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-524",
+    "hostel_id": "HBH",
+    "room_number": "524",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-525",
+    "hostel_id": "HBH",
+    "room_number": "525",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-539",
+    "hostel_id": "HBH",
+    "room_number": "539",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-540",
+    "hostel_id": "HBH",
+    "room_number": "540",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-526",
+    "hostel_id": "HBH",
+    "room_number": "526",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-527",
+    "hostel_id": "HBH",
+    "room_number": "527",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-528",
+    "hostel_id": "HBH",
+    "room_number": "528",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-529",
+    "hostel_id": "HBH",
+    "room_number": "529",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-530",
+    "hostel_id": "HBH",
+    "room_number": "530",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-531",
+    "hostel_id": "HBH",
+    "room_number": "531",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-532",
+    "hostel_id": "HBH",
+    "room_number": "532",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-533",
+    "hostel_id": "HBH",
+    "room_number": "533",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-534",
+    "hostel_id": "HBH",
+    "room_number": "534",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-535",
+    "hostel_id": "HBH",
+    "room_number": "535",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-536",
+    "hostel_id": "HBH",
+    "room_number": "536",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-537",
+    "hostel_id": "HBH",
+    "room_number": "537",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HBH-538",
+    "hostel_id": "HBH",
+    "room_number": "538",
+    "floor": 5,
+    "floor_label": "Level 5",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-101",
+    "hostel_id": "AGH",
+    "room_number": "101",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-102",
+    "hostel_id": "AGH",
+    "room_number": "102",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-103",
+    "hostel_id": "AGH",
+    "room_number": "103",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-104",
+    "hostel_id": "AGH",
+    "room_number": "104",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-105",
+    "hostel_id": "AGH",
+    "room_number": "105",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-106",
+    "hostel_id": "AGH",
+    "room_number": "106",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-107",
+    "hostel_id": "AGH",
+    "room_number": "107",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-108",
+    "hostel_id": "AGH",
+    "room_number": "108",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-109",
+    "hostel_id": "AGH",
+    "room_number": "109",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-110",
+    "hostel_id": "AGH",
+    "room_number": "110",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-151",
+    "hostel_id": "AGH",
+    "room_number": "151",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-152",
+    "hostel_id": "AGH",
+    "room_number": "152",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-153",
+    "hostel_id": "AGH",
+    "room_number": "153",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-154",
+    "hostel_id": "AGH",
+    "room_number": "154",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-155",
+    "hostel_id": "AGH",
+    "room_number": "155",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-156",
+    "hostel_id": "AGH",
+    "room_number": "156",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-157",
+    "hostel_id": "AGH",
+    "room_number": "157",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-158",
+    "hostel_id": "AGH",
+    "room_number": "158",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-159",
+    "hostel_id": "AGH",
+    "room_number": "159",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-160",
+    "hostel_id": "AGH",
+    "room_number": "160",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-201",
+    "hostel_id": "AGH",
+    "room_number": "201",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-202",
+    "hostel_id": "AGH",
+    "room_number": "202",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-203",
+    "hostel_id": "AGH",
+    "room_number": "203",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-204",
+    "hostel_id": "AGH",
+    "room_number": "204",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-205",
+    "hostel_id": "AGH",
+    "room_number": "205",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-206",
+    "hostel_id": "AGH",
+    "room_number": "206",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-207",
+    "hostel_id": "AGH",
+    "room_number": "207",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-208",
+    "hostel_id": "AGH",
+    "room_number": "208",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-209",
+    "hostel_id": "AGH",
+    "room_number": "209",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-210",
+    "hostel_id": "AGH",
+    "room_number": "210",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-251",
+    "hostel_id": "AGH",
+    "room_number": "251",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-252",
+    "hostel_id": "AGH",
+    "room_number": "252",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-253",
+    "hostel_id": "AGH",
+    "room_number": "253",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-254",
+    "hostel_id": "AGH",
+    "room_number": "254",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-255",
+    "hostel_id": "AGH",
+    "room_number": "255",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-256",
+    "hostel_id": "AGH",
+    "room_number": "256",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-257",
+    "hostel_id": "AGH",
+    "room_number": "257",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-258",
+    "hostel_id": "AGH",
+    "room_number": "258",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-259",
+    "hostel_id": "AGH",
+    "room_number": "259",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-260",
+    "hostel_id": "AGH",
+    "room_number": "260",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-301",
+    "hostel_id": "AGH",
+    "room_number": "301",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-302",
+    "hostel_id": "AGH",
+    "room_number": "302",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-303",
+    "hostel_id": "AGH",
+    "room_number": "303",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-304",
+    "hostel_id": "AGH",
+    "room_number": "304",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-305",
+    "hostel_id": "AGH",
+    "room_number": "305",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-306",
+    "hostel_id": "AGH",
+    "room_number": "306",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-307",
+    "hostel_id": "AGH",
+    "room_number": "307",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-308",
+    "hostel_id": "AGH",
+    "room_number": "308",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-309",
+    "hostel_id": "AGH",
+    "room_number": "309",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-310",
+    "hostel_id": "AGH",
+    "room_number": "310",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-351",
+    "hostel_id": "AGH",
+    "room_number": "351",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-352",
+    "hostel_id": "AGH",
+    "room_number": "352",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-353",
+    "hostel_id": "AGH",
+    "room_number": "353",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-354",
+    "hostel_id": "AGH",
+    "room_number": "354",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-355",
+    "hostel_id": "AGH",
+    "room_number": "355",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-356",
+    "hostel_id": "AGH",
+    "room_number": "356",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-357",
+    "hostel_id": "AGH",
+    "room_number": "357",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-358",
+    "hostel_id": "AGH",
+    "room_number": "358",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-359",
+    "hostel_id": "AGH",
+    "room_number": "359",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-360",
+    "hostel_id": "AGH",
+    "room_number": "360",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-401",
+    "hostel_id": "AGH",
+    "room_number": "401",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-402",
+    "hostel_id": "AGH",
+    "room_number": "402",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-403",
+    "hostel_id": "AGH",
+    "room_number": "403",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-404",
+    "hostel_id": "AGH",
+    "room_number": "404",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-405",
+    "hostel_id": "AGH",
+    "room_number": "405",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-406",
+    "hostel_id": "AGH",
+    "room_number": "406",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-407",
+    "hostel_id": "AGH",
+    "room_number": "407",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-408",
+    "hostel_id": "AGH",
+    "room_number": "408",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-409",
+    "hostel_id": "AGH",
+    "room_number": "409",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-410",
+    "hostel_id": "AGH",
+    "room_number": "410",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-451",
+    "hostel_id": "AGH",
+    "room_number": "451",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-452",
+    "hostel_id": "AGH",
+    "room_number": "452",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-453",
+    "hostel_id": "AGH",
+    "room_number": "453",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-454",
+    "hostel_id": "AGH",
+    "room_number": "454",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-455",
+    "hostel_id": "AGH",
+    "room_number": "455",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-456",
+    "hostel_id": "AGH",
+    "room_number": "456",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-457",
+    "hostel_id": "AGH",
+    "room_number": "457",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-458",
+    "hostel_id": "AGH",
+    "room_number": "458",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-459",
+    "hostel_id": "AGH",
+    "room_number": "459",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "AGH-460",
+    "hostel_id": "AGH",
+    "room_number": "460",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-101",
+    "hostel_id": "DBH",
+    "room_number": "101",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-102",
+    "hostel_id": "DBH",
+    "room_number": "102",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-103",
+    "hostel_id": "DBH",
+    "room_number": "103",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-104",
+    "hostel_id": "DBH",
+    "room_number": "104",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-105",
+    "hostel_id": "DBH",
+    "room_number": "105",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-106",
+    "hostel_id": "DBH",
+    "room_number": "106",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-107",
+    "hostel_id": "DBH",
+    "room_number": "107",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-108",
+    "hostel_id": "DBH",
+    "room_number": "108",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-109",
+    "hostel_id": "DBH",
+    "room_number": "109",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-110",
+    "hostel_id": "DBH",
+    "room_number": "110",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-111",
+    "hostel_id": "DBH",
+    "room_number": "111",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-112",
+    "hostel_id": "DBH",
+    "room_number": "112",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-151",
+    "hostel_id": "DBH",
+    "room_number": "151",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-152",
+    "hostel_id": "DBH",
+    "room_number": "152",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-153",
+    "hostel_id": "DBH",
+    "room_number": "153",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-154",
+    "hostel_id": "DBH",
+    "room_number": "154",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-155",
+    "hostel_id": "DBH",
+    "room_number": "155",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-156",
+    "hostel_id": "DBH",
+    "room_number": "156",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-157",
+    "hostel_id": "DBH",
+    "room_number": "157",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-158",
+    "hostel_id": "DBH",
+    "room_number": "158",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-201",
+    "hostel_id": "DBH",
+    "room_number": "201",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-202",
+    "hostel_id": "DBH",
+    "room_number": "202",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-203",
+    "hostel_id": "DBH",
+    "room_number": "203",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-204",
+    "hostel_id": "DBH",
+    "room_number": "204",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-205",
+    "hostel_id": "DBH",
+    "room_number": "205",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-206",
+    "hostel_id": "DBH",
+    "room_number": "206",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-207",
+    "hostel_id": "DBH",
+    "room_number": "207",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-208",
+    "hostel_id": "DBH",
+    "room_number": "208",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-209",
+    "hostel_id": "DBH",
+    "room_number": "209",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-210",
+    "hostel_id": "DBH",
+    "room_number": "210",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-211",
+    "hostel_id": "DBH",
+    "room_number": "211",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-212",
+    "hostel_id": "DBH",
+    "room_number": "212",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-251",
+    "hostel_id": "DBH",
+    "room_number": "251",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-252",
+    "hostel_id": "DBH",
+    "room_number": "252",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-253",
+    "hostel_id": "DBH",
+    "room_number": "253",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-254",
+    "hostel_id": "DBH",
+    "room_number": "254",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-255",
+    "hostel_id": "DBH",
+    "room_number": "255",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-256",
+    "hostel_id": "DBH",
+    "room_number": "256",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-257",
+    "hostel_id": "DBH",
+    "room_number": "257",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-258",
+    "hostel_id": "DBH",
+    "room_number": "258",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-301",
+    "hostel_id": "DBH",
+    "room_number": "301",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-302",
+    "hostel_id": "DBH",
+    "room_number": "302",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-303",
+    "hostel_id": "DBH",
+    "room_number": "303",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-304",
+    "hostel_id": "DBH",
+    "room_number": "304",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-305",
+    "hostel_id": "DBH",
+    "room_number": "305",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-306",
+    "hostel_id": "DBH",
+    "room_number": "306",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-307",
+    "hostel_id": "DBH",
+    "room_number": "307",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-308",
+    "hostel_id": "DBH",
+    "room_number": "308",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-309",
+    "hostel_id": "DBH",
+    "room_number": "309",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-310",
+    "hostel_id": "DBH",
+    "room_number": "310",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-311",
+    "hostel_id": "DBH",
+    "room_number": "311",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-312",
+    "hostel_id": "DBH",
+    "room_number": "312",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-351",
+    "hostel_id": "DBH",
+    "room_number": "351",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-352",
+    "hostel_id": "DBH",
+    "room_number": "352",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-353",
+    "hostel_id": "DBH",
+    "room_number": "353",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-354",
+    "hostel_id": "DBH",
+    "room_number": "354",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-355",
+    "hostel_id": "DBH",
+    "room_number": "355",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-356",
+    "hostel_id": "DBH",
+    "room_number": "356",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-357",
+    "hostel_id": "DBH",
+    "room_number": "357",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-358",
+    "hostel_id": "DBH",
+    "room_number": "358",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-401",
+    "hostel_id": "DBH",
+    "room_number": "401",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-402",
+    "hostel_id": "DBH",
+    "room_number": "402",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-403",
+    "hostel_id": "DBH",
+    "room_number": "403",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-404",
+    "hostel_id": "DBH",
+    "room_number": "404",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-405",
+    "hostel_id": "DBH",
+    "room_number": "405",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-406",
+    "hostel_id": "DBH",
+    "room_number": "406",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-407",
+    "hostel_id": "DBH",
+    "room_number": "407",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-408",
+    "hostel_id": "DBH",
+    "room_number": "408",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-409",
+    "hostel_id": "DBH",
+    "room_number": "409",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-410",
+    "hostel_id": "DBH",
+    "room_number": "410",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-411",
+    "hostel_id": "DBH",
+    "room_number": "411",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-412",
+    "hostel_id": "DBH",
+    "room_number": "412",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-451",
+    "hostel_id": "DBH",
+    "room_number": "451",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-452",
+    "hostel_id": "DBH",
+    "room_number": "452",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-453",
+    "hostel_id": "DBH",
+    "room_number": "453",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-454",
+    "hostel_id": "DBH",
+    "room_number": "454",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-455",
+    "hostel_id": "DBH",
+    "room_number": "455",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-456",
+    "hostel_id": "DBH",
+    "room_number": "456",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-457",
+    "hostel_id": "DBH",
+    "room_number": "457",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "DBH-458",
+    "hostel_id": "DBH",
+    "room_number": "458",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-101",
+    "hostel_id": "NBH",
+    "room_number": "101",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-102",
+    "hostel_id": "NBH",
+    "room_number": "102",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-103",
+    "hostel_id": "NBH",
+    "room_number": "103",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-104",
+    "hostel_id": "NBH",
+    "room_number": "104",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-105",
+    "hostel_id": "NBH",
+    "room_number": "105",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-106",
+    "hostel_id": "NBH",
+    "room_number": "106",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-107",
+    "hostel_id": "NBH",
+    "room_number": "107",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-108",
+    "hostel_id": "NBH",
+    "room_number": "108",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-109",
+    "hostel_id": "NBH",
+    "room_number": "109",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-110",
+    "hostel_id": "NBH",
+    "room_number": "110",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-151",
+    "hostel_id": "NBH",
+    "room_number": "151",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-152",
+    "hostel_id": "NBH",
+    "room_number": "152",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-153",
+    "hostel_id": "NBH",
+    "room_number": "153",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-154",
+    "hostel_id": "NBH",
+    "room_number": "154",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-155",
+    "hostel_id": "NBH",
+    "room_number": "155",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-156",
+    "hostel_id": "NBH",
+    "room_number": "156",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-157",
+    "hostel_id": "NBH",
+    "room_number": "157",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-158",
+    "hostel_id": "NBH",
+    "room_number": "158",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-159",
+    "hostel_id": "NBH",
+    "room_number": "159",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-160",
+    "hostel_id": "NBH",
+    "room_number": "160",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-201",
+    "hostel_id": "NBH",
+    "room_number": "201",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-202",
+    "hostel_id": "NBH",
+    "room_number": "202",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-203",
+    "hostel_id": "NBH",
+    "room_number": "203",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-204",
+    "hostel_id": "NBH",
+    "room_number": "204",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-205",
+    "hostel_id": "NBH",
+    "room_number": "205",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-206",
+    "hostel_id": "NBH",
+    "room_number": "206",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-207",
+    "hostel_id": "NBH",
+    "room_number": "207",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-208",
+    "hostel_id": "NBH",
+    "room_number": "208",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-209",
+    "hostel_id": "NBH",
+    "room_number": "209",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-210",
+    "hostel_id": "NBH",
+    "room_number": "210",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-251",
+    "hostel_id": "NBH",
+    "room_number": "251",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-252",
+    "hostel_id": "NBH",
+    "room_number": "252",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-253",
+    "hostel_id": "NBH",
+    "room_number": "253",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-254",
+    "hostel_id": "NBH",
+    "room_number": "254",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-255",
+    "hostel_id": "NBH",
+    "room_number": "255",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-256",
+    "hostel_id": "NBH",
+    "room_number": "256",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-257",
+    "hostel_id": "NBH",
+    "room_number": "257",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-258",
+    "hostel_id": "NBH",
+    "room_number": "258",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-259",
+    "hostel_id": "NBH",
+    "room_number": "259",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-260",
+    "hostel_id": "NBH",
+    "room_number": "260",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-301",
+    "hostel_id": "NBH",
+    "room_number": "301",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-302",
+    "hostel_id": "NBH",
+    "room_number": "302",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-303",
+    "hostel_id": "NBH",
+    "room_number": "303",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-304",
+    "hostel_id": "NBH",
+    "room_number": "304",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-305",
+    "hostel_id": "NBH",
+    "room_number": "305",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-306",
+    "hostel_id": "NBH",
+    "room_number": "306",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-307",
+    "hostel_id": "NBH",
+    "room_number": "307",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-308",
+    "hostel_id": "NBH",
+    "room_number": "308",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-309",
+    "hostel_id": "NBH",
+    "room_number": "309",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-310",
+    "hostel_id": "NBH",
+    "room_number": "310",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-351",
+    "hostel_id": "NBH",
+    "room_number": "351",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-352",
+    "hostel_id": "NBH",
+    "room_number": "352",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-353",
+    "hostel_id": "NBH",
+    "room_number": "353",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-354",
+    "hostel_id": "NBH",
+    "room_number": "354",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-355",
+    "hostel_id": "NBH",
+    "room_number": "355",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-356",
+    "hostel_id": "NBH",
+    "room_number": "356",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-357",
+    "hostel_id": "NBH",
+    "room_number": "357",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-358",
+    "hostel_id": "NBH",
+    "room_number": "358",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-359",
+    "hostel_id": "NBH",
+    "room_number": "359",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-360",
+    "hostel_id": "NBH",
+    "room_number": "360",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-401",
+    "hostel_id": "NBH",
+    "room_number": "401",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-402",
+    "hostel_id": "NBH",
+    "room_number": "402",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-403",
+    "hostel_id": "NBH",
+    "room_number": "403",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-404",
+    "hostel_id": "NBH",
+    "room_number": "404",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-405",
+    "hostel_id": "NBH",
+    "room_number": "405",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-406",
+    "hostel_id": "NBH",
+    "room_number": "406",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-407",
+    "hostel_id": "NBH",
+    "room_number": "407",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-408",
+    "hostel_id": "NBH",
+    "room_number": "408",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-409",
+    "hostel_id": "NBH",
+    "room_number": "409",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-410",
+    "hostel_id": "NBH",
+    "room_number": "410",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-451",
+    "hostel_id": "NBH",
+    "room_number": "451",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-452",
+    "hostel_id": "NBH",
+    "room_number": "452",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-453",
+    "hostel_id": "NBH",
+    "room_number": "453",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-454",
+    "hostel_id": "NBH",
+    "room_number": "454",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-455",
+    "hostel_id": "NBH",
+    "room_number": "455",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-456",
+    "hostel_id": "NBH",
+    "room_number": "456",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-457",
+    "hostel_id": "NBH",
+    "room_number": "457",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-458",
+    "hostel_id": "NBH",
+    "room_number": "458",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-459",
+    "hostel_id": "NBH",
+    "room_number": "459",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "NBH-460",
+    "hostel_id": "NBH",
+    "room_number": "460",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-101",
+    "hostel_id": "PGH",
+    "room_number": "101",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-102",
+    "hostel_id": "PGH",
+    "room_number": "102",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-103",
+    "hostel_id": "PGH",
+    "room_number": "103",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-104",
+    "hostel_id": "PGH",
+    "room_number": "104",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-105",
+    "hostel_id": "PGH",
+    "room_number": "105",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-106",
+    "hostel_id": "PGH",
+    "room_number": "106",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-107",
+    "hostel_id": "PGH",
+    "room_number": "107",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-108",
+    "hostel_id": "PGH",
+    "room_number": "108",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-151",
+    "hostel_id": "PGH",
+    "room_number": "151",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-152",
+    "hostel_id": "PGH",
+    "room_number": "152",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-153",
+    "hostel_id": "PGH",
+    "room_number": "153",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-154",
+    "hostel_id": "PGH",
+    "room_number": "154",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-155",
+    "hostel_id": "PGH",
+    "room_number": "155",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-156",
+    "hostel_id": "PGH",
+    "room_number": "156",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-157",
+    "hostel_id": "PGH",
+    "room_number": "157",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-158",
+    "hostel_id": "PGH",
+    "room_number": "158",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-159",
+    "hostel_id": "PGH",
+    "room_number": "159",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-160",
+    "hostel_id": "PGH",
+    "room_number": "160",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-161",
+    "hostel_id": "PGH",
+    "room_number": "161",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-162",
+    "hostel_id": "PGH",
+    "room_number": "162",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-201",
+    "hostel_id": "PGH",
+    "room_number": "201",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-202",
+    "hostel_id": "PGH",
+    "room_number": "202",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-203",
+    "hostel_id": "PGH",
+    "room_number": "203",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-204",
+    "hostel_id": "PGH",
+    "room_number": "204",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-205",
+    "hostel_id": "PGH",
+    "room_number": "205",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-206",
+    "hostel_id": "PGH",
+    "room_number": "206",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-207",
+    "hostel_id": "PGH",
+    "room_number": "207",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-208",
+    "hostel_id": "PGH",
+    "room_number": "208",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-251",
+    "hostel_id": "PGH",
+    "room_number": "251",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-252",
+    "hostel_id": "PGH",
+    "room_number": "252",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-253",
+    "hostel_id": "PGH",
+    "room_number": "253",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-254",
+    "hostel_id": "PGH",
+    "room_number": "254",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-255",
+    "hostel_id": "PGH",
+    "room_number": "255",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-256",
+    "hostel_id": "PGH",
+    "room_number": "256",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-257",
+    "hostel_id": "PGH",
+    "room_number": "257",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-258",
+    "hostel_id": "PGH",
+    "room_number": "258",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-259",
+    "hostel_id": "PGH",
+    "room_number": "259",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-260",
+    "hostel_id": "PGH",
+    "room_number": "260",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-261",
+    "hostel_id": "PGH",
+    "room_number": "261",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-262",
+    "hostel_id": "PGH",
+    "room_number": "262",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-301",
+    "hostel_id": "PGH",
+    "room_number": "301",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-302",
+    "hostel_id": "PGH",
+    "room_number": "302",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-303",
+    "hostel_id": "PGH",
+    "room_number": "303",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-304",
+    "hostel_id": "PGH",
+    "room_number": "304",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-305",
+    "hostel_id": "PGH",
+    "room_number": "305",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-306",
+    "hostel_id": "PGH",
+    "room_number": "306",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-307",
+    "hostel_id": "PGH",
+    "room_number": "307",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-308",
+    "hostel_id": "PGH",
+    "room_number": "308",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-351",
+    "hostel_id": "PGH",
+    "room_number": "351",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-352",
+    "hostel_id": "PGH",
+    "room_number": "352",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-353",
+    "hostel_id": "PGH",
+    "room_number": "353",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-354",
+    "hostel_id": "PGH",
+    "room_number": "354",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-355",
+    "hostel_id": "PGH",
+    "room_number": "355",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-356",
+    "hostel_id": "PGH",
+    "room_number": "356",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-357",
+    "hostel_id": "PGH",
+    "room_number": "357",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-358",
+    "hostel_id": "PGH",
+    "room_number": "358",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-359",
+    "hostel_id": "PGH",
+    "room_number": "359",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-360",
+    "hostel_id": "PGH",
+    "room_number": "360",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-361",
+    "hostel_id": "PGH",
+    "room_number": "361",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-362",
+    "hostel_id": "PGH",
+    "room_number": "362",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-401",
+    "hostel_id": "PGH",
+    "room_number": "401",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-402",
+    "hostel_id": "PGH",
+    "room_number": "402",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-403",
+    "hostel_id": "PGH",
+    "room_number": "403",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-404",
+    "hostel_id": "PGH",
+    "room_number": "404",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-405",
+    "hostel_id": "PGH",
+    "room_number": "405",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-406",
+    "hostel_id": "PGH",
+    "room_number": "406",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-407",
+    "hostel_id": "PGH",
+    "room_number": "407",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-408",
+    "hostel_id": "PGH",
+    "room_number": "408",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-451",
+    "hostel_id": "PGH",
+    "room_number": "451",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-452",
+    "hostel_id": "PGH",
+    "room_number": "452",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-453",
+    "hostel_id": "PGH",
+    "room_number": "453",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-454",
+    "hostel_id": "PGH",
+    "room_number": "454",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-455",
+    "hostel_id": "PGH",
+    "room_number": "455",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-456",
+    "hostel_id": "PGH",
+    "room_number": "456",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-457",
+    "hostel_id": "PGH",
+    "room_number": "457",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-458",
+    "hostel_id": "PGH",
+    "room_number": "458",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-459",
+    "hostel_id": "PGH",
+    "room_number": "459",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-460",
+    "hostel_id": "PGH",
+    "room_number": "460",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-461",
+    "hostel_id": "PGH",
+    "room_number": "461",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "PGH-462",
+    "hostel_id": "PGH",
+    "room_number": "462",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-101",
+    "hostel_id": "SGH",
+    "room_number": "101",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-102",
+    "hostel_id": "SGH",
+    "room_number": "102",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-103",
+    "hostel_id": "SGH",
+    "room_number": "103",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-104",
+    "hostel_id": "SGH",
+    "room_number": "104",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-105",
+    "hostel_id": "SGH",
+    "room_number": "105",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-106",
+    "hostel_id": "SGH",
+    "room_number": "106",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-107",
+    "hostel_id": "SGH",
+    "room_number": "107",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-108",
+    "hostel_id": "SGH",
+    "room_number": "108",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-109",
+    "hostel_id": "SGH",
+    "room_number": "109",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-110",
+    "hostel_id": "SGH",
+    "room_number": "110",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-151",
+    "hostel_id": "SGH",
+    "room_number": "151",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-152",
+    "hostel_id": "SGH",
+    "room_number": "152",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-153",
+    "hostel_id": "SGH",
+    "room_number": "153",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-154",
+    "hostel_id": "SGH",
+    "room_number": "154",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-155",
+    "hostel_id": "SGH",
+    "room_number": "155",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-156",
+    "hostel_id": "SGH",
+    "room_number": "156",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-157",
+    "hostel_id": "SGH",
+    "room_number": "157",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-158",
+    "hostel_id": "SGH",
+    "room_number": "158",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-201",
+    "hostel_id": "SGH",
+    "room_number": "201",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-202",
+    "hostel_id": "SGH",
+    "room_number": "202",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-203",
+    "hostel_id": "SGH",
+    "room_number": "203",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-204",
+    "hostel_id": "SGH",
+    "room_number": "204",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-205",
+    "hostel_id": "SGH",
+    "room_number": "205",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-206",
+    "hostel_id": "SGH",
+    "room_number": "206",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-207",
+    "hostel_id": "SGH",
+    "room_number": "207",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-208",
+    "hostel_id": "SGH",
+    "room_number": "208",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-209",
+    "hostel_id": "SGH",
+    "room_number": "209",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-210",
+    "hostel_id": "SGH",
+    "room_number": "210",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-251",
+    "hostel_id": "SGH",
+    "room_number": "251",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-252",
+    "hostel_id": "SGH",
+    "room_number": "252",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-253",
+    "hostel_id": "SGH",
+    "room_number": "253",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-254",
+    "hostel_id": "SGH",
+    "room_number": "254",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-255",
+    "hostel_id": "SGH",
+    "room_number": "255",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-256",
+    "hostel_id": "SGH",
+    "room_number": "256",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-257",
+    "hostel_id": "SGH",
+    "room_number": "257",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-258",
+    "hostel_id": "SGH",
+    "room_number": "258",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-301",
+    "hostel_id": "SGH",
+    "room_number": "301",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-302",
+    "hostel_id": "SGH",
+    "room_number": "302",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-303",
+    "hostel_id": "SGH",
+    "room_number": "303",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-304",
+    "hostel_id": "SGH",
+    "room_number": "304",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-305",
+    "hostel_id": "SGH",
+    "room_number": "305",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-306",
+    "hostel_id": "SGH",
+    "room_number": "306",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-307",
+    "hostel_id": "SGH",
+    "room_number": "307",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-308",
+    "hostel_id": "SGH",
+    "room_number": "308",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-309",
+    "hostel_id": "SGH",
+    "room_number": "309",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-310",
+    "hostel_id": "SGH",
+    "room_number": "310",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-351",
+    "hostel_id": "SGH",
+    "room_number": "351",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-352",
+    "hostel_id": "SGH",
+    "room_number": "352",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-353",
+    "hostel_id": "SGH",
+    "room_number": "353",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-354",
+    "hostel_id": "SGH",
+    "room_number": "354",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-355",
+    "hostel_id": "SGH",
+    "room_number": "355",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-356",
+    "hostel_id": "SGH",
+    "room_number": "356",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-357",
+    "hostel_id": "SGH",
+    "room_number": "357",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-358",
+    "hostel_id": "SGH",
+    "room_number": "358",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-401",
+    "hostel_id": "SGH",
+    "room_number": "401",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-402",
+    "hostel_id": "SGH",
+    "room_number": "402",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-403",
+    "hostel_id": "SGH",
+    "room_number": "403",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-404",
+    "hostel_id": "SGH",
+    "room_number": "404",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-405",
+    "hostel_id": "SGH",
+    "room_number": "405",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-406",
+    "hostel_id": "SGH",
+    "room_number": "406",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-407",
+    "hostel_id": "SGH",
+    "room_number": "407",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-408",
+    "hostel_id": "SGH",
+    "room_number": "408",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-409",
+    "hostel_id": "SGH",
+    "room_number": "409",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-410",
+    "hostel_id": "SGH",
+    "room_number": "410",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-451",
+    "hostel_id": "SGH",
+    "room_number": "451",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-452",
+    "hostel_id": "SGH",
+    "room_number": "452",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-453",
+    "hostel_id": "SGH",
+    "room_number": "453",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-454",
+    "hostel_id": "SGH",
+    "room_number": "454",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-455",
+    "hostel_id": "SGH",
+    "room_number": "455",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-456",
+    "hostel_id": "SGH",
+    "room_number": "456",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-457",
+    "hostel_id": "SGH",
+    "room_number": "457",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "SGH-458",
+    "hostel_id": "SGH",
+    "room_number": "458",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-101",
+    "hostel_id": "HGBH",
+    "room_number": "101",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-102",
+    "hostel_id": "HGBH",
+    "room_number": "102",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-103",
+    "hostel_id": "HGBH",
+    "room_number": "103",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-104",
+    "hostel_id": "HGBH",
+    "room_number": "104",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-105",
+    "hostel_id": "HGBH",
+    "room_number": "105",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-106",
+    "hostel_id": "HGBH",
+    "room_number": "106",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-107",
+    "hostel_id": "HGBH",
+    "room_number": "107",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-108",
+    "hostel_id": "HGBH",
+    "room_number": "108",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-109",
+    "hostel_id": "HGBH",
+    "room_number": "109",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-110",
+    "hostel_id": "HGBH",
+    "room_number": "110",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-151",
+    "hostel_id": "HGBH",
+    "room_number": "151",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-152",
+    "hostel_id": "HGBH",
+    "room_number": "152",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-153",
+    "hostel_id": "HGBH",
+    "room_number": "153",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-154",
+    "hostel_id": "HGBH",
+    "room_number": "154",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-155",
+    "hostel_id": "HGBH",
+    "room_number": "155",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-156",
+    "hostel_id": "HGBH",
+    "room_number": "156",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-157",
+    "hostel_id": "HGBH",
+    "room_number": "157",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-158",
+    "hostel_id": "HGBH",
+    "room_number": "158",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-159",
+    "hostel_id": "HGBH",
+    "room_number": "159",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-160",
+    "hostel_id": "HGBH",
+    "room_number": "160",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-201",
+    "hostel_id": "HGBH",
+    "room_number": "201",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-202",
+    "hostel_id": "HGBH",
+    "room_number": "202",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-203",
+    "hostel_id": "HGBH",
+    "room_number": "203",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-204",
+    "hostel_id": "HGBH",
+    "room_number": "204",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-205",
+    "hostel_id": "HGBH",
+    "room_number": "205",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-206",
+    "hostel_id": "HGBH",
+    "room_number": "206",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-207",
+    "hostel_id": "HGBH",
+    "room_number": "207",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-208",
+    "hostel_id": "HGBH",
+    "room_number": "208",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-209",
+    "hostel_id": "HGBH",
+    "room_number": "209",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-210",
+    "hostel_id": "HGBH",
+    "room_number": "210",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-251",
+    "hostel_id": "HGBH",
+    "room_number": "251",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-252",
+    "hostel_id": "HGBH",
+    "room_number": "252",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-253",
+    "hostel_id": "HGBH",
+    "room_number": "253",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-254",
+    "hostel_id": "HGBH",
+    "room_number": "254",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-255",
+    "hostel_id": "HGBH",
+    "room_number": "255",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-256",
+    "hostel_id": "HGBH",
+    "room_number": "256",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-257",
+    "hostel_id": "HGBH",
+    "room_number": "257",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-258",
+    "hostel_id": "HGBH",
+    "room_number": "258",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-259",
+    "hostel_id": "HGBH",
+    "room_number": "259",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-260",
+    "hostel_id": "HGBH",
+    "room_number": "260",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-301",
+    "hostel_id": "HGBH",
+    "room_number": "301",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-302",
+    "hostel_id": "HGBH",
+    "room_number": "302",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-303",
+    "hostel_id": "HGBH",
+    "room_number": "303",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-304",
+    "hostel_id": "HGBH",
+    "room_number": "304",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-305",
+    "hostel_id": "HGBH",
+    "room_number": "305",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-306",
+    "hostel_id": "HGBH",
+    "room_number": "306",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-307",
+    "hostel_id": "HGBH",
+    "room_number": "307",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-308",
+    "hostel_id": "HGBH",
+    "room_number": "308",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-309",
+    "hostel_id": "HGBH",
+    "room_number": "309",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-310",
+    "hostel_id": "HGBH",
+    "room_number": "310",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-351",
+    "hostel_id": "HGBH",
+    "room_number": "351",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-352",
+    "hostel_id": "HGBH",
+    "room_number": "352",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-353",
+    "hostel_id": "HGBH",
+    "room_number": "353",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-354",
+    "hostel_id": "HGBH",
+    "room_number": "354",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-355",
+    "hostel_id": "HGBH",
+    "room_number": "355",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-356",
+    "hostel_id": "HGBH",
+    "room_number": "356",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-357",
+    "hostel_id": "HGBH",
+    "room_number": "357",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-358",
+    "hostel_id": "HGBH",
+    "room_number": "358",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-359",
+    "hostel_id": "HGBH",
+    "room_number": "359",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-360",
+    "hostel_id": "HGBH",
+    "room_number": "360",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-401",
+    "hostel_id": "HGBH",
+    "room_number": "401",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-402",
+    "hostel_id": "HGBH",
+    "room_number": "402",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-403",
+    "hostel_id": "HGBH",
+    "room_number": "403",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-404",
+    "hostel_id": "HGBH",
+    "room_number": "404",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-405",
+    "hostel_id": "HGBH",
+    "room_number": "405",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-406",
+    "hostel_id": "HGBH",
+    "room_number": "406",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-407",
+    "hostel_id": "HGBH",
+    "room_number": "407",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-408",
+    "hostel_id": "HGBH",
+    "room_number": "408",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-409",
+    "hostel_id": "HGBH",
+    "room_number": "409",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-410",
+    "hostel_id": "HGBH",
+    "room_number": "410",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-451",
+    "hostel_id": "HGBH",
+    "room_number": "451",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-452",
+    "hostel_id": "HGBH",
+    "room_number": "452",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-453",
+    "hostel_id": "HGBH",
+    "room_number": "453",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-454",
+    "hostel_id": "HGBH",
+    "room_number": "454",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-455",
+    "hostel_id": "HGBH",
+    "room_number": "455",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-456",
+    "hostel_id": "HGBH",
+    "room_number": "456",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-457",
+    "hostel_id": "HGBH",
+    "room_number": "457",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-458",
+    "hostel_id": "HGBH",
+    "room_number": "458",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-459",
+    "hostel_id": "HGBH",
+    "room_number": "459",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "HGBH-460",
+    "hostel_id": "HGBH",
+    "room_number": "460",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-101",
+    "hostel_id": "VBH",
+    "room_number": "101",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-102",
+    "hostel_id": "VBH",
+    "room_number": "102",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-103",
+    "hostel_id": "VBH",
+    "room_number": "103",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-104",
+    "hostel_id": "VBH",
+    "room_number": "104",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-105",
+    "hostel_id": "VBH",
+    "room_number": "105",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-106",
+    "hostel_id": "VBH",
+    "room_number": "106",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-107",
+    "hostel_id": "VBH",
+    "room_number": "107",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-108",
+    "hostel_id": "VBH",
+    "room_number": "108",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-109",
+    "hostel_id": "VBH",
+    "room_number": "109",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-110",
+    "hostel_id": "VBH",
+    "room_number": "110",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-151",
+    "hostel_id": "VBH",
+    "room_number": "151",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-152",
+    "hostel_id": "VBH",
+    "room_number": "152",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-153",
+    "hostel_id": "VBH",
+    "room_number": "153",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-154",
+    "hostel_id": "VBH",
+    "room_number": "154",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-155",
+    "hostel_id": "VBH",
+    "room_number": "155",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-156",
+    "hostel_id": "VBH",
+    "room_number": "156",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-157",
+    "hostel_id": "VBH",
+    "room_number": "157",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-158",
+    "hostel_id": "VBH",
+    "room_number": "158",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-159",
+    "hostel_id": "VBH",
+    "room_number": "159",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-160",
+    "hostel_id": "VBH",
+    "room_number": "160",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-201",
+    "hostel_id": "VBH",
+    "room_number": "201",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-202",
+    "hostel_id": "VBH",
+    "room_number": "202",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-203",
+    "hostel_id": "VBH",
+    "room_number": "203",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-204",
+    "hostel_id": "VBH",
+    "room_number": "204",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-205",
+    "hostel_id": "VBH",
+    "room_number": "205",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-206",
+    "hostel_id": "VBH",
+    "room_number": "206",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-207",
+    "hostel_id": "VBH",
+    "room_number": "207",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-208",
+    "hostel_id": "VBH",
+    "room_number": "208",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-209",
+    "hostel_id": "VBH",
+    "room_number": "209",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-210",
+    "hostel_id": "VBH",
+    "room_number": "210",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-251",
+    "hostel_id": "VBH",
+    "room_number": "251",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-252",
+    "hostel_id": "VBH",
+    "room_number": "252",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-253",
+    "hostel_id": "VBH",
+    "room_number": "253",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-254",
+    "hostel_id": "VBH",
+    "room_number": "254",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-255",
+    "hostel_id": "VBH",
+    "room_number": "255",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-256",
+    "hostel_id": "VBH",
+    "room_number": "256",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-257",
+    "hostel_id": "VBH",
+    "room_number": "257",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-258",
+    "hostel_id": "VBH",
+    "room_number": "258",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-259",
+    "hostel_id": "VBH",
+    "room_number": "259",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-260",
+    "hostel_id": "VBH",
+    "room_number": "260",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-301",
+    "hostel_id": "VBH",
+    "room_number": "301",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-302",
+    "hostel_id": "VBH",
+    "room_number": "302",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-303",
+    "hostel_id": "VBH",
+    "room_number": "303",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-304",
+    "hostel_id": "VBH",
+    "room_number": "304",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-305",
+    "hostel_id": "VBH",
+    "room_number": "305",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-306",
+    "hostel_id": "VBH",
+    "room_number": "306",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-307",
+    "hostel_id": "VBH",
+    "room_number": "307",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-308",
+    "hostel_id": "VBH",
+    "room_number": "308",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-309",
+    "hostel_id": "VBH",
+    "room_number": "309",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-310",
+    "hostel_id": "VBH",
+    "room_number": "310",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-351",
+    "hostel_id": "VBH",
+    "room_number": "351",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-352",
+    "hostel_id": "VBH",
+    "room_number": "352",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-353",
+    "hostel_id": "VBH",
+    "room_number": "353",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-354",
+    "hostel_id": "VBH",
+    "room_number": "354",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-355",
+    "hostel_id": "VBH",
+    "room_number": "355",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-356",
+    "hostel_id": "VBH",
+    "room_number": "356",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-357",
+    "hostel_id": "VBH",
+    "room_number": "357",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-358",
+    "hostel_id": "VBH",
+    "room_number": "358",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-359",
+    "hostel_id": "VBH",
+    "room_number": "359",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-360",
+    "hostel_id": "VBH",
+    "room_number": "360",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-401",
+    "hostel_id": "VBH",
+    "room_number": "401",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-402",
+    "hostel_id": "VBH",
+    "room_number": "402",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-403",
+    "hostel_id": "VBH",
+    "room_number": "403",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-404",
+    "hostel_id": "VBH",
+    "room_number": "404",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-405",
+    "hostel_id": "VBH",
+    "room_number": "405",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-406",
+    "hostel_id": "VBH",
+    "room_number": "406",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-407",
+    "hostel_id": "VBH",
+    "room_number": "407",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-408",
+    "hostel_id": "VBH",
+    "room_number": "408",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-409",
+    "hostel_id": "VBH",
+    "room_number": "409",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-410",
+    "hostel_id": "VBH",
+    "room_number": "410",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-451",
+    "hostel_id": "VBH",
+    "room_number": "451",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-452",
+    "hostel_id": "VBH",
+    "room_number": "452",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-453",
+    "hostel_id": "VBH",
+    "room_number": "453",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-454",
+    "hostel_id": "VBH",
+    "room_number": "454",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-455",
+    "hostel_id": "VBH",
+    "room_number": "455",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-456",
+    "hostel_id": "VBH",
+    "room_number": "456",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-457",
+    "hostel_id": "VBH",
+    "room_number": "457",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-458",
+    "hostel_id": "VBH",
+    "room_number": "458",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-459",
+    "hostel_id": "VBH",
+    "room_number": "459",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "VBH-460",
+    "hostel_id": "VBH",
+    "room_number": "460",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-101",
+    "hostel_id": "UBH",
+    "room_number": "101",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-102",
+    "hostel_id": "UBH",
+    "room_number": "102",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-103",
+    "hostel_id": "UBH",
+    "room_number": "103",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-104",
+    "hostel_id": "UBH",
+    "room_number": "104",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-105",
+    "hostel_id": "UBH",
+    "room_number": "105",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-106",
+    "hostel_id": "UBH",
+    "room_number": "106",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-107",
+    "hostel_id": "UBH",
+    "room_number": "107",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-108",
+    "hostel_id": "UBH",
+    "room_number": "108",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-109",
+    "hostel_id": "UBH",
+    "room_number": "109",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-110",
+    "hostel_id": "UBH",
+    "room_number": "110",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-151",
+    "hostel_id": "UBH",
+    "room_number": "151",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-152",
+    "hostel_id": "UBH",
+    "room_number": "152",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-153",
+    "hostel_id": "UBH",
+    "room_number": "153",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-154",
+    "hostel_id": "UBH",
+    "room_number": "154",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-155",
+    "hostel_id": "UBH",
+    "room_number": "155",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-156",
+    "hostel_id": "UBH",
+    "room_number": "156",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-157",
+    "hostel_id": "UBH",
+    "room_number": "157",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-158",
+    "hostel_id": "UBH",
+    "room_number": "158",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-159",
+    "hostel_id": "UBH",
+    "room_number": "159",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-160",
+    "hostel_id": "UBH",
+    "room_number": "160",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-201",
+    "hostel_id": "UBH",
+    "room_number": "201",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-202",
+    "hostel_id": "UBH",
+    "room_number": "202",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-203",
+    "hostel_id": "UBH",
+    "room_number": "203",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-204",
+    "hostel_id": "UBH",
+    "room_number": "204",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-205",
+    "hostel_id": "UBH",
+    "room_number": "205",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-206",
+    "hostel_id": "UBH",
+    "room_number": "206",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-207",
+    "hostel_id": "UBH",
+    "room_number": "207",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-208",
+    "hostel_id": "UBH",
+    "room_number": "208",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-209",
+    "hostel_id": "UBH",
+    "room_number": "209",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-210",
+    "hostel_id": "UBH",
+    "room_number": "210",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-251",
+    "hostel_id": "UBH",
+    "room_number": "251",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-252",
+    "hostel_id": "UBH",
+    "room_number": "252",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-253",
+    "hostel_id": "UBH",
+    "room_number": "253",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-254",
+    "hostel_id": "UBH",
+    "room_number": "254",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-255",
+    "hostel_id": "UBH",
+    "room_number": "255",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-256",
+    "hostel_id": "UBH",
+    "room_number": "256",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-257",
+    "hostel_id": "UBH",
+    "room_number": "257",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-258",
+    "hostel_id": "UBH",
+    "room_number": "258",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-259",
+    "hostel_id": "UBH",
+    "room_number": "259",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-260",
+    "hostel_id": "UBH",
+    "room_number": "260",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-301",
+    "hostel_id": "UBH",
+    "room_number": "301",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-302",
+    "hostel_id": "UBH",
+    "room_number": "302",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-303",
+    "hostel_id": "UBH",
+    "room_number": "303",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-304",
+    "hostel_id": "UBH",
+    "room_number": "304",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-305",
+    "hostel_id": "UBH",
+    "room_number": "305",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-306",
+    "hostel_id": "UBH",
+    "room_number": "306",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-307",
+    "hostel_id": "UBH",
+    "room_number": "307",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-308",
+    "hostel_id": "UBH",
+    "room_number": "308",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-309",
+    "hostel_id": "UBH",
+    "room_number": "309",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-310",
+    "hostel_id": "UBH",
+    "room_number": "310",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-351",
+    "hostel_id": "UBH",
+    "room_number": "351",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-352",
+    "hostel_id": "UBH",
+    "room_number": "352",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-353",
+    "hostel_id": "UBH",
+    "room_number": "353",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-354",
+    "hostel_id": "UBH",
+    "room_number": "354",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-355",
+    "hostel_id": "UBH",
+    "room_number": "355",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-356",
+    "hostel_id": "UBH",
+    "room_number": "356",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-357",
+    "hostel_id": "UBH",
+    "room_number": "357",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-358",
+    "hostel_id": "UBH",
+    "room_number": "358",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-359",
+    "hostel_id": "UBH",
+    "room_number": "359",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-360",
+    "hostel_id": "UBH",
+    "room_number": "360",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-401",
+    "hostel_id": "UBH",
+    "room_number": "401",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-402",
+    "hostel_id": "UBH",
+    "room_number": "402",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-403",
+    "hostel_id": "UBH",
+    "room_number": "403",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-404",
+    "hostel_id": "UBH",
+    "room_number": "404",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-405",
+    "hostel_id": "UBH",
+    "room_number": "405",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-406",
+    "hostel_id": "UBH",
+    "room_number": "406",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-407",
+    "hostel_id": "UBH",
+    "room_number": "407",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-408",
+    "hostel_id": "UBH",
+    "room_number": "408",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-409",
+    "hostel_id": "UBH",
+    "room_number": "409",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-410",
+    "hostel_id": "UBH",
+    "room_number": "410",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-451",
+    "hostel_id": "UBH",
+    "room_number": "451",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-452",
+    "hostel_id": "UBH",
+    "room_number": "452",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-453",
+    "hostel_id": "UBH",
+    "room_number": "453",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-454",
+    "hostel_id": "UBH",
+    "room_number": "454",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-455",
+    "hostel_id": "UBH",
+    "room_number": "455",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-456",
+    "hostel_id": "UBH",
+    "room_number": "456",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-457",
+    "hostel_id": "UBH",
+    "room_number": "457",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-458",
+    "hostel_id": "UBH",
+    "room_number": "458",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-459",
+    "hostel_id": "UBH",
+    "room_number": "459",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "UBH-460",
+    "hostel_id": "UBH",
+    "room_number": "460",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-101",
+    "hostel_id": "MMGH",
+    "room_number": "101",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-102",
+    "hostel_id": "MMGH",
+    "room_number": "102",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-103",
+    "hostel_id": "MMGH",
+    "room_number": "103",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-104",
+    "hostel_id": "MMGH",
+    "room_number": "104",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-105",
+    "hostel_id": "MMGH",
+    "room_number": "105",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-106",
+    "hostel_id": "MMGH",
+    "room_number": "106",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-107",
+    "hostel_id": "MMGH",
+    "room_number": "107",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-108",
+    "hostel_id": "MMGH",
+    "room_number": "108",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-151",
+    "hostel_id": "MMGH",
+    "room_number": "151",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-152",
+    "hostel_id": "MMGH",
+    "room_number": "152",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-153",
+    "hostel_id": "MMGH",
+    "room_number": "153",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-154",
+    "hostel_id": "MMGH",
+    "room_number": "154",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-155",
+    "hostel_id": "MMGH",
+    "room_number": "155",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-156",
+    "hostel_id": "MMGH",
+    "room_number": "156",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-157",
+    "hostel_id": "MMGH",
+    "room_number": "157",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-158",
+    "hostel_id": "MMGH",
+    "room_number": "158",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-159",
+    "hostel_id": "MMGH",
+    "room_number": "159",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-160",
+    "hostel_id": "MMGH",
+    "room_number": "160",
+    "floor": 1,
+    "floor_label": "Floor 1",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-201",
+    "hostel_id": "MMGH",
+    "room_number": "201",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-202",
+    "hostel_id": "MMGH",
+    "room_number": "202",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-203",
+    "hostel_id": "MMGH",
+    "room_number": "203",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-204",
+    "hostel_id": "MMGH",
+    "room_number": "204",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-205",
+    "hostel_id": "MMGH",
+    "room_number": "205",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-206",
+    "hostel_id": "MMGH",
+    "room_number": "206",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-207",
+    "hostel_id": "MMGH",
+    "room_number": "207",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-208",
+    "hostel_id": "MMGH",
+    "room_number": "208",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-251",
+    "hostel_id": "MMGH",
+    "room_number": "251",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-252",
+    "hostel_id": "MMGH",
+    "room_number": "252",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-253",
+    "hostel_id": "MMGH",
+    "room_number": "253",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-254",
+    "hostel_id": "MMGH",
+    "room_number": "254",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-255",
+    "hostel_id": "MMGH",
+    "room_number": "255",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-256",
+    "hostel_id": "MMGH",
+    "room_number": "256",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-257",
+    "hostel_id": "MMGH",
+    "room_number": "257",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-258",
+    "hostel_id": "MMGH",
+    "room_number": "258",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-259",
+    "hostel_id": "MMGH",
+    "room_number": "259",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-260",
+    "hostel_id": "MMGH",
+    "room_number": "260",
+    "floor": 2,
+    "floor_label": "Floor 2",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-301",
+    "hostel_id": "MMGH",
+    "room_number": "301",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-302",
+    "hostel_id": "MMGH",
+    "room_number": "302",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-303",
+    "hostel_id": "MMGH",
+    "room_number": "303",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-304",
+    "hostel_id": "MMGH",
+    "room_number": "304",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-305",
+    "hostel_id": "MMGH",
+    "room_number": "305",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-306",
+    "hostel_id": "MMGH",
+    "room_number": "306",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-307",
+    "hostel_id": "MMGH",
+    "room_number": "307",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-308",
+    "hostel_id": "MMGH",
+    "room_number": "308",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-351",
+    "hostel_id": "MMGH",
+    "room_number": "351",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-352",
+    "hostel_id": "MMGH",
+    "room_number": "352",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-353",
+    "hostel_id": "MMGH",
+    "room_number": "353",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-354",
+    "hostel_id": "MMGH",
+    "room_number": "354",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-355",
+    "hostel_id": "MMGH",
+    "room_number": "355",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-356",
+    "hostel_id": "MMGH",
+    "room_number": "356",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-357",
+    "hostel_id": "MMGH",
+    "room_number": "357",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-358",
+    "hostel_id": "MMGH",
+    "room_number": "358",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-359",
+    "hostel_id": "MMGH",
+    "room_number": "359",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-360",
+    "hostel_id": "MMGH",
+    "room_number": "360",
+    "floor": 3,
+    "floor_label": "Floor 3",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-401",
+    "hostel_id": "MMGH",
+    "room_number": "401",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-402",
+    "hostel_id": "MMGH",
+    "room_number": "402",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-403",
+    "hostel_id": "MMGH",
+    "room_number": "403",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-404",
+    "hostel_id": "MMGH",
+    "room_number": "404",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-405",
+    "hostel_id": "MMGH",
+    "room_number": "405",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-406",
+    "hostel_id": "MMGH",
+    "room_number": "406",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-407",
+    "hostel_id": "MMGH",
+    "room_number": "407",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-408",
+    "hostel_id": "MMGH",
+    "room_number": "408",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 4,
+    "sharing_type": "Fourlets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-451",
+    "hostel_id": "MMGH",
+    "room_number": "451",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-452",
+    "hostel_id": "MMGH",
+    "room_number": "452",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-453",
+    "hostel_id": "MMGH",
+    "room_number": "453",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-454",
+    "hostel_id": "MMGH",
+    "room_number": "454",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-455",
+    "hostel_id": "MMGH",
+    "room_number": "455",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-456",
+    "hostel_id": "MMGH",
+    "room_number": "456",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-457",
+    "hostel_id": "MMGH",
+    "room_number": "457",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-458",
+    "hostel_id": "MMGH",
+    "room_number": "458",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-459",
+    "hostel_id": "MMGH",
+    "room_number": "459",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  },
+  {
+    "room_id": "MMGH-460",
+    "hostel_id": "MMGH",
+    "room_number": "460",
+    "floor": 4,
+    "floor_label": "Floor 4",
+    "capacity": 3,
+    "sharing_type": "Triplets",
+    "status": "free"
+  }
+]

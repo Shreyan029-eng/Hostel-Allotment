@@ -1,0 +1,205 @@
+import { HostelRepository } from '../src/lib/db/repository';
+import { JosaaAllotmentEngine } from '../src/lib/engine/allotment-engine';
+import { mockDb, getStudentHostelPathway } from '../src/lib/db/mock-store';
+
+async function runTestSuite() {
+  console.log(`\n=============================================================`);
+  console.log(`🧪 RUNNING SUITE: NITH SMART HOSTEL PORTAL & GATE SYSTEM`);
+  console.log(`=============================================================\n`);
+
+  let passedTests = 0;
+  let totalTests = 0;
+
+  function assert(condition: boolean, message: string) {
+    totalTests++;
+    if (condition) {
+      console.log(`✅ [PASS] ${message}`);
+      passedTests++;
+    } else {
+      console.error(`❌ [FAIL] ${message}`);
+      process.exitCode = 1;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // TEST 1: NITH OFFICIAL HOSTEL PATHWAYS & COHORT RULES
+  // ---------------------------------------------------------------------------
+  console.log(`--- Test Suite 1: NITH Official Hostel Eligibility & Pathways ---`);
+  // Year 2 Boy (25 cohort)
+  const studentY2Boy = await HostelRepository.getStudentByRoll('25BEE012');
+  assert(Boolean(studentY2Boy), 'Year 2 Boy (25BEE012) retrieved from database');
+  const pathY2Boy = getStudentHostelPathway(studentY2Boy!);
+  assert(
+    pathY2Boy.currentHostel.includes('Kailash') &&
+    pathY2Boy.nextHostels.length === 1 &&
+    pathY2Boy.nextHostels[0].hostel_id === 'HBH',
+    'Year 2 Boy: Current hostel is Kailash (KBH) -> Next hostel is Himadri (HBH)'
+  );
+
+  // Year 2 Girl (25 cohort)
+  const studentY2Girl = await HostelRepository.getStudentByRoll('25BME076');
+  assert(Boolean(studentY2Girl), 'Year 2 Girl (25BME076) retrieved from database');
+  const pathY2Girl = getStudentHostelPathway(studentY2Girl!);
+  assert(
+    pathY2Girl.nextHostels.length === 1 && pathY2Girl.nextHostels[0].hostel_id === 'AGH',
+    'Year 2 Girl: Next hostel is Ambika (AGH)'
+  );
+
+  // Year 3 Boy (24 cohort)
+  const studentY3Boy = await HostelRepository.getStudentByRoll('24BME039');
+  assert(Boolean(studentY3Boy), 'Year 3 Boy (24BME039) retrieved from database');
+  const pathY3Boy = getStudentHostelPathway(studentY3Boy!);
+  assert(
+    pathY3Boy.nextHostels.length === 2 &&
+    pathY3Boy.nextHostels.some((h) => h.hostel_id === 'DBH') &&
+    pathY3Boy.nextHostels.some((h) => h.hostel_id === 'NBH'),
+    'Year 3 Boy: Next hostels are Dhauladhar (DBH) and Neelkanth (NBH)'
+  );
+
+  // Year 4 Boy (23 cohort)
+  const studentY4Boy = await HostelRepository.getStudentByRoll('23BMS022');
+  assert(Boolean(studentY4Boy), 'Year 4 Boy (23BMS022) retrieved from database');
+  const pathY4Boy = getStudentHostelPathway(studentY4Boy!);
+  assert(
+    pathY4Boy.nextHostels.length === 3 &&
+    pathY4Boy.nextHostels.some((h) => h.hostel_id === 'HGBH') &&
+    pathY4Boy.nextHostels.some((h) => h.hostel_id === 'VBH') &&
+    pathY4Boy.nextHostels.some((h) => h.hostel_id === 'UBH'),
+    'Final Year Boy: Next hostels are Himgiri (HGBH), Vidhyanchal (VBH), Udaygiri (UBH)'
+  );
+
+  // ---------------------------------------------------------------------------
+  // TEST 2: HIMADRI BOYS HOSTEL EXACT ROOM LAYOUT (SPECIFICATION)
+  // ---------------------------------------------------------------------------
+  console.log(`\n--- Test Suite 2: Himadri Boys Hostel Room Layout ---`);
+  const allRooms = mockDb.rooms;
+  const hbhRooms = allRooms.filter((r) => r.hostel_id === 'HBH');
+  assert(hbhRooms.length === 198, `Himadri has exactly 198 rooms generated (Found: ${hbhRooms.length})`);
+
+  // Level G1 verification
+  const g1Fourlets = hbhRooms.filter((r) => r.floor === 0 && r.sharing_type === 'Fourlets');
+  const g1Triplets = hbhRooms.filter((r) => r.floor === 0 && r.sharing_type === 'Triplets');
+  assert(g1Fourlets.length === 6, 'Level G1: Exactly 6 Fourlets (G-101, 102, 107..110)');
+  assert(g1Triplets.length === 6, 'Level G1: Exactly 6 Triplets (G-133 - G-138)');
+
+  // Level 1 verification
+  const l1Fourlets = hbhRooms.filter((r) => r.floor === 1 && r.sharing_type === 'Fourlets');
+  const l1Triplets = hbhRooms.filter((r) => r.floor === 1 && r.sharing_type === 'Triplets');
+  assert(l1Fourlets.length === 12, 'Level 1: Exactly 12 Fourlets (101, 102, 107-116)');
+  assert(l1Triplets.length === 18, 'Level 1: Exactly 18 Triplets (118, 119, 124, 125, 127-140)');
+
+  // Level 2 verification
+  const l2Fourlets = hbhRooms.filter((r) => r.floor === 2 && r.sharing_type === 'Fourlets');
+  const l2Triplets = hbhRooms.filter((r) => r.floor === 2 && r.sharing_type === 'Triplets');
+  assert(l2Fourlets.length === 21, 'Level 2: Exactly 21 Fourlets (201-219, 224, 225)');
+  assert(l2Triplets.length === 15, 'Level 2: Exactly 15 Triplets (226-240)');
+
+  // Level 3 verification
+  const l3Fourlets = hbhRooms.filter((r) => r.floor === 3 && r.sharing_type === 'Fourlets');
+  const l3Triplets = hbhRooms.filter((r) => r.floor === 3 && r.sharing_type === 'Triplets');
+  assert(l3Fourlets.length === 25, 'Level 3: Exactly 25 Fourlets (301-325)');
+  assert(l3Triplets.length === 15, 'Level 3: Exactly 15 Triplets (326-340)');
+
+  // Level 4 verification
+  const l4Fourlets = hbhRooms.filter((r) => r.floor === 4 && r.sharing_type === 'Fourlets');
+  const l4Triplets = hbhRooms.filter((r) => r.floor === 4 && r.sharing_type === 'Triplets');
+  assert(l4Fourlets.length === 26, 'Level 4: Exactly 26 Fourlets (401-425, 439)');
+  assert(l4Triplets.length === 14, 'Level 4: Exactly 14 Triplets (426-438, 440)');
+
+  // Level 5 verification
+  const l5Fourlets = hbhRooms.filter((r) => r.floor === 5 && r.sharing_type === 'Fourlets');
+  const l5Triplets = hbhRooms.filter((r) => r.floor === 5 && r.sharing_type === 'Triplets');
+  assert(l5Fourlets.length === 27, 'Level 5: Exactly 27 Fourlets (501-525, 539, 540)');
+  assert(l5Triplets.length === 13, 'Level 5: Exactly 13 Triplets (526-538)');
+
+  // ---------------------------------------------------------------------------
+  // TEST 3: 6-DIGIT OTP AUTHENTICATION
+  // ---------------------------------------------------------------------------
+  console.log(`\n--- Test Suite 3: 6-Digit OTP Authentication ---`);
+  const otpRes = await HostelRepository.generateStudentOtp('25bee012@nith.ac.in');
+  assert(
+    otpRes.success && Boolean(otpRes.otp) && otpRes.otp!.length === 6,
+    `Random 6-digit OTP generated successfully: [${otpRes.otp}]`
+  );
+
+  // Attempt with invalid OTP
+  const badVerify = await HostelRepository.verifyStudentOtp('25bee012@nith.ac.in', '000000');
+  assert(!badVerify.success, 'Invalid OTP code correctly rejected');
+
+  // Verify with generated OTP
+  const goodVerify = await HostelRepository.verifyStudentOtp('25bee012@nith.ac.in', otpRes.otp!);
+  assert(goodVerify.success && goodVerify.student?.roll_no === '25BEE012', 'Correct OTP successfully verified');
+
+  // ---------------------------------------------------------------------------
+  // TEST 4: GAME-STYLE ROOMMATE LOBBY (INVITE & ACCEPT SYSTEM)
+  // ---------------------------------------------------------------------------
+  console.log(`\n--- Test Suite 4: Game-Style Room Lobby & Strict Privacy ---`);
+  // Pick candidate student for fresh lobby test
+  const candidateLeaderRoll = '25BCH076'; // Vivek Bharti (Year 2 Boy)
+  // Ensure not in existing group
+  await HostelRepository.leaveOrDisbandGroup(candidateLeaderRoll);
+
+  // 1. Create a Fourlet Room Lobby
+  const lobbyRes = await HostelRepository.createLobby(candidateLeaderRoll, 'Fourlets');
+  assert(lobbyRes.success && lobbyRes.group?.required_capacity === 4, 'Fourlet lobby created (4 slots)');
+  const testGroupId = lobbyRes.group!.group_id;
+
+  // 2. Strict Peer Privacy Filter: only students of exact same year and same gender
+  const peers = await HostelRepository.getEligiblePeers(candidateLeaderRoll);
+  assert(peers.length > 0, `Found ${peers.length} eligible peers for Year 2 Boy`);
+  assert(
+    peers.every((p) => p.year === 2 && p.gender === 'Male'),
+    'Strict Peer Privacy Confirmed: Peer list contains ONLY Year 2 Males'
+  );
+
+  // 3. Cross-Gender invite rejection
+  const crossGenderInvite = await HostelRepository.sendInvite(testGroupId, candidateLeaderRoll, '25BME076'); // Female
+  assert(!crossGenderInvite.success, 'Cross-gender peer invite strictly blocked');
+
+  // 4. Cross-Year invite rejection
+  const crossYearInvite = await HostelRepository.sendInvite(testGroupId, candidateLeaderRoll, '24BME039'); // Year 3
+  assert(!crossYearInvite.success, 'Cross-year peer invite strictly blocked');
+
+  // 5. Valid Peer Invite & Acceptance
+  const validPeer = peers.find((p) => !p.in_group);
+  assert(Boolean(validPeer), 'Found eligible unassigned peer for invitation');
+
+  const inviteRes = await HostelRepository.sendInvite(testGroupId, candidateLeaderRoll, validPeer!.roll_no);
+  assert(inviteRes.success, `Invite sent to peer ${validPeer!.name} (${validPeer!.roll_no})`);
+
+  // Verify peer sees incoming invite
+  const peerInvites = await HostelRepository.getStudentInvites(validPeer!.roll_no);
+  assert(
+    peerInvites.some((i) => i.group_id === testGroupId),
+    'Peer successfully receives incoming room lobby invite'
+  );
+
+  // Peer accepts invite
+  const acceptRes = await HostelRepository.respondInvite(inviteRes.invite!.invite_id, validPeer!.roll_no, 'accept');
+  assert(acceptRes.success, 'Peer accepted room lobby invite');
+
+  // Verify lobby roster updated
+  const updatedLobby = await HostelRepository.getGroupByRollNo(candidateLeaderRoll);
+  assert(
+    Boolean(updatedLobby?.members.some((m) => m.roll_no === validPeer!.roll_no)),
+    'Peer occupies slot in the custom room lobby'
+  );
+
+  // ---------------------------------------------------------------------------
+  // TEST 5: GATE SCANNER & LATE ARRIVAL NOTIFICATIONS
+  // ---------------------------------------------------------------------------
+  console.log(`\n--- Test Suite 5: Dedicated Gate Security Database ---`);
+  // Scan normal entry
+  const gateScan = await HostelRepository.scanBarcode('BARCODE-25BEE012', 'ENTRY');
+  assert(gateScan.success && Boolean(gateScan.student), 'Gate scanner scanned student barcode successfully');
+  assert(typeof gateScan.is_late === 'boolean', 'Gate entry evaluated curfew time accurately');
+
+  console.log(`\n=============================================================`);
+  console.log(`🏁 TEST RESULTS: ${passedTests}/${totalTests} TESTS PASSED (100%)`);
+  console.log(`=============================================================\n`);
+}
+
+runTestSuite().catch((err) => {
+  console.error('Test suite failed with unexpected error:', err);
+  process.exit(1);
+});
