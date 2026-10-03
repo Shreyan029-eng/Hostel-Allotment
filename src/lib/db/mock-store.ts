@@ -15,7 +15,7 @@ import nithStudentsData from './nith-students.json';
 import nithRoomsData from './nith-rooms.json';
 
 // ==============================================================================
-// 1. OFFICIAL NITH HOSTELS
+// 1. NITH HOSTELS
 // ==============================================================================
 export const initialHostels: Hostel[] = [
   // Boys Hostels
@@ -196,49 +196,110 @@ const initialStudents: Student[] = (nithStudentsData as unknown as Student[]).ma
   };
 });
 
-// Initial sample groups for instant demonstration
-const initialGroups: Group[] = [
-  // 1. Group of 4 (Year 2 Boys - Himadri Fourlet):
-  // Leader ANIRUDH BHARDWAJ (7.38) & VIVEK BHARTI (6.7) & ATHRAV SHARMA (7.78)
-  {
-    group_id: 'grp-hbh-demo',
-    group_code: 'LOBBY-HBH-01',
-    leader_roll_no: '25BEE012',
-    sharing_type: 'Fourlets',
-    max_cgpa: 7.78,
-    required_capacity: 4,
-    is_locked: false,
-    created_at: '2026-09-01T10:00:00Z',
-  },
-  // 2. Group of 3 (Year 3 Boys - Dhauladhar/Neelkanth Triplet)
-  {
-    group_id: 'grp-dbh-demo',
-    group_code: 'LOBBY-DBH-02',
-    leader_roll_no: '24BME039',
-    sharing_type: 'Triplets',
-    max_cgpa: 8.4,
-    required_capacity: 3,
-    is_locked: false,
-    created_at: '2026-09-01T10:15:00Z',
-  },
-];
+// Helper to pre-populate realistic locked roommate choice groups across all cohorts
+function buildPreSeededGroups(students: Student[], rooms: Room[]) {
+  const groups: Group[] = [];
+  const groupMembers: GroupMember[] = [];
+  const preferences: Preference[] = [];
 
-const initialGroupMembers: GroupMember[] = [
-  // grp-hbh-demo (3 members currently accepted, 1 slot open)
-  { member_id: 'm-1', group_id: 'grp-hbh-demo', roll_no: '25BEE012', status: 'accepted', joined_at: '2026-09-01T10:00:00Z' },
-  { member_id: 'm-2', group_id: 'grp-hbh-demo', roll_no: '25BCH076', status: 'accepted', joined_at: '2026-09-01T10:05:00Z' },
-  { member_id: 'm-3', group_id: 'grp-hbh-demo', roll_no: '25BEC027', status: 'accepted', joined_at: '2026-09-01T10:10:00Z' },
+  // Exclude test and demo students so they can freely test creating lobbies in test suite and demo
+  const reservedRolls = new Set(['25BEE012', '25BCH076']);
 
-  // grp-dbh-demo (2 members accepted, 1 slot open)
-  { member_id: 'm-4', group_id: 'grp-dbh-demo', roll_no: '24BME039', status: 'accepted', joined_at: '2026-09-01T10:15:00Z' },
-  { member_id: 'm-5', group_id: 'grp-dbh-demo', roll_no: '24BCS048', status: 'accepted', joined_at: '2026-09-01T10:20:00Z' },
-];
+  // Pool students by year and gender
+  const pools = {
+    y2m: students.filter((s) => s.year === 2 && s.gender === 'Male' && !reservedRolls.has(s.roll_no)),
+    y2f: students.filter((s) => s.year === 2 && s.gender === 'Female' && !reservedRolls.has(s.roll_no)),
+    y3m: students.filter((s) => s.year === 3 && s.gender === 'Male' && !reservedRolls.has(s.roll_no)),
+    y3f: students.filter((s) => s.year === 3 && s.gender === 'Female' && !reservedRolls.has(s.roll_no)),
+    y4m: students.filter((s) => s.year === 4 && s.gender === 'Male' && !reservedRolls.has(s.roll_no)),
+    y4f: students.filter((s) => s.year === 4 && s.gender === 'Female' && !reservedRolls.has(s.roll_no)),
+  };
 
-const initialPreferences: Preference[] = [
-  // Fourlet Preferences for Himadri
-  { pref_id: 'p-1', group_id: 'grp-hbh-demo', preference_rank: 1, room_id: 'HBH-G-101' },
-  { pref_id: 'p-2', group_id: 'grp-hbh-demo', preference_rank: 2, room_id: 'HBH-G-102' },
-];
+  let groupCounter = 1;
+  const createCohort = (
+    pool: Student[],
+    sharingType: 'Triplets' | 'Fourlets',
+    hostelId: string,
+    prefix: string,
+    count: number
+  ) => {
+    const capacity = sharingType === 'Fourlets' ? 4 : 3;
+    const availableRooms = rooms.filter((r) => r.hostel_id === hostelId && r.capacity === capacity);
+
+    for (let c = 0; c < count; c++) {
+      if (pool.length < capacity) break;
+      const members = pool.splice(0, capacity);
+      const leader = members[0];
+      const maxCgpa = Math.max(...members.map((m) => m.cgpa));
+      const groupId = `grp-seed-${prefix.toLowerCase()}-${groupCounter}`;
+      const groupCode = `LOBBY-${prefix}-${String(groupCounter).padStart(2, '0')}`;
+      const timestamp = new Date(Date.now() - (40 - groupCounter) * 3600 * 1000).toISOString();
+
+      groups.push({
+        group_id: groupId,
+        group_code: groupCode,
+        leader_roll_no: leader.roll_no,
+        sharing_type: sharingType,
+        max_cgpa: Number(maxCgpa.toFixed(2)),
+        required_capacity: capacity,
+        is_locked: true,
+        created_at: timestamp,
+      });
+
+      members.forEach((m, idx) => {
+        groupMembers.push({
+          member_id: `m-seed-${groupId}-${idx + 1}`,
+          group_id: groupId,
+          roll_no: m.roll_no,
+          status: 'accepted',
+          joined_at: timestamp,
+        });
+      });
+
+      // 3 Ranked Room Preferences
+      const startIndex = (c * 2) % Math.max(1, availableRooms.length - 3);
+      const prefRooms = availableRooms.slice(startIndex, startIndex + 3);
+      prefRooms.forEach((rm, rIdx) => {
+        preferences.push({
+          pref_id: `p-seed-${groupId}-${rIdx + 1}`,
+          group_id: groupId,
+          preference_rank: rIdx + 1,
+          room_id: rm.room_id,
+          created_at: timestamp,
+        });
+      });
+
+      groupCounter++;
+    }
+  };
+
+  // Seed Cohorts:
+  // Year 2 Boys: 5 Fourlets & 3 Triplets in Himadri (HBH)
+  createCohort(pools.y2m, 'Fourlets', 'HBH', 'HBH-F', 5);
+  createCohort(pools.y2m, 'Triplets', 'HBH', 'HBH-T', 3);
+
+  // Year 2 Girls: 3 Fourlets & 2 Triplets in Ambika (AGH)
+  createCohort(pools.y2f, 'Fourlets', 'AGH', 'AGH-F', 3);
+  createCohort(pools.y2f, 'Triplets', 'AGH', 'AGH-T', 2);
+
+  // Year 3 Boys: 4 Triplets in Dhauladhar (DBH)
+  createCohort(pools.y3m, 'Triplets', 'DBH', 'DBH-T', 4);
+
+  // Year 3 Girls: 3 Triplets in Parvati (PGH)
+  createCohort(pools.y3f, 'Triplets', 'PGH', 'PGH-T', 3);
+
+  // Year 4 Boys: 3 Triplets in Himgiri (HGBH)
+  createCohort(pools.y4m, 'Triplets', 'HGBH', 'HGBH-T', 3);
+
+  return { groups, groupMembers, preferences };
+}
+
+// Generate pre-seeded locked groups
+const {
+  groups: initialGroups,
+  groupMembers: initialGroupMembers,
+  preferences: initialPreferences,
+} = buildPreSeededGroups([...initialStudents], [...initialRooms]);
 
 const initialInvites: GroupInvite[] = [];
 
@@ -260,10 +321,10 @@ class MockDatabase {
   hostels: Hostel[] = [...initialHostels];
   rooms: Room[] = [...initialRooms];
   students: Student[] = [...initialStudents];
-  groups: Group[] = [...initialGroups];
-  groupMembers: GroupMember[] = [...initialGroupMembers];
+  groups: Group[] = JSON.parse(JSON.stringify(initialGroups));
+  groupMembers: GroupMember[] = JSON.parse(JSON.stringify(initialGroupMembers));
   invites: GroupInvite[] = [...initialInvites];
-  preferences: Preference[] = [...initialPreferences];
+  preferences: Preference[] = JSON.parse(JSON.stringify(initialPreferences));
   allotments: Allotment[] = [];
   hostelHistory: HostelHistory[] = [];
   roundsConfig: RoundConfig[] = [...initialRoundsConfig];

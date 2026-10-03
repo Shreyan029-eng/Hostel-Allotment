@@ -2,10 +2,13 @@
   "name": "hostel-allotment",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "concurrently -n \"API,WEB\" -c \"magenta,cyan\" \"npm run server\" \"npm run client\"",
+    "client": "vite",
+    "server": "tsx watch server/index.ts",
+    "build": "vite build",
+    "preview": "vite preview",
     "lint": "eslint",
     "allot": "tsx scripts/run-allotment.ts",
     "test": "tsx scripts/test-portal.ts"
@@ -13,12 +16,21 @@
   "dependencies": {
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.117.2",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@vitejs/plugin-react": "^6.1.1",
     "clsx": "^2.1.1",
+    "concurrently": "^10.0.5",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
     "lucide-react": "^1.50.0",
-    "next": "16.3.8",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "tailwind-merge": "^3.7.0"
+    "react-router-dom": "^7.18.4",
+    "tailwind-merge": "^3.7.0",
+    "vite": "^8.3.2"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -26,7 +38,6 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.3.8",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
     "typescript": "^5"

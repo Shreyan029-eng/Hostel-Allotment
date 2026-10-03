@@ -65,11 +65,11 @@ export class JosaaAllotmentEngine {
     console.log(`======================================================\n`);
 
     // 1. Fetch only locked groups
-    const candidateGroups = mockDb.groups.filter((g) => g.is_locked);
+    const eligibleGroups = mockDb.groups.filter((g) => g.is_locked);
 
     // 2. Sort all GROUPS in descending order by max_cgpa.
     // Tie-Breaker: In the event of a tie, use the group's created_at timestamp (earlier group wins).
-    candidateGroups.sort((a, b) => {
+    eligibleGroups.sort((a, b) => {
       if (b.max_cgpa !== a.max_cgpa) {
         return b.max_cgpa - a.max_cgpa; // Descending max_cgpa
       }
@@ -91,13 +91,13 @@ export class JosaaAllotmentEngine {
     mockDb.allotments = mockDb.allotments.filter((a) => a.round_number !== roundNumber);
 
     // 3. Iterate through sorted groups
-    for (let index = 0; index < candidateGroups.length; index++) {
-      const group = candidateGroups[index];
+    for (let index = 0; index < eligibleGroups.length; index++) {
+      const group = eligibleGroups[index];
       const rank = index + 1;
 
       // Check if tie-breaker was applied with adjacent group
-      const prevGroup = candidateGroups[index - 1];
-      const nextGroup = candidateGroups[index + 1];
+      const prevGroup = eligibleGroups[index - 1];
+      const nextGroup = eligibleGroups[index + 1];
       const tieBreakerApplied =
         (prevGroup && prevGroup.max_cgpa === group.max_cgpa) ||
         (nextGroup && nextGroup.max_cgpa === group.max_cgpa);
@@ -220,7 +220,7 @@ export class JosaaAllotmentEngine {
       roundNumber,
       academicYear,
       timestamp: new Date().toISOString(),
-      totalGroupsConsidered: candidateGroups.length,
+      totalGroupsConsidered: eligibleGroups.length,
       totalAllottedGroups: totalAllotted,
       totalUnallottedGroups: totalUnallotted,
       totalStudentsPlaced,

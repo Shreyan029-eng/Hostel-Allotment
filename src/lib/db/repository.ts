@@ -194,28 +194,28 @@ export class HostelRepository {
     if (!group) return { success: false, error: 'Invalid Group Code' };
     if (group.is_locked) return { success: false, error: 'Group has locked its preferences and cannot accept new members' };
 
-    const candidate = await this.getStudentByRoll(rollNo);
-    if (!candidate) return { success: false, error: 'Student not found' };
+    const joiningStudent = await this.getStudentByRoll(rollNo);
+    if (!joiningStudent) return { success: false, error: 'Student not found' };
 
     const leader = await this.getStudentByRoll(group.leader_roll_no);
     if (!leader) return { success: false, error: 'Group leader not found' };
 
-    // Strict Rule: Validate that candidate has the exact same year and gender
-    if (candidate.gender !== leader.gender) {
+    // Strict Rule: Validate that joining student has the exact same year and gender
+    if (joiningStudent.gender !== leader.gender) {
       return {
         success: false,
-        error: `Gender mismatch! Group is for ${leader.gender} students, but candidate is ${candidate.gender}.`,
+        error: `Gender mismatch! Group is for ${leader.gender} students, but joining student is ${joiningStudent.gender}.`,
       };
     }
 
-    if (candidate.year !== leader.year) {
+    if (joiningStudent.year !== leader.year) {
       return {
         success: false,
-        error: `Year mismatch! Group is for Year ${leader.year} students, but candidate is Year ${candidate.year}.`,
+        error: `Year mismatch! Group is for Year ${leader.year} students, but joining student is Year ${joiningStudent.year}.`,
       };
     }
 
-    // Check if candidate is already in any group
+    // Check if student is already in any group
     const existingMembership = mockDb.groupMembers.find((m) => m.roll_no.toUpperCase() === rollNo.toUpperCase());
     if (existingMembership) {
       return { success: false, error: 'You are already in a group. Leave your current group first.' };
@@ -227,11 +227,11 @@ export class HostelRepository {
       return { success: false, error: `Group is already at maximum capacity (${group.required_capacity} members)` };
     }
 
-    // Add candidate as member
+    // Add student as member
     mockDb.groupMembers.push({
       member_id: `m-${Date.now()}`,
       group_id: group.group_id,
-      roll_no: candidate.roll_no,
+      roll_no: joiningStudent.roll_no,
       status: 'accepted',
       joined_at: new Date().toISOString(),
     });

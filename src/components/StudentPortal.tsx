@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
 import {
   Student,
@@ -24,7 +22,6 @@ import {
   Calendar,
   Sparkles,
   BedDouble,
-  QrCode,
   UserPlus,
   Check,
   X,
@@ -32,8 +29,6 @@ import {
   LogOut,
   Mail,
   User,
-  ShieldCheck,
-  ChevronRight,
   Layers,
 } from 'lucide-react';
 
@@ -149,23 +144,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
       (r.sharing_type ? r.sharing_type === activeSharingType : r.capacity === requiredCapacity)
   );
 
-  // Load strictly filtered peers (same year & same gender)
-  const loadEligiblePeers = async () => {
-    setIsLoadingPeers(true);
-    try {
-      const res = await fetch(`/api/group/peers?roll_no=${encodeURIComponent(student.roll_no)}`);
-      const data = await res.json();
-      if (data.success && data.peers) {
-        setEligiblePeers(data.peers);
-      }
-    } catch {
-      console.error('Failed to load eligible peers');
-    } finally {
-      setIsLoadingPeers(false);
-    }
-  };
-
-  // Handlers for Lobby & Invites
+  // Create Lobby (Custom Room)
   const handleCreateLobby = async () => {
     setIsSubmitting(true);
     setStatusMessage(null);
@@ -175,10 +154,11 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           leader_roll_no: student.roll_no,
-          sharing_type: sharingTypeChoice,
           required_capacity: sharingTypeChoice === 'Fourlets' ? 4 : 3,
+          sharing_type: sharingTypeChoice,
         }),
       });
+
       const data = await res.json();
       if (!res.ok || !data.success) {
         setStatusMessage({ type: 'error', text: data.error || 'Failed to create room lobby' });
@@ -193,10 +173,26 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     }
   };
 
+  // Load eligible peers of same year and gender
+  const loadEligiblePeers = async () => {
+    setIsLoadingPeers(true);
+    try {
+      const res = await fetch(`/api/group/peers?roll_no=${encodeURIComponent(student.roll_no)}`);
+      const data = await res.json();
+      if (data.peers) {
+        setEligiblePeers(data.peers);
+      }
+    } catch (err) {
+      console.error('Failed to load eligible peers', err);
+    } finally {
+      setIsLoadingPeers(false);
+    }
+  };
+
+  // Send Direct Invite
   const handleSendInvite = async (toRollNo: string) => {
     if (!groupDetails) return;
     setIsSubmitting(true);
-    setStatusMessage(null);
     try {
       const res = await fetch('/api/group/invite', {
         method: 'POST',
@@ -207,12 +203,16 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
           toRollNo,
         }),
       });
+
       const data = await res.json();
       if (!res.ok || !data.success) {
         setStatusMessage({ type: 'error', text: data.error || 'Failed to send invite' });
       } else {
         setStatusMessage({ type: 'success', text: `Invite sent to ${toRollNo}!` });
-        loadEligiblePeers();
+        // Update local peer state to mark as invited
+        setEligiblePeers((prev) =>
+          prev.map((p) => (p.roll_no === toRollNo ? { ...p, is_invited: true } : p))
+        );
         onRefresh();
       }
     } catch {
@@ -222,6 +222,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     }
   };
 
+  // Respond to Incoming Invite
   const handleRespondInvite = async (inviteId: string, action: 'accept' | 'decline') => {
     setIsSubmitting(true);
     setStatusMessage(null);
@@ -235,18 +236,16 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
           action,
         }),
       });
+
       const data = await res.json();
       if (!res.ok || !data.success) {
         setStatusMessage({ type: 'error', text: data.error || `Failed to ${action} invite` });
       } else {
-        setStatusMessage({
-          type: 'success',
-          text: action === 'accept' ? 'Lobby joined successfully!' : 'Invite declined.',
-        });
+        setStatusMessage({ type: 'success', text: data.message });
         onRefresh();
       }
     } catch {
-      setStatusMessage({ type: 'error', text: 'Network error updating invite' });
+      setStatusMessage({ type: 'error', text: `Network error responding to invite` });
     } finally {
       setIsSubmitting(false);
     }
@@ -360,21 +359,21 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
         <div
           className={`p-4 rounded-xl flex items-center justify-between border ${
             statusMessage.type === 'success'
-              ? 'bg-emerald-950/60 border-emerald-600/50 text-emerald-200'
-              : 'bg-rose-950/60 border-rose-600/50 text-rose-200'
+              ? 'bg-emerald-50 border-emerald-200 text-emerald-800'
+              : 'bg-rose-50 border-rose-200 text-rose-800'
           }`}
         >
           <div className="flex items-center space-x-3">
             {statusMessage.type === 'success' ? (
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+              <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
             ) : (
-              <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0" />
+              <AlertTriangle className="w-5 h-5 text-rose-600 shrink-0" />
             )}
-            <span className="text-sm font-medium">{statusMessage.text}</span>
+            <span className="text-sm font-semibold">{statusMessage.text}</span>
           </div>
           <button
             onClick={() => setStatusMessage(null)}
-            className="text-xs hover:underline ml-4"
+            className="text-xs font-semibold hover:underline ml-4"
           >
             Dismiss
           </button>
@@ -382,162 +381,149 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
       )}
 
       {/* ========================================================================= */}
-      {/* 1. STUDENT PROFILE CARD (Requirement 6)                                  */}
-      {/* Name, Father's Name, Current CG, Year, Current Hostel, Next Hostel       */}
+      {/* 1. STUDENT INFORMATION CARD                                              */}
       {/* ========================================================================= */}
-      <div className="bg-gradient-to-br from-slate-900 via-slate-850 to-indigo-950/50 rounded-3xl p-6 sm:p-8 border border-indigo-500/30 shadow-2xl relative overflow-hidden">
-        <div className="absolute -top-12 -right-12 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="bg-white rounded-lg border border-slate-200 shadow-xs overflow-hidden">
+        <div className="bg-slate-100/70 px-5 py-3 border-b border-slate-200 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-3.5 bg-blue-900 rounded-xs"></span>
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-800">
+              Student Profile &amp; Academic Status
+            </span>
+          </div>
+          <span className="text-xs font-mono font-bold text-blue-900 bg-blue-50 px-2.5 py-0.5 rounded border border-blue-200">
+            Roll No: {student.roll_no}
+          </span>
+        </div>
 
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative">
-          <div className="space-y-3">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="px-3 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold rounded-full">
-                Year {student.year} Student
-              </span>
-              <span className="px-3 py-1 bg-slate-800 text-slate-200 text-xs font-semibold rounded-full border border-slate-700">
-                {student.gender}
-              </span>
-              <span className="px-3 py-1 bg-emerald-900/40 text-emerald-300 border border-emerald-700/50 text-xs font-semibold rounded-full flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Roll No: {student.roll_no}
-              </span>
-            </div>
-
-            <div>
-              <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                {student.name}
-              </h1>
-              {student.father_name && (
-                <div className="text-sm text-slate-300 flex items-center gap-1.5 mt-0.5">
-                  <User className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Father&apos;s Name:</span>
-                  <strong className="text-white font-medium">{student.father_name}</strong>
-                </div>
-              )}
-            </div>
-
-            <div className="text-xs text-slate-400 flex flex-wrap items-center gap-4 pt-1">
-              <span className="flex items-center gap-1">
-                <Mail className="w-3.5 h-3.5 text-indigo-400" />
-                <span className="font-mono text-slate-300">{student.email}</span>
-              </span>
-              <span>📞 {student.phone}</span>
-            </div>
+        <div className="p-5 sm:p-6 grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+          <div>
+            <span className="text-slate-500 block text-[11px]">Student Name</span>
+            <span className="font-bold text-slate-900 text-sm">{student.name}</span>
           </div>
 
-          {/* Core Metrics: Current CG, Current Hostel, Next Hostel */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            {/* Metric 1: Current CG */}
-            <div className="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-4 text-center shadow-inner flex flex-col justify-center">
-              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-                Current CGPA
-              </span>
-              <span className="text-3xl font-black text-amber-400 mt-1">
-                {student.cgpa.toFixed(2)}
-              </span>
-              <span className="text-[10px] text-slate-500 mt-0.5">Individual Merit</span>
-            </div>
+          <div>
+            <span className="text-slate-500 block text-[11px]">Father&apos;s Name</span>
+            <span className="font-semibold text-slate-800 text-xs">{student.father_name || 'N/A'}</span>
+          </div>
 
-            {/* Metric 2: Current Hostel */}
-            <div className="bg-slate-800/90 border border-slate-700/80 rounded-2xl p-4 shadow-inner flex flex-col justify-center">
-              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
-                Current Hostel
-              </span>
-              <span className="text-sm font-bold text-slate-200 mt-1 line-clamp-2">
-                {student.current_hostel || pathway?.currentHostel || 'Junior Block'}
-              </span>
-              <span className="text-[10px] text-slate-500 mt-0.5">Existing Residence</span>
-            </div>
+          <div>
+            <span className="text-slate-500 block text-[11px]">Academic Cohort</span>
+            <span className="font-semibold text-slate-800 text-xs">Year {student.year} (B.Tech / B.Arch)</span>
+          </div>
 
-            {/* Metric 3: Next Hostel Available */}
-            <div className="bg-indigo-950/70 border border-indigo-700/50 rounded-2xl p-4 shadow-inner flex flex-col justify-center col-span-2 sm:col-span-1">
-              <span className="text-[11px] font-semibold text-indigo-300 uppercase tracking-wider block">
-                Next Hostel Available
-              </span>
-              <span className="text-sm font-black text-indigo-100 mt-1 line-clamp-2">
-                {allowedHostels.map((h) => h.name.split(' (')[0]).join(' / ')}
-              </span>
-              <span className="text-[10px] text-indigo-400 font-semibold mt-0.5">
-                Target Allocation
-              </span>
-            </div>
+          <div>
+            <span className="text-slate-500 block text-[11px]">Gender</span>
+            <span className="font-semibold text-slate-800 text-xs">{student.gender}</span>
+          </div>
+
+          <div>
+            <span className="text-slate-500 block text-[11px]">Registered Email</span>
+            <span className="font-mono text-slate-800 text-xs truncate block">{student.email}</span>
+          </div>
+
+          <div>
+            <span className="text-slate-500 block text-[11px]">Contact Phone</span>
+            <span className="font-mono text-slate-800 text-xs">{student.phone}</span>
+          </div>
+
+          <div>
+            <span className="text-slate-500 block text-[11px]">Merit Score (CGPA)</span>
+            <span className="font-mono font-bold text-blue-900 text-sm">{student.cgpa.toFixed(2)}</span>
+          </div>
+
+          <div>
+            <span className="text-slate-500 block text-[11px]">Current Hostel</span>
+            <span className="font-semibold text-slate-800 text-xs">
+              {student.current_hostel || pathway?.currentHostel || 'Junior Block'}
+            </span>
+          </div>
+
+          <div className="col-span-2 sm:col-span-4 pt-3 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <span className="text-slate-500 text-[11px]">
+              Eligible Target Hostels: <strong className="text-slate-900">{allowedHostels.map((h) => h.name).join(' • ')}</strong>
+            </span>
+            <span className="text-[11px] text-blue-900 font-semibold">
+              Allocation Stage: Round 1 Online Choice Submission
+            </span>
           </div>
         </div>
       </div>
 
       {/* ========================================================================= */}
-      {/* 2. ROUND 1 ALLOCATION RESULT (Confidential until Published)               */}
+      {/* 2. ROUND 1 ALLOCATION RESULT                                              */}
       {/* ========================================================================= */}
-      <div className="bg-slate-900 rounded-3xl border border-slate-800 p-6 sm:p-7 shadow-xl space-y-4">
+      <div className="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Award className="w-5 h-5 text-indigo-400" />
-            <h2 className="text-lg font-bold text-white">Round 1 Allotment Result</h2>
+            <Award className="w-5 h-5 text-blue-900" />
+            <h2 className="text-base font-bold text-slate-900">Round 1 Allotment Result</h2>
           </div>
           <span
-            className={`px-3 py-1 text-xs font-semibold rounded-full ${
+            className={`px-3 py-1 text-xs font-semibold rounded ${
               roundConfig.is_published
-                ? 'bg-emerald-900/60 text-emerald-300 border border-emerald-700/60'
-                : 'bg-amber-900/60 text-amber-300 border border-amber-700/60'
+                ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                : 'bg-slate-100 text-slate-700 border border-slate-200'
             }`}
           >
-            {roundConfig.is_published ? 'Declared & Published' : 'Confidential (Pending Declaration)'}
+            {roundConfig.is_published ? 'Declared &amp; Published' : 'Confidential (Pending Declaration)'}
           </span>
         </div>
 
         {!roundConfig.is_published ? (
-          <div className="p-6 bg-slate-850/60 rounded-2xl border border-slate-750 text-center space-y-2">
-            <Calendar className="w-8 h-8 text-amber-400 mx-auto animate-pulse" />
-            <h3 className="text-white font-bold text-base">Results Not Yet Published</h3>
-            <p className="text-xs text-slate-400 max-w-md mx-auto">
-              Hostel allocations are managed offline via the administrative JOSAA engine. Results remain
-              hidden until the Chief Warden officially publishes the list.
+          <div className="p-6 bg-slate-50 rounded border border-slate-200 text-center space-y-2">
+            <Calendar className="w-6 h-6 text-slate-500 mx-auto" />
+            <h3 className="text-slate-900 font-bold text-sm">Results Not Yet Published</h3>
+            <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
+              Hostel allocations are currently undergoing administrative verification. Results remain
+              hidden until the Chief Warden formally publishes the list.
             </p>
           </div>
         ) : allotment ? (
-          <div className="bg-gradient-to-r from-emerald-950/60 via-slate-900 to-indigo-950/60 rounded-2xl p-6 border border-emerald-600/40 space-y-4">
+          <div className="bg-white rounded border border-emerald-300 p-5 space-y-4 shadow-xs">
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
               <div>
-                <span className="text-xs uppercase tracking-wider text-emerald-400 font-black">
-                  🎉 Congratulations! Room Allocated
+                <span className="text-[11px] uppercase tracking-wider text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                  Confirmed Room Allocation
                 </span>
-                <h3 className="text-2xl font-black text-white mt-1">
+                <h3 className="text-xl font-bold text-slate-900 mt-2">
                   {allotment.hostel.name}
                 </h3>
-                <p className="text-sm text-slate-300 mt-1">
-                  Room <strong className="text-white text-base font-mono">{allotment.room.room_number}</strong>{' '}
+                <p className="text-xs text-slate-700 mt-1">
+                  Room <strong className="text-slate-900 font-mono text-sm">{allotment.room.room_number}</strong>{' '}
                   ({allotment.room.floor_label || `Floor ${allotment.room.floor}`}) • Capacity:{' '}
                   {allotment.room.capacity} Bed ({allotment.room.capacity === 4 ? 'Fourlet' : 'Triplet'})
                 </p>
               </div>
-              <div className="text-left sm:text-right">
-                <span className="text-xs text-slate-400 block font-medium">Assigned Warden</span>
-                <span className="text-sm font-bold text-slate-200">{allotment.hostel.warden_name}</span>
-                <span className="text-xs text-slate-400 block font-mono">{allotment.hostel.warden_phone}</span>
+              <div className="text-left sm:text-right text-xs">
+                <span className="text-slate-500 block font-medium text-[11px]">Assigned Warden</span>
+                <span className="font-bold text-slate-900">{allotment.hostel.warden_name}</span>
+                <span className="text-slate-600 block font-mono text-[11px]">{allotment.hostel.warden_phone}</span>
               </div>
             </div>
 
             {/* Roommates List */}
-            <div className="pt-4 border-t border-slate-800">
-              <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider block mb-2.5">
+            <div className="pt-4 border-t border-emerald-200/60">
+              <span className="text-xs text-slate-700 font-semibold uppercase tracking-wider block mb-2.5">
                 Allotted Roommates ({allotment.roommates.length}/{allotment.room.capacity}):
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                 {allotment.roommates.map((rm) => (
                   <div
                     key={rm.roll_no}
-                    className="p-3 bg-slate-800/80 rounded-xl border border-slate-700 flex items-center space-x-3"
+                    className="p-3 bg-white rounded-xl border border-emerald-200 flex items-center space-x-3 shadow-xs"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-indigo-600/40 text-indigo-300 flex items-center justify-center font-bold text-xs">
+                    <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs font-mono">
                       {rm.name.charAt(0)}
                     </div>
                     <div>
-                      <div className="text-xs font-bold text-white flex items-center gap-1">
+                      <div className="text-xs font-bold text-slate-900 flex items-center gap-1">
                         {rm.name}
                         {rm.roll_no === student.roll_no && (
-                          <span className="text-[10px] text-emerald-400 font-bold">(You)</span>
+                          <span className="text-[10px] text-emerald-700 font-bold">(You)</span>
                         )}
                       </div>
-                      <div className="text-[11px] text-slate-400 font-mono">{rm.roll_no} • CG {rm.cgpa.toFixed(2)}</div>
+                      <div className="text-[11px] text-slate-500 font-mono">{rm.roll_no} • CG {rm.cgpa.toFixed(2)}</div>
                     </div>
                   </div>
                 ))}
@@ -545,10 +531,10 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
             </div>
           </div>
         ) : (
-          <div className="p-6 bg-slate-850/60 rounded-2xl border border-slate-750 text-center space-y-2">
-            <AlertTriangle className="w-8 h-8 text-amber-400 mx-auto" />
-            <h3 className="text-white font-bold text-base">No Room Allotted in Round 1</h3>
-            <p className="text-xs text-slate-400 max-w-md mx-auto">
+          <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-2">
+            <AlertTriangle className="w-8 h-8 text-amber-600 mx-auto" />
+            <h3 className="text-slate-900 font-bold text-base">No Room Allotted in Round 1</h3>
+            <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
               Your group could not be allocated any of your preferences due to merit cutoffs. You are eligible for Round 2 spot round.
             </p>
           </div>
@@ -556,20 +542,20 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
       </div>
 
       {/* ========================================================================= */}
-      {/* 3. GAME-STYLE ROOMMATE LOBBY (Invite & Accept System, Not Code Based)     */}
+      {/* 3. ROOMMATE TEAM FORMATION (LOBBY)                                       */}
       {/* ========================================================================= */}
-      <div className="bg-slate-900 rounded-3xl border border-slate-800 p-6 sm:p-8 shadow-xl space-y-6">
+      <div className="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 text-indigo-400 text-xs font-bold uppercase tracking-wider mb-1">
+            <div className="inline-flex items-center gap-1.5 text-blue-900 text-xs font-bold uppercase tracking-wider mb-1">
               <Users className="w-4 h-4" />
-              <span>Custom Roommate Lobby • Invite & Accept System</span>
+              <span>Roommate Group Registration</span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-black text-white">
-              Roommate Team Formation
+            <h2 className="text-xl font-bold text-slate-900">
+              Roommate Group Formation
             </h2>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Similar to game custom rooms: Invite eligible classmates directly. Priority is determined by the group&apos;s highest individual CGPA!
+            <p className="text-xs text-slate-600 mt-0.5">
+              Form your room team by inviting eligible batchmates. Allocation priority uses the team&apos;s highest CGPA score.
             </p>
           </div>
 
@@ -578,35 +564,35 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
               <button
                 onClick={handleLeaveOrDisband}
                 disabled={isSubmitting || isGroupLocked}
-                className="px-3.5 py-1.5 text-xs font-semibold text-rose-300 hover:text-white bg-rose-950/60 hover:bg-rose-900 border border-rose-800/60 rounded-xl transition-colors flex items-center gap-1.5 disabled:opacity-50"
+                className="px-3 py-1.5 text-xs font-semibold text-red-700 hover:text-white bg-white hover:bg-red-700 border border-red-300 rounded transition-colors flex items-center gap-1.5 disabled:opacity-50"
               >
                 <LogOut className="w-3.5 h-3.5" />
-                {isLeader ? 'Disband Lobby' : 'Leave Lobby'}
+                {isLeader ? 'Disband Group' : 'Leave Group'}
               </button>
             </div>
           )}
         </div>
 
-        {/* INCOMING INVITES NOTIFICATION BANNER (Requirement 8) */}
+        {/* INCOMING INVITES NOTIFICATION BANNER */}
         {!groupDetails && incomingInvites && incomingInvites.length > 0 && (
-          <div className="p-5 bg-gradient-to-r from-indigo-950/80 via-slate-850 to-violet-950/80 border-2 border-indigo-500/50 rounded-2xl space-y-3">
-            <div className="flex items-center gap-2 text-indigo-300 text-xs font-bold uppercase tracking-wider">
-              <Sparkles className="w-4 h-4 text-indigo-400" />
-              <span>Incoming Roommate Invites ({incomingInvites.length})</span>
+          <div className="p-4 bg-slate-50 border border-slate-300 rounded space-y-3">
+            <div className="flex items-center gap-2 text-slate-900 text-xs font-bold uppercase tracking-wider">
+              <Users className="w-4 h-4 text-blue-900" />
+              <span>Pending Roommate Invitations ({incomingInvites.length})</span>
             </div>
             <div className="space-y-2">
               {incomingInvites.map((inv) => (
                 <div
                   key={inv.invite_id}
-                  className="p-3.5 bg-slate-900/90 border border-indigo-700/40 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                  className="p-3 bg-white border border-slate-200 rounded flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs"
                 >
                   <div>
-                    <div className="text-sm font-bold text-white">
-                      Invite from <span className="text-indigo-300">{inv.leader_name}</span> ({inv.from_roll_no})
+                    <div className="text-xs font-bold text-slate-900">
+                      Invitation from <span className="text-blue-900 font-semibold">{inv.leader_name}</span> ({inv.from_roll_no})
                     </div>
-                    <div className="text-xs text-slate-400 mt-0.5">
-                      Lobby Type:{' '}
-                      <span className="font-semibold text-slate-200">
+                    <div className="text-[11px] text-slate-500 mt-0.5">
+                      Accommodation Type:{' '}
+                      <span className="font-semibold text-slate-800">
                         {inv.sharing_type} ({inv.current_members_count}/{inv.required_capacity} Members Joined)
                       </span>
                     </div>
@@ -616,16 +602,16 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                     <button
                       onClick={() => handleRespondInvite(inv.invite_id, 'accept')}
                       disabled={isSubmitting}
-                      className="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-emerald-600/30 flex items-center gap-1.5 transition-all disabled:opacity-50"
+                      className="px-3 py-1.5 bg-blue-900 hover:bg-blue-800 text-white font-semibold text-xs rounded shadow-xs flex items-center gap-1.5 transition-colors disabled:opacity-50"
                     >
-                      <Check className="w-4 h-4" /> Accept Invite
+                      <Check className="w-3.5 h-3.5" /> Accept
                     </button>
                     <button
                       onClick={() => handleRespondInvite(inv.invite_id, 'decline')}
                       disabled={isSubmitting}
-                      className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl border border-slate-700 transition-colors"
+                      className="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold rounded border border-slate-300 transition-colors"
                     >
-                      <X className="w-4 h-4" /> Decline
+                      <X className="w-3.5 h-3.5" /> Decline
                     </button>
                   </div>
                 </div>
@@ -636,42 +622,41 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
 
         {groupDetails ? (
           /* =================================================================== */
-          /* CASE A: STUDENT IS INSIDE A CUSTOM ROOM LOBBY                      */
+          /* CASE A: STUDENT IS INSIDE A ROOM GROUP                              */
           /* =================================================================== */
           <div className="space-y-6">
-            {/* Lobby Banner */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-slate-800/80 border border-slate-750 p-4 rounded-2xl">
-                <span className="text-xs text-slate-400 font-semibold block">Sharing Room Type</span>
-                <span className="text-xl font-black text-white mt-1 block">
+            {/* Group Banner */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="bg-slate-50 border border-slate-200 p-3.5 rounded">
+                <span className="text-[11px] text-slate-500 font-medium block">Room Type</span>
+                <span className="text-base font-bold text-slate-900 mt-0.5 block">
                   {groupDetails.sharing_type || (groupDetails.required_capacity === 4 ? 'Fourlets' : 'Triplets')} ({groupDetails.required_capacity} Beds)
                 </span>
-                <span className="text-[10px] text-indigo-400 font-mono">Lobby Tag: {groupDetails.group_code}</span>
+                <span className="text-[10px] text-slate-500 font-mono">Code: {groupDetails.group_code}</span>
               </div>
 
-              <div className="bg-slate-800/80 border border-slate-750 p-4 rounded-2xl">
-                <span className="text-xs text-slate-400 font-semibold block">Priority Merit (Max CGPA)</span>
-                <span className="text-xl font-black text-amber-400 mt-1 flex items-center gap-1.5">
-                  <Sparkles className="w-4 h-4" />
+              <div className="bg-slate-50 border border-slate-200 p-3.5 rounded">
+                <span className="text-[11px] text-slate-500 font-medium block">Merit Score (Highest CGPA)</span>
+                <span className="text-base font-bold text-blue-900 mt-0.5 flex items-center gap-1.5 font-mono">
                   {groupDetails.max_cgpa.toFixed(2)}
                 </span>
-                <span className="text-[10px] text-slate-400">Determines JOSAA round allocation</span>
+                <span className="text-[10px] text-slate-500">Used for Round 1 Allotment Rank</span>
               </div>
 
-              <div className="bg-slate-800/80 border border-slate-750 p-4 rounded-2xl">
-                <span className="text-xs text-slate-400 font-semibold block">Lobby Status</span>
+              <div className="bg-slate-50 border border-slate-200 p-3.5 rounded">
+                <span className="text-[11px] text-slate-500 font-medium block">Group Status</span>
                 <span
-                  className={`text-xs font-bold mt-1.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full ${
+                  className={`text-xs font-bold mt-1 inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded ${
                     groupDetails.is_locked
-                      ? 'bg-emerald-900/60 text-emerald-300 border border-emerald-700/60'
+                      ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
                       : isGroupFull
-                      ? 'bg-indigo-900/60 text-indigo-300 border border-indigo-700/60'
-                      : 'bg-amber-900/60 text-amber-300 border border-amber-700/60'
+                      ? 'bg-blue-50 text-blue-900 border border-blue-200'
+                      : 'bg-slate-100 text-slate-700 border border-slate-300'
                   }`}
                 >
                   {groupDetails.is_locked ? (
                     <>
-                      <Lock className="w-3.5 h-3.5" /> Choices Frozen & Locked
+                      <Lock className="w-3 h-3" /> Choices Frozen &amp; Locked
                     </>
                   ) : isGroupFull ? (
                     'Ready for Choice Filling'
@@ -682,10 +667,10 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
               </div>
             </div>
 
-            {/* Custom Room Lobby Slot Cards */}
+            {/* Room Slots */}
             <div>
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-300">
+              <div className="flex items-center justify-between mb-2.5">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
                   Room Slots ({groupDetails.members.length} of {groupDetails.required_capacity} Occupied)
                 </h3>
                 {isLeader && !isGroupFull && !isGroupLocked && (
@@ -694,19 +679,19 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                       loadEligiblePeers();
                       setShowInviteModal(true);
                     }}
-                    className="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-lg flex items-center gap-1.5 shadow-sm transition-colors"
+                    className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white text-xs font-semibold rounded flex items-center gap-1.5 shadow-xs transition-colors"
                   >
-                    <UserPlus className="w-3.5 h-3.5" /> Invite Classmate
+                    <UserPlus className="w-3.5 h-3.5" /> Invite Batchmate
                   </button>
                 )}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {/* Render Occupied Slots */}
                 {groupDetails.members.map((member, idx) => (
                   <div
                     key={member.roll_no}
-                    className="p-4 bg-slate-800/90 border border-slate-700 rounded-2xl relative shadow-md flex flex-col justify-between"
+                    className="p-3.5 bg-white border border-slate-200 rounded relative shadow-xs flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between">
@@ -714,31 +699,31 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                           Slot {idx + 1}
                         </span>
                         {member.roll_no === groupDetails.leader_roll_no ? (
-                          <span className="px-2 py-0.5 bg-indigo-900/80 text-indigo-300 border border-indigo-700/60 text-[10px] font-bold rounded-full">
-                            Leader
+                          <span className="px-2 py-0.5 bg-blue-50 text-blue-900 border border-blue-200 text-[10px] font-bold rounded">
+                            Team Leader
                           </span>
                         ) : (
-                          <span className="px-2 py-0.5 bg-slate-700 text-slate-300 text-[10px] font-medium rounded-full">
+                          <span className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-medium rounded">
                             Member
                           </span>
                         )}
                       </div>
 
-                      <div className="text-base font-bold text-white mt-2">
+                      <div className="text-sm font-bold text-slate-900 mt-2">
                         {member.student.name}
                       </div>
-                      <div className="text-xs font-mono text-indigo-300">{member.roll_no}</div>
+                      <div className="text-xs font-mono text-blue-900 font-semibold">{member.roll_no}</div>
 
                       {member.student.father_name && (
-                        <div className="text-[11px] text-slate-400 mt-1">
+                        <div className="text-[11px] text-slate-500 mt-0.5">
                           S/D of: {member.student.father_name}
                         </div>
                       )}
                     </div>
 
-                    <div className="mt-4 pt-2.5 border-t border-slate-700/60 flex items-center justify-between text-xs">
-                      <span className="text-slate-400">CGPA:</span>
-                      <strong className="text-amber-400 font-bold">{member.student.cgpa.toFixed(2)}</strong>
+                    <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                      <span className="text-slate-500 text-[11px]">CGPA:</span>
+                      <strong className="text-blue-900 font-bold font-mono">{member.student.cgpa.toFixed(2)}</strong>
                     </div>
                   </div>
                 ))}
@@ -750,16 +735,16 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                     return (
                       <div
                         key={`empty-slot-${slotNum}`}
-                        className="p-4 bg-slate-850/40 border-2 border-dashed border-slate-750 hover:border-indigo-500/50 rounded-2xl flex flex-col items-center justify-center text-center min-h-[140px] space-y-2 transition-colors"
+                        className="p-3.5 bg-slate-50 border-2 border-dashed border-slate-300 hover:border-slate-400 rounded flex flex-col items-center justify-center text-center min-h-[130px] space-y-1.5 transition-colors"
                       >
-                        <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-500">
-                          <UserPlus className="w-5 h-5" />
+                        <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400">
+                          <UserPlus className="w-4 h-4" />
                         </div>
                         <div>
-                          <span className="text-xs font-bold text-slate-300 block">
-                            Slot {slotNum}: Empty Slot
+                          <span className="text-xs font-bold text-slate-700 block">
+                            Slot {slotNum}: Vacant
                           </span>
-                          <span className="text-[11px] text-slate-500">Awaiting Roommate</span>
+                          <span className="text-[10px] text-slate-400">Awaiting Invitation</span>
                         </div>
                         {isLeader && !isGroupLocked && (
                           <button
@@ -767,7 +752,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                               loadEligiblePeers();
                               setShowInviteModal(true);
                             }}
-                            className="mt-1 px-3 py-1 bg-indigo-600/80 hover:bg-indigo-600 text-white text-xs font-bold rounded-lg transition-colors"
+                            className="mt-1 px-2.5 py-1 bg-blue-900 hover:bg-blue-800 text-white text-[11px] font-semibold rounded transition-colors shadow-xs"
                           >
                             + Invite Peer
                           </button>
@@ -781,20 +766,20 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
 
             {/* Outgoing Pending Invites List */}
             {groupDetails.outgoing_invites && groupDetails.outgoing_invites.length > 0 && (
-              <div className="p-4 bg-slate-850/60 border border-slate-800 rounded-2xl space-y-2">
-                <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block">
-                  Outgoing Invites Pending Acceptance:
+              <div className="p-3.5 bg-slate-50 border border-slate-200 rounded space-y-2">
+                <span className="text-xs text-slate-700 font-bold uppercase tracking-wider block">
+                  Outgoing Invitations Awaiting Confirmation:
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {groupDetails.outgoing_invites.map((inv) => (
                     <div
                       key={inv.invite_id}
-                      className="px-3 py-1.5 bg-slate-800 border border-slate-700 rounded-xl text-xs flex items-center gap-2"
+                      className="px-3 py-1 bg-white border border-slate-200 rounded text-xs flex items-center gap-2 shadow-xs"
                     >
-                      <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-                      <span className="font-semibold text-white">{inv.to_name}</span>
-                      <span className="text-slate-400 font-mono text-[11px]">({inv.to_roll_no})</span>
-                      <span className="text-amber-300 text-[10px] font-bold">Awaiting response</span>
+                      <span className="w-2 h-2 rounded-full bg-blue-900"></span>
+                      <span className="font-semibold text-slate-900">{inv.to_name}</span>
+                      <span className="text-slate-500 font-mono text-[11px]">({inv.to_roll_no})</span>
+                      <span className="text-slate-600 text-[10px]">Awaiting reply</span>
                     </div>
                   ))}
                 </div>
@@ -803,64 +788,63 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
           </div>
         ) : (
           /* =================================================================== */
-          /* CASE B: STUDENT IS NOT IN ANY LOBBY                                 */
+          /* CASE B: STUDENT IS NOT IN ANY GROUP                                 */
           /* =================================================================== */
-          <div className="max-w-2xl mx-auto p-6 sm:p-8 bg-slate-850/70 border border-slate-750 rounded-3xl space-y-6 text-center">
-            <div className="w-14 h-14 rounded-2xl bg-indigo-950 border border-indigo-700/60 flex items-center justify-center mx-auto text-indigo-400 shadow-inner">
-              <BedDouble className="w-7 h-7" />
+          <div className="max-w-xl mx-auto p-6 bg-slate-50 border border-slate-200 rounded-lg space-y-5 text-center shadow-xs">
+            <div className="w-12 h-12 rounded bg-white border border-slate-200 flex items-center justify-center mx-auto text-blue-900 shadow-xs">
+              <BedDouble className="w-6 h-6" />
             </div>
 
             <div className="space-y-1">
-              <h3 className="text-xl font-black text-white">Create a Custom Room Lobby</h3>
-              <p className="text-xs text-slate-400 max-w-md mx-auto">
-                Hostel rooms are offered as shared accommodations (Fourlets or Triplets). Create your lobby
-                and directly invite your classmates of the same year and gender.
+              <h3 className="text-lg font-bold text-slate-900">Initiate Roommate Group</h3>
+              <p className="text-xs text-slate-600 max-w-sm mx-auto leading-relaxed">
+                Hostel accommodations are allocated in shared rooms. Create a group and invite your eligible batchmates of the same year and gender.
               </p>
             </div>
 
-            {/* Sharing Choice Selection (Fourlets vs Triplets) */}
+            {/* Sharing Choice Selection */}
             <div className="space-y-2 text-left">
-              <label className="text-xs font-bold text-slate-300 block text-center">
+              <label className="text-xs font-bold text-slate-700 block text-center">
                 Select Room Sharing Capacity:
               </label>
-              <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
+              <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
                 <button
                   type="button"
                   onClick={() => setSharingTypeChoice('Fourlets')}
-                  className={`p-4 rounded-2xl border-2 text-left transition-all ${
+                  className={`p-3.5 rounded border text-left transition-all ${
                     sharingTypeChoice === 'Fourlets'
-                      ? 'bg-indigo-950/80 border-indigo-500 shadow-lg shadow-indigo-900/30'
-                      : 'bg-slate-800/80 border-slate-700 hover:border-slate-600'
+                      ? 'bg-blue-50 border-blue-900 text-blue-950 font-semibold'
+                      : 'bg-white border-slate-200 hover:border-slate-300'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-base font-black text-white">Fourlets</span>
-                    <span className="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 text-[10px] font-bold rounded">
+                    <span className="text-sm font-bold text-slate-900">Fourlets</span>
+                    <span className="px-2 py-0.5 bg-blue-100 text-blue-900 text-[10px] font-bold rounded">
                       4 Beds
                     </span>
                   </div>
-                  <p className="text-[11px] text-slate-400 mt-1">
-                    Room shared by 4 roommates. Available on all levels.
+                  <p className="text-[11px] text-slate-500 mt-1">
+                    Room shared by 4 roommates.
                   </p>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setSharingTypeChoice('Triplets')}
-                  className={`p-4 rounded-2xl border-2 text-left transition-all ${
+                  className={`p-3.5 rounded border text-left transition-all ${
                     sharingTypeChoice === 'Triplets'
-                      ? 'bg-indigo-950/80 border-indigo-500 shadow-lg shadow-indigo-900/30'
-                      : 'bg-slate-800/80 border-slate-700 hover:border-slate-600'
+                      ? 'bg-blue-50 border-blue-900 text-blue-950 font-semibold'
+                      : 'bg-white border-slate-200 hover:border-slate-300'
                   }`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-base font-black text-white">Triplets</span>
-                    <span className="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 text-[10px] font-bold rounded">
+                    <span className="text-sm font-bold text-slate-900">Triplets</span>
+                    <span className="px-2 py-0.5 bg-blue-100 text-blue-900 text-[10px] font-bold rounded">
                       3 Beds
                     </span>
                   </div>
-                  <p className="text-[11px] text-slate-400 mt-1">
-                    Room shared by 3 roommates. Available on selected blocks.
+                  <p className="text-[11px] text-slate-500 mt-1">
+                    Room shared by 3 roommates.
                   </p>
                 </button>
               </div>
@@ -869,14 +853,14 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
             <button
               onClick={handleCreateLobby}
               disabled={isSubmitting}
-              className="w-full max-w-md py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl shadow-xl shadow-indigo-600/30 transition-all flex items-center justify-center gap-2 mx-auto disabled:opacity-50"
+              className="w-full max-w-md py-2.5 bg-blue-900 hover:bg-blue-800 text-white font-semibold text-xs rounded shadow-xs transition-colors flex items-center justify-center gap-2 mx-auto disabled:opacity-50"
             >
               {isSubmitting ? (
-                'Creating Lobby...'
+                'Creating Group...'
               ) : (
                 <>
                   <PlusCircle className="w-4 h-4" />
-                  Create {sharingTypeChoice} Room Lobby
+                  Create {sharingTypeChoice} Group
                 </>
               )}
             </button>
@@ -885,83 +869,83 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
       </div>
 
       {/* ========================================================================= */}
-      {/* 4. MODAL: INVITE SAME-YEAR & SAME-GENDER PEERS (Requirement 20)           */}
+      {/* 4. MODAL: INVITE SAME-YEAR & SAME-GENDER PEERS                           */}
       {/* ========================================================================= */}
       {showInviteModal && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-750 rounded-3xl w-full max-w-xl p-6 sm:p-7 shadow-2xl space-y-4 max-h-[85vh] flex flex-col">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-lg w-full max-w-xl p-5 sm:p-6 shadow-xl space-y-4 max-h-[85vh] flex flex-col text-slate-900">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div>
-                <h3 className="text-lg font-bold text-white">Invite Classmates</h3>
-                <p className="text-xs text-indigo-300 font-semibold">
-                  Strict Rule: Only showing Year {student.year} ({student.gender}) students
+                <h3 className="text-base font-bold text-slate-900">Invite Classmates to Group</h3>
+                <p className="text-[11px] text-blue-900 font-semibold">
+                  Eligibility: Cohort Year {student.year} ({student.gender})
                 </p>
               </div>
               <button
                 onClick={() => setShowInviteModal(false)}
-                className="text-slate-400 hover:text-white p-1 rounded-lg"
+                className="text-slate-400 hover:text-slate-700 p-1 rounded"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Search Input */}
             <div className="relative">
-              <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
+              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
               <input
                 type="text"
                 placeholder="Search by name or roll number (e.g. 25BEE, Harshit)..."
                 value={peerSearchQuery}
                 onChange={(e) => setPeerSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full pl-9 pr-3 py-2 bg-white border border-slate-300 rounded text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-900 focus:border-blue-900 shadow-xs"
               />
             </div>
 
             {/* Peer List */}
             <div className="flex-1 overflow-y-auto space-y-2 pr-1 min-h-[220px]">
               {isLoadingPeers ? (
-                <div className="text-center py-10 text-xs text-slate-400 space-y-2">
-                  <div className="w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                <div className="text-center py-10 text-xs text-slate-500 space-y-2">
+                  <div className="w-5 h-5 border-2 border-blue-900 border-t-transparent rounded-full animate-spin mx-auto"></div>
                   <div>Loading eligible classmates...</div>
                 </div>
               ) : filteredPeers.length === 0 ? (
-                <div className="text-center py-10 text-xs text-slate-400">
+                <div className="text-center py-10 text-xs text-slate-500">
                   No eligible classmates found matching &ldquo;{peerSearchQuery}&rdquo;.
                 </div>
               ) : (
                 filteredPeers.map((peer) => (
                   <div
                     key={peer.roll_no}
-                    className="p-3 bg-slate-800/80 hover:bg-slate-750 border border-slate-700/80 rounded-xl flex items-center justify-between text-xs transition-colors"
+                    className="p-2.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded flex items-center justify-between text-xs transition-colors"
                   >
                     <div>
-                      <div className="font-bold text-white flex items-center gap-1.5">
+                      <div className="font-bold text-slate-900 flex items-center gap-1.5">
                         {peer.name}
                         {peer.father_name && (
-                          <span className="text-[10px] text-slate-400 font-normal">
+                          <span className="text-[10px] text-slate-500 font-normal">
                             (S/D of {peer.father_name})
                           </span>
                         )}
                       </div>
-                      <div className="text-[11px] font-mono text-indigo-300">
+                      <div className="text-[11px] font-mono text-blue-900 font-semibold">
                         {peer.roll_no} • CGPA {peer.cgpa.toFixed(2)}
                       </div>
                     </div>
 
                     <div>
                       {peer.in_group ? (
-                        <span className="px-2.5 py-1 bg-slate-700 text-slate-400 font-semibold text-[10px] rounded-lg">
+                        <span className="px-2 py-0.5 bg-slate-200 text-slate-600 font-semibold text-[10px] rounded">
                           In Another Group
                         </span>
                       ) : peer.is_invited ? (
-                        <span className="px-2.5 py-1 bg-amber-950/80 text-amber-300 border border-amber-700/60 font-semibold text-[10px] rounded-lg">
+                        <span className="px-2 py-0.5 bg-slate-100 text-slate-700 border border-slate-300 font-semibold text-[10px] rounded">
                           Invite Pending
                         </span>
                       ) : (
                         <button
                           onClick={() => handleSendInvite(peer.roll_no)}
                           disabled={isSubmitting}
-                          className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-lg transition-colors flex items-center gap-1"
+                          className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white font-semibold text-xs rounded transition-colors flex items-center gap-1 shadow-xs"
                         >
                           <UserPlus className="w-3.5 h-3.5" /> Invite
                         </button>
@@ -976,34 +960,33 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
       )}
 
       {/* ========================================================================= */}
-      {/* 5. STEP-BY-STEP DRILL-DOWN SELECTION BUTTONS (Requirement 49 & 51)        */}
-      {/* Hostel -> Floor (Level) -> Room (Filtered by Fourlets or Triplets)       */}
+      {/* 4. STEP-BY-STEP CHOICE FILLING (Hostel -> Floor -> Room)                 */}
       {/* ========================================================================= */}
       {groupDetails && (
-        <div className="bg-slate-900 rounded-3xl border border-slate-800 p-6 sm:p-8 shadow-xl space-y-8">
+        <div className="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-6">
           <div>
-            <div className="inline-flex items-center gap-2 text-indigo-400 text-xs font-bold uppercase tracking-wider mb-1">
+            <div className="inline-flex items-center gap-1.5 text-blue-900 text-xs font-bold uppercase tracking-wider mb-1">
               <Layers className="w-4 h-4" />
-              <span>Step-by-Step Choice Filling Buttons</span>
+              <span>Preference Submission</span>
             </div>
-            <h2 className="text-xl sm:text-2xl font-black text-white">
-              Room Choice Filling (Hostel &rarr; Floor &rarr; Room)
+            <h2 className="text-xl font-bold text-slate-900">
+              Hostel &amp; Room Choice Filling
             </h2>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Filtered strictly by your lobby&apos;s sharing choice ({activeSharingType}). Himadri layout supports Level G1 through Level 5.
+            <p className="text-xs text-slate-600 mt-0.5">
+              Select hostel, floor, and room according to your group&apos;s sharing capacity ({activeSharingType}).
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-5">
             {/* STEP 1: HOSTEL SELECTION BUTTONS */}
-            <div className="space-y-2.5">
-              <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
-                <span className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-700 uppercase tracking-wider">
+                <span className="w-4 h-4 rounded bg-blue-900 text-white flex items-center justify-center text-[10px]">
                   1
                 </span>
                 <span>Select Hostel:</span>
               </div>
-              <div className="flex flex-wrap gap-2.5">
+              <div className="flex flex-wrap gap-2">
                 {allowedHostels.map((h) => {
                   const isSelected = selectedHostelId === h.hostel_id;
                   return (
@@ -1014,13 +997,13 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                         setSelectedHostelId(h.hostel_id);
                         setSelectedRoomId('');
                       }}
-                      className={`px-4 py-3 rounded-2xl text-xs font-bold border transition-all flex items-center gap-2 ${
+                      className={`px-3.5 py-2 rounded text-xs font-semibold border transition-all flex items-center gap-2 ${
                         isSelected
-                          ? 'bg-indigo-600 border-indigo-400 text-white shadow-lg shadow-indigo-600/30'
-                          : 'bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-750'
+                          ? 'bg-blue-900 border-blue-900 text-white shadow-xs'
+                          : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
                       }`}
                     >
-                      <Building className="w-4 h-4" />
+                      <Building className="w-3.5 h-3.5" />
                       <span>{h.name}</span>
                     </button>
                   );
@@ -1029,14 +1012,14 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
             </div>
 
             {/* STEP 2: FLOOR / LEVEL SELECTION BUTTONS */}
-            <div className="space-y-2.5">
-              <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
-                <span className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 text-xs font-bold text-slate-700 uppercase tracking-wider">
+                <span className="w-4 h-4 rounded bg-blue-900 text-white flex items-center justify-center text-[10px]">
                   2
                 </span>
-                <span>Select Floor (Level):</span>
+                <span>Select Floor:</span>
               </div>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-1.5">
                 {uniqueFloors.map((fl) => {
                   const isSelected = selectedFloor === fl;
                   return (
@@ -1047,10 +1030,10 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                         setSelectedFloor(fl);
                         setSelectedRoomId('');
                       }}
-                      className={`px-4 py-2.5 rounded-xl text-xs font-bold border transition-all ${
+                      className={`px-3 py-1.5 rounded text-xs font-semibold border transition-all ${
                         isSelected
-                          ? 'bg-violet-600 border-violet-400 text-white shadow-md shadow-violet-600/30'
-                          : 'bg-slate-800/80 border-slate-700 text-slate-300 hover:bg-slate-750'
+                          ? 'bg-blue-900 border-blue-900 text-white shadow-xs'
+                          : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
                       }`}
                     >
                       {getFloorButtonLabel(fl)}
@@ -1061,25 +1044,25 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
             </div>
 
             {/* STEP 3: ROOM SELECTION BUTTONS (Filtered by Fourlets / Triplets) */}
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
-                  <span className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[10px]">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  <span className="w-4 h-4 rounded bg-blue-900 text-white flex items-center justify-center text-[10px]">
                     3
                   </span>
-                  <span>Select Room ({activeSharingType} Only):</span>
+                  <span>Select Room ({activeSharingType}):</span>
                 </div>
-                <span className="text-[11px] text-slate-400">
-                  {roomsForSelectedFloorAndType.length} rooms available for this floor
+                <span className="text-[11px] text-slate-500 font-mono">
+                  {roomsForSelectedFloorAndType.length} rooms available
                 </span>
               </div>
 
               {roomsForSelectedFloorAndType.length === 0 ? (
-                <div className="p-6 bg-slate-850/60 rounded-2xl border border-slate-750 text-center text-xs text-slate-400">
-                  No {activeSharingType} rooms exist on this level. Please choose another level.
+                <div className="p-4 bg-slate-50 rounded border border-slate-200 text-center text-xs text-slate-500">
+                  No {activeSharingType} rooms exist on this level. Please select another floor.
                 </div>
               ) : (
-                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2.5 max-h-[280px] overflow-y-auto p-1 pr-2">
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 max-h-[260px] overflow-y-auto p-1 pr-1.5">
                   {roomsForSelectedFloorAndType.map((room) => {
                     const isSelected = selectedRoomId === room.room_id;
                     const isAlreadyPicked = rankedChoices.includes(room.room_id);
@@ -1090,16 +1073,16 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                         type="button"
                         onClick={() => setSelectedRoomId(room.room_id)}
                         disabled={isAlreadyPicked}
-                        className={`p-2.5 rounded-xl text-xs font-mono font-bold border transition-all flex flex-col items-center justify-center gap-1 ${
+                        className={`p-2 rounded text-xs font-mono font-bold border transition-all flex flex-col items-center justify-center gap-0.5 ${
                           isAlreadyPicked
-                            ? 'bg-slate-850 border-slate-800 text-slate-600 cursor-not-allowed opacity-50'
+                            ? 'bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed'
                             : isSelected
-                            ? 'bg-emerald-600 border-emerald-400 text-white shadow-md shadow-emerald-600/40 scale-105'
-                            : 'bg-slate-800/90 border-slate-700 text-slate-200 hover:border-indigo-500/60 hover:bg-slate-750'
+                            ? 'bg-blue-900 border-blue-900 text-white shadow-xs'
+                            : 'bg-white border-slate-200 text-slate-800 hover:border-blue-900 hover:bg-slate-50'
                         }`}
                       >
-                        <span className="text-sm">{room.room_number}</span>
-                        <span className="text-[9px] uppercase font-sans font-semibold tracking-tighter opacity-80">
+                        <span className="text-xs">{room.room_number}</span>
+                        <span className="text-[9px] uppercase font-sans font-medium opacity-80">
                           {isAlreadyPicked ? 'Added' : isSelected ? 'Selected' : room.sharing_type || `${room.capacity} Bed`}
                         </span>
                       </button>
@@ -1114,27 +1097,27 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                   <button
                     type="button"
                     onClick={handleAddPreference}
-                    className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-emerald-600/30 transition-all flex items-center gap-2"
+                    className="px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white font-semibold text-xs rounded shadow-xs transition-colors flex items-center gap-2"
                   >
-                    <PlusCircle className="w-4 h-4" /> Add Room {selectedRoomId} to Preferences
+                    <PlusCircle className="w-3.5 h-3.5" /> Add Room {selectedRoomId} to Preferences
                   </button>
-                  <span className="text-xs text-slate-400">
-                    Selected: <strong>{selectedRoomId}</strong>
+                  <span className="text-xs text-slate-600">
+                    Selected: <strong className="text-slate-900 font-mono">{selectedRoomId}</strong>
                   </span>
                 </div>
               )}
             </div>
 
             {/* STEP 4: ORDERED PREFERENCE LIST (Choices 1, 2, 3...) */}
-            <div className="pt-4 border-t border-slate-800 space-y-4">
+            <div className="pt-4 border-t border-slate-100 space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                    <BedDouble className="w-4 h-4 text-indigo-400" />
-                    <span>Your Submitted Room Choices ({rankedChoices.length})</span>
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+                    <BedDouble className="w-3.5 h-3.5 text-blue-900" />
+                    <span>Submitted Room Choices ({rankedChoices.length})</span>
                   </h3>
-                  <p className="text-[11px] text-slate-400">
-                    Ordered from highest priority (Choice #1) downwards. JOSAA checks sequentially.
+                  <p className="text-[11px] text-slate-500">
+                    Ordered from Choice #1 downwards. The allocation engine evaluates preferences sequentially.
                   </p>
                 </div>
 
@@ -1142,46 +1125,46 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                   <button
                     onClick={handleLockPreferences}
                     disabled={isSubmitting || rankedChoices.length === 0}
-                    className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs rounded-xl shadow-lg shadow-emerald-600/30 transition-all flex items-center gap-2 disabled:opacity-50"
+                    className="px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs rounded shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50"
                   >
-                    <Lock className="w-4 h-4" /> Freeze & Lock Preferences
+                    <Lock className="w-3.5 h-3.5" /> Freeze &amp; Lock Preferences
                   </button>
                 )}
               </div>
 
               {!isGroupFull && !isGroupLocked && (
-                <div className="p-3.5 bg-amber-950/40 border border-amber-600/50 rounded-xl text-xs text-amber-200 flex items-center gap-2.5">
-                  <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
+                <div className="p-3 bg-slate-50 border border-slate-300 rounded text-xs text-slate-700 flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 text-slate-500 shrink-0" />
                   <span>
-                    Your lobby needs {groupDetails.required_capacity - groupDetails.members.length} more roommate(s) to reach full capacity before you can finalize and lock choices.
+                    Your group needs {groupDetails.required_capacity - groupDetails.members.length} more roommate(s) to reach full capacity before you can finalize and lock choices.
                   </span>
                 </div>
               )}
 
               {rankedChoices.length === 0 ? (
-                <div className="p-6 bg-slate-850/40 rounded-2xl border border-slate-800 text-center text-xs text-slate-400">
-                  No room choices added yet. Use the drill-down buttons above to select and add rooms.
+                <div className="p-5 bg-slate-50 rounded border border-slate-200 text-center text-xs text-slate-500">
+                  No room choices added yet. Use the selection steps above to add room preferences.
                 </div>
               ) : (
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   {rankedChoices.map((roomId, idx) => {
                     const roomInfo = availableRooms.find((r) => r.room_id === roomId);
 
                     return (
                       <div
                         key={roomId}
-                        className="p-3 bg-slate-800/90 border border-slate-700/80 rounded-xl flex items-center justify-between text-xs"
+                        className="p-2.5 bg-slate-50 border border-slate-200 rounded flex items-center justify-between text-xs"
                       >
                         <div className="flex items-center gap-3">
-                          <span className="w-6 h-6 rounded-lg bg-indigo-950 border border-indigo-700/60 text-indigo-300 font-bold flex items-center justify-center text-xs font-mono">
-                            #{idx + 1}
+                          <span className="w-5 h-5 rounded bg-white border border-slate-200 text-blue-900 font-bold flex items-center justify-center text-xs font-mono">
+                            {idx + 1}
                           </span>
                           <div>
-                            <span className="font-bold text-white text-sm">
+                            <span className="font-bold text-slate-900">
                               {roomInfo ? roomInfo.hostel.name : roomId}
                             </span>
-                            <span className="text-slate-400 text-xs ml-2">
-                              Room <strong className="text-indigo-300 font-mono">{roomInfo ? roomInfo.room_number : roomId}</strong>{' '}
+                            <span className="text-slate-500 ml-2">
+                              Room <strong className="text-slate-800 font-mono">{roomInfo ? roomInfo.room_number : roomId}</strong>{' '}
                               ({roomInfo?.floor_label || `Floor ${roomInfo?.floor || 0}`})
                             </span>
                           </div>
@@ -1193,7 +1176,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                               type="button"
                               onClick={() => handleMovePreference(idx, 'up')}
                               disabled={idx === 0}
-                              className="p-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 disabled:opacity-30"
+                              className="p-1 rounded bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 disabled:opacity-30"
                               title="Move Up"
                             >
                               <ArrowUp className="w-3.5 h-3.5" />
@@ -1202,7 +1185,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                               type="button"
                               onClick={() => handleMovePreference(idx, 'down')}
                               disabled={idx === rankedChoices.length - 1}
-                              className="p-1.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 disabled:opacity-30"
+                              className="p-1 rounded bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 disabled:opacity-30"
                               title="Move Down"
                             >
                               <ArrowDown className="w-3.5 h-3.5" />
@@ -1210,7 +1193,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                             <button
                               type="button"
                               onClick={() => handleRemovePreference(idx)}
-                              className="p-1.5 rounded-lg bg-rose-950/60 hover:bg-rose-900 border border-rose-800/60 text-rose-300 ml-1"
+                              className="p-1 rounded bg-white hover:bg-red-50 border border-red-200 text-red-700 ml-1"
                               title="Remove Choice"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
