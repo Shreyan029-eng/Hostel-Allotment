@@ -106,6 +106,9 @@ export default function StudentPage() {
             pathway={portalData.pathway}
             allowedHostels={portalData.allowedHostels}
             availableRooms={portalData.availableRooms}
+            remainingRooms={portalData.remainingRooms || []}
+            assignedRound={portalData.assignedRound || 1}
+            canFillFinalChoices={portalData.canFillFinalChoices || false}
             groupDetails={portalData.groupDetails}
             incomingInvites={portalData.incomingInvites || []}
             roundConfig={portalData.roundConfig}

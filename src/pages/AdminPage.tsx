@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { AdminDashboard } from '@/components/AdminDashboard';
 import { AdminUser } from '@/lib/db/types';
-import { ShieldCheck, Lock, ArrowRight, Building2, QrCode } from 'lucide-react';
+import { ShieldCheck, Lock, ArrowRight, Building2 } from 'lucide-react';
 
 export default function AdminPage() {
+  const navigate = useNavigate();
   const [admin, setAdmin] = useState<AdminUser | null>(null);
   const [adminData, setAdminData] = useState<any | null>(null);
   const [isLoadingAuth, setIsLoadingAuth] = useState<boolean>(true);
@@ -18,6 +19,10 @@ export default function AdminPage() {
       const res = await fetch('/api/auth/admin/me');
       const data = await res.json();
       if (data.authenticated && data.admin) {
+        if (data.admin.role === 'security_officer') {
+          navigate('/admin/gate', { replace: true });
+          return;
+        }
         setAdmin(data.admin);
         setIsInitialLoading(true);
         await loadAdminData();
@@ -71,7 +76,14 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
-      <Navbar currentAdmin={admin} isPublished={adminData?.roundConfig?.is_published || false} />
+      <Navbar
+        currentAdmin={admin}
+        isPublished={adminData?.roundConfig?.is_published || false}
+        onLogout={() => {
+          setAdmin(null);
+          setAdminData(null);
+        }}
+      />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {isLoadingAuth || (isInitialLoading && !adminData) ? (
@@ -132,14 +144,6 @@ export default function AdminPage() {
                   <Building2 className="w-3.5 h-3.5" />
                   <span>Hostel Allotment Admin</span>
                 </div>
-                <Link
-                  to="/admin/gate"
-                  className="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 hover:text-blue-900 border border-slate-200 font-semibold text-xs rounded transition-colors flex items-center gap-1.5 shadow-xs"
-                >
-                  <QrCode className="w-3.5 h-3.5" />
-                  <span>Gate Entry Terminal</span>
-                  <ArrowRight className="w-3 h-3 text-slate-400" />
-                </Link>
               </div>
             </div>
 

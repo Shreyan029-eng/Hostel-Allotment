@@ -12,16 +12,17 @@ import {
   GateLog,
   GroupDetails,
   AllotmentResultDetails,
+  RoomOccupancyReport,
+  AvailableRoomDetail,
+  OccupiedRoomDetail,
 } from './types';
 import { createAdminClient } from '../supabase/admin';
 
 // Helper to determine if real Supabase should be utilized
 function hasSupabaseConfig(): boolean {
-  return Boolean(
-    process.env.NEXT_PUBLIC_SUPABASE_URL &&
-    process.env.SUPABASE_SERVICE_ROLE_KEY &&
-    process.env.NEXT_PUBLIC_SUPABASE_URL !== 'https://placeholder.supabase.co'
-  );
+  const url = process.env.SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SECRET_KEY;
+  return Boolean(url && key && url !== 'https://placeholder.supabase.co');
 }
 
 export class HostelRepository {
@@ -616,6 +617,24 @@ export class HostelRepository {
       }
     }
 
+    // Check if group is already allotted
+    const alreadyAllotted = mockDb.allotments.some((a) => a.group_id === groupId && a.is_active);
+    if (alreadyAllotted) {
+      return { success: false, error: 'This group has already been allotted a room and cannot modify choices.' };
+    }
+
+    // Check choice window timing if rounds are published
+    const roundConfig = mockDb.roundsConfig[0];
+    if (roundConfig?.is_published && roundConfig.choice_filling_end_time) {
+      const choiceEndTime = new Date(roundConfig.choice_filling_end_time).getTime();
+      if (Date.now() > choiceEndTime) {
+        return {
+          success: false,
+          error: `The 30-minute choice modification window has closed. Choices are locked for Round ${roundConfig.round_number + 1} allocation.`,
+        };
+      }
+    }
+
     // Clear old preferences and save new ranked preferences
     mockDb.preferences = mockDb.preferences.filter((p) => p.group_id !== groupId);
     roomIds.forEach((roomId, index) => {
@@ -632,18 +651,54 @@ export class HostelRepository {
     return { success: true };
   }
 
+  static async unlockPreferences(
+    groupId: string,
+    leaderRollNo: string
+  ): Promise<{ success: boolean; error?: string }> {
+    const group = mockDb.groups.find((g) => g.group_id === groupId);
+    if (!group) return { success: false, error: 'Group not found' };
+
+    if (group.leader_roll_no !== leaderRollNo) {
+      return { success: false, error: 'Only the Group Leader can unlock choices' };
+    }
+
+    const alreadyAllotted = mockDb.allotments.some((a) => a.group_id === groupId && a.is_active);
+    if (alreadyAllotted) {
+      return { success: false, error: 'Cannot unlock choices for an already allotted group' };
+    }
+
+    const roundConfig = mockDb.roundsConfig[0];
+    if (roundConfig?.is_published && roundConfig.choice_filling_end_time) {
+      const choiceEndTime = new Date(roundConfig.choice_filling_end_time).getTime();
+      if (Date.now() > choiceEndTime) {
+        return {
+          success: false,
+          error: `The 30-minute choice modification window has closed. Choices are locked for Round ${roundConfig.round_number + 1} allocation.`,
+        };
+      }
+    }
+
+    group.is_locked = false;
+    return { success: true };
+  }
+
   // ===========================================================================
   // ALLOTMENTS & RESULTS
   // ===========================================================================
   static async getStudentAllotment(rollNo: string, isAdmin: boolean = false): Promise<AllotmentResultDetails | null> {
-    const roundConfig = mockDb.roundsConfig.find((r) => r.round_number === 1);
-    // Hide results from students until published by Admin!
-    if (!isAdmin && (!roundConfig || !roundConfig.is_published)) {
+    const roundConfig = mockDb.roundsConfig[0] || { round_number: 1, is_published: false };
+    // Hide results from students until published by Admin
+    if (!isAdmin && !roundConfig.is_published) {
       return null;
     }
 
     const allotment = mockDb.allotments.find((a) => a.roll_no === rollNo && a.is_active);
     if (!allotment) return null;
+
+    // Only reveal allotment to student if its round has been published!
+    if (!isAdmin && allotment.round_number > roundConfig.round_number) {
+      return null;
+    }
 
     const room = mockDb.rooms.find((r) => r.room_id === allotment.room_id)!;
     const hostel = mockDb.hostels.find((h) => h.hostel_id === room.hostel_id)!;
@@ -677,25 +732,195 @@ export class HostelRepository {
       });
   }
 
-  static async getRoundConfig(roundNumber: number = 1): Promise<RoundConfig> {
-    let cfg = mockDb.roundsConfig.find((r) => r.round_number === roundNumber);
+  static async getRoundConfig(_roundNumber: number = 1): Promise<RoundConfig> {
+    let cfg = mockDb.roundsConfig[0];
     if (!cfg) {
       cfg = {
-        round_number: roundNumber,
+        round_number: 1,
         academic_year: '2026-2027',
         is_published: false,
         is_active: true,
+        auto_release_interval_ms: 2 * 60 * 60 * 1000,
+        auto_release_enabled: true,
+        total_rounds: 5,
+        final_round_active: false,
+        final_round_completed: false,
       };
       mockDb.roundsConfig.push(cfg);
     }
     return cfg;
   }
 
-  static async setRoundPublishStatus(roundNumber: number = 1, isPublished: boolean): Promise<RoundConfig> {
-    const cfg = await this.getRoundConfig(roundNumber);
+  static async setRoundPublishStatus(_roundNumber: number = 1, isPublished: boolean): Promise<RoundConfig> {
+    const cfg = await this.getRoundConfig();
+    const choiceWindowMs = 30 * 60 * 1000;
+    const totalCycleMs = 120 * 60 * 1000;
+
     cfg.is_published = isPublished;
     cfg.published_at = isPublished ? new Date().toISOString() : null;
+
+    if (isPublished) {
+      cfg.choice_window_duration_ms = choiceWindowMs;
+      cfg.choice_filling_end_time = new Date(Date.now() + choiceWindowMs).toISOString();
+
+      if (cfg.round_number < 5) {
+        cfg.auto_release_interval_ms = totalCycleMs;
+        cfg.next_release_time = new Date(Date.now() + totalCycleMs).toISOString();
+      } else {
+        cfg.next_release_time = null;
+      }
+
+      // Unlock unallotted groups so students can edit/add choices in this 30-min window
+      const allottedGroupIds = new Set(
+        mockDb.allotments.filter((a) => a.is_active).map((a) => a.group_id).filter(Boolean)
+      );
+      for (const g of mockDb.groups) {
+        if (!allottedGroupIds.has(g.group_id)) {
+          g.is_locked = false;
+        }
+      }
+    } else {
+      cfg.choice_filling_end_time = null;
+      cfg.next_release_time = null;
+    }
     return cfg;
+  }
+
+  static async getRoomOccupancyReport(): Promise<RoomOccupancyReport> {
+    const roundConfig = await this.getRoundConfig();
+    const rooms = mockDb.rooms;
+    const hostels = mockDb.hostels;
+    const activeAllotments = mockDb.allotments.filter((a) => a.is_active);
+
+    const allotmentByRoom = new Map<string, Allotment[]>();
+    activeAllotments.forEach((a) => {
+      const existing = allotmentByRoom.get(a.room_id) || [];
+      existing.push(a);
+      allotmentByRoom.set(a.room_id, existing);
+    });
+
+    const studentMap = new Map<string, Student>();
+    mockDb.students.forEach((s) => studentMap.set(s.roll_no, s));
+
+    const hostelMap = new Map<string, Hostel>();
+    hostels.forEach((h) => hostelMap.set(h.hostel_id, h));
+
+    const available_rooms: AvailableRoomDetail[] = [];
+    const occupied_rooms: OccupiedRoomDetail[] = [];
+
+    for (const room of rooms) {
+      const hostel = hostelMap.get(room.hostel_id);
+      const hostelName = hostel?.name || room.hostel_id;
+      const genderAllowed = hostel?.gender_allowed || 'All';
+      const curfewTime = hostel?.curfew_time;
+      const roomAllotments = allotmentByRoom.get(room.room_id);
+
+      const isOccupied =
+        room.status === 'occupied' ||
+        room.status === 'locked' ||
+        (roomAllotments !== undefined && roomAllotments.length > 0);
+
+      if (isOccupied && roomAllotments && roomAllotments.length > 0) {
+        const occupants = roomAllotments.map((a) => {
+          const s = studentMap.get(a.roll_no);
+          return {
+            roll_no: a.roll_no,
+            name: s?.name || a.roll_no,
+            cgpa: s?.cgpa || 0,
+            round_number: a.round_number,
+            gender: s?.gender || 'Unknown',
+          };
+        });
+
+        occupied_rooms.push({
+          room_id: room.room_id,
+          room_number: room.room_number,
+          floor: room.floor,
+          capacity: room.capacity,
+          hostel_id: room.hostel_id,
+          hostel_name: hostelName,
+          gender_allowed: genderAllowed,
+          round_number: roomAllotments[0]?.round_number,
+          occupants,
+        });
+      } else {
+        available_rooms.push({
+          room_id: room.room_id,
+          room_number: room.room_number,
+          floor: room.floor,
+          capacity: room.capacity,
+          hostel_id: room.hostel_id,
+          hostel_name: hostelName,
+          gender_allowed: genderAllowed,
+          curfew_time: curfewTime,
+        });
+      }
+    }
+
+    available_rooms.sort((a, b) => {
+      if (a.hostel_id !== b.hostel_id) return a.hostel_id.localeCompare(b.hostel_id);
+      return a.room_number.localeCompare(b.room_number, undefined, { numeric: true });
+    });
+
+    occupied_rooms.sort((a, b) => {
+      if (a.hostel_id !== b.hostel_id) return a.hostel_id.localeCompare(b.hostel_id);
+      return a.room_number.localeCompare(b.room_number, undefined, { numeric: true });
+    });
+
+    const totalRooms = rooms.length;
+    const occupiedCount = occupied_rooms.length;
+    const availableCount = available_rooms.length;
+    const occupancyRate = totalRooms > 0 ? Number(((occupiedCount / totalRooms) * 100).toFixed(1)) : 0;
+
+    const by_hostel = hostels.map((h) => {
+      const hRooms = rooms.filter((r) => r.hostel_id === h.hostel_id);
+      const hOccupied = occupied_rooms.filter((r) => r.hostel_id === h.hostel_id);
+      const hAvailable = available_rooms.filter((r) => r.hostel_id === h.hostel_id);
+
+      const tripletsTotal = hRooms.filter((r) => r.capacity === 3).length;
+      const tripletsOccupied = hOccupied.filter((r) => r.capacity === 3).length;
+      const tripletsAvailable = hAvailable.filter((r) => r.capacity === 3).length;
+
+      const fourletsTotal = hRooms.filter((r) => r.capacity === 4).length;
+      const fourletsOccupied = hOccupied.filter((r) => r.capacity === 4).length;
+      const fourletsAvailable = hAvailable.filter((r) => r.capacity === 4).length;
+
+      return {
+        hostel_id: h.hostel_id,
+        hostel_name: h.name,
+        total: hRooms.length,
+        available: hAvailable.length,
+        occupied: hOccupied.length,
+        gender_allowed: h.gender_allowed,
+        triplets_total: tripletsTotal,
+        triplets_available: tripletsAvailable,
+        triplets_occupied: tripletsOccupied,
+        fourlets_total: fourletsTotal,
+        fourlets_available: fourletsAvailable,
+        fourlets_occupied: fourletsOccupied,
+      };
+    });
+
+    return {
+      summary: {
+        total_rooms: totalRooms,
+        available_rooms: availableCount,
+        occupied_rooms: occupiedCount,
+        occupancy_rate: occupancyRate,
+        by_hostel,
+      },
+      available_rooms,
+      occupied_rooms,
+      is_published: Boolean(roundConfig.is_published),
+      round_number: roundConfig.round_number,
+      published_at: roundConfig.published_at,
+      choice_filling_end_time: roundConfig.choice_filling_end_time,
+      next_release_time: roundConfig.next_release_time,
+    };
+  }
+
+  static async getRemainingRooms(allowedHostelIds?: string[], capacity?: number): Promise<(Room & { hostel: Hostel })[]> {
+    return this.getRooms(allowedHostelIds, capacity, 'free');
   }
 
   // ===========================================================================

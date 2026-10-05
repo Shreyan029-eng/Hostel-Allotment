@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { GateScanner } from '@/components/GateScanner';
 import { Student, AdminUser } from '@/lib/db/types';
-import { ShieldCheck, Lock, ArrowRight, Building2, QrCode } from 'lucide-react';
+import { ShieldCheck, Lock, ArrowRight, QrCode } from 'lucide-react';
 
 export default function GatePage() {
+  const navigate = useNavigate();
   const [admin, setAdmin] = useState<AdminUser | null>(null);
   const [students, setStudents] = useState<Student[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -19,6 +20,11 @@ export default function GatePage() {
       if (!authData.authenticated || !authData.admin) {
         setAdmin(null);
         setIsLoading(false);
+        return;
+      }
+
+      if (authData.admin.role !== 'security_officer') {
+        navigate('/admin', { replace: true });
         return;
       }
 
@@ -42,7 +48,12 @@ export default function GatePage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
-      <Navbar />
+      <Navbar
+        currentAdmin={admin}
+        onLogout={() => {
+          setAdmin(null);
+        }}
+      />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {isLoading ? (
@@ -88,16 +99,9 @@ export default function GatePage() {
               </div>
 
               <div className="flex items-center gap-2 w-full sm:w-auto">
-                <Link
-                  to="/admin"
-                  className="px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 hover:text-blue-900 border border-slate-200 font-semibold text-xs rounded transition-colors flex items-center gap-1.5 shadow-xs"
-                >
-                  <Building2 className="w-3.5 h-3.5" />
-                  <span>Hostel Allotment Admin</span>
-                </Link>
                 <div className="px-3 py-1.5 bg-blue-900 text-white font-semibold text-xs rounded flex items-center gap-1.5 shadow-xs">
                   <QrCode className="w-3.5 h-3.5" />
-                  <span>Gate Entry Terminal (Active)</span>
+                  <span>Gate Entry Terminal</span>
                 </div>
               </div>
             </div>

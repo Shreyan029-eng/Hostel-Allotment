@@ -26,6 +26,13 @@ import {
   ChevronsRight,
   Filter,
   Building,
+  Timer,
+  Zap,
+  AlertCircle,
+  Sparkles,
+  RefreshCw,
+  Lock,
+  DoorOpen,
 } from 'lucide-react';
 import { AllotmentRunResult } from '@/lib/engine/allotment-engine';
 
@@ -201,11 +208,72 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
     }
   };
 
-  // Trigger batch room allotment
-  const handleRunAllotment = async () => {
+  // Live countdown timer for the 2-hour auto-release interval
+  const [timeRemaining, setTimeRemaining] = useState<string>('');
+
+  useEffect(() => {
+    if (!roundConfig.is_published || !roundConfig.next_release_time || roundConfig.round_number >= 5) {
+      setTimeRemaining('');
+      return;
+    }
+
+    const updateTimer = () => {
+      const target = new Date(roundConfig.next_release_time!).getTime();
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        setTimeRemaining('Releasing now...');
+        onRefresh();
+      } else {
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+        setTimeRemaining(
+          `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+        );
+      }
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, [roundConfig.next_release_time, roundConfig.is_published, roundConfig.round_number]);
+
+  // Live countdown timer for the 30-minute student choice modification window
+  const [choiceLockRemaining, setChoiceLockRemaining] = useState<string>('');
+  const [isChoiceWindowActive, setIsChoiceWindowActive] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!roundConfig.is_published || !roundConfig.choice_filling_end_time) {
+      setChoiceLockRemaining('');
+      setIsChoiceWindowActive(false);
+      return;
+    }
+
+    const updateChoiceLockTimer = () => {
+      const target = new Date(roundConfig.choice_filling_end_time!).getTime();
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        setChoiceLockRemaining('Choices Locked');
+        setIsChoiceWindowActive(false);
+      } else {
+        setIsChoiceWindowActive(true);
+        const mins = Math.floor(diff / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+        setChoiceLockRemaining(`${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`);
+      }
+    };
+
+    updateChoiceLockTimer();
+    const interval = setInterval(updateChoiceLockTimer, 1000);
+    return () => clearInterval(interval);
+  }, [roundConfig.choice_filling_end_time, roundConfig.is_published]);
+
+  // Publish Next Round Immediately (Bypass 2-hour interval)
+  const handlePublishNextRound = async () => {
+    const nextRound = !roundConfig.is_published ? 1 : Math.min(5, roundConfig.round_number + 1);
     if (
       !confirm(
-        'Execute batch room allocation for Round 1? This will allot available rooms to locked groups in order of merit score.'
+        `Publish Round ${nextRound} immediately? This will calculate and allocate rooms for the Round ${nextRound} merit batch and update student portals.`
       )
     ) {
       return;
@@ -213,23 +281,100 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
     setIsRunningAllotment(true);
     try {
-      const res = await fetch('/api/admin/run-allotment', {
+      const res = await fetch('/api/admin/publish-next-round', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ round_number: 1, academic_year: '2026-2027' }),
+        body: JSON.stringify({ academic_year: roundConfig.academic_year || '2026-2027' }),
       });
       const data = await res.json();
       if (data.success) {
         setLastRunResult(data.result);
         onRefresh();
       } else {
-        alert('Allotment error: ' + data.error);
+        alert('Error: ' + data.error);
       }
     } catch {
-      alert('Network error executing allotment');
+      alert('Network error publishing next round');
     } finally {
       setIsRunningAllotment(false);
     }
+  };
+
+  // Run Final Spot Round (Round 6)
+  const handleRunFinalRound = async () => {
+    if (
+      !confirm(
+        'Execute and publish the Final Spot Round? All remaining free rooms will be allotted to unallotted groups based on their submitted preferences and merit.'
+      )
+    ) {
+      return;
+    }
+
+    setIsRunningAllotment(true);
+    try {
+      const res = await fetch('/api/admin/run-final-round', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ academic_year: roundConfig.academic_year || '2026-2027' }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setLastRunResult(data.result);
+        onRefresh();
+      } else {
+        alert('Error: ' + data.error);
+      }
+    } catch {
+      alert('Network error executing final round');
+    } finally {
+      setIsRunningAllotment(false);
+    }
+  };
+
+  // Reset Allotment Cycle back to initial state
+  const handleResetRounds = async () => {
+    if (
+      !confirm(
+        'Reset all allotment rounds and room allocations back to Round 1 (unpublished)? Groups will be preserved.'
+      )
+    ) {
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/admin/reset-rounds', { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        setLastRunResult(null);
+        onRefresh();
+      } else {
+        alert('Error: ' + data.error);
+      }
+    } catch {
+      alert('Network error resetting rounds');
+    }
+  };
+
+  // Toggle Auto-Release
+  const handleToggleAutoRelease = async (enabled: boolean) => {
+    try {
+      const res = await fetch('/api/admin/toggle-auto-release', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ enabled }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        onRefresh();
+      }
+    } catch {
+      alert('Error updating auto-release setting');
+    }
+  };
+
+  // Trigger batch room allotment
+  const handleRunAllotment = async () => {
+    await handlePublishNextRound();
   };
 
   // Toggle publishing round results
@@ -363,39 +508,6 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          {/* Batch Run Button */}
-          <button
-            onClick={handleRunAllotment}
-            disabled={isRunningAllotment}
-            className="px-3.5 py-2 bg-blue-900 hover:bg-blue-800 text-white text-xs font-semibold rounded shadow-xs flex items-center gap-1.5 transition-colors disabled:opacity-50"
-          >
-            <Play className={`w-3.5 h-3.5 ${isRunningAllotment ? 'animate-spin' : ''}`} />
-            {isRunningAllotment ? 'Executing Batch...' : 'Run Allocation Engine'}
-          </button>
-
-          {/* Publish / Unpublish Toggle */}
-          <button
-            onClick={handleTogglePublish}
-            disabled={isTogglingPublish}
-            className={`px-3.5 py-2 text-xs font-semibold rounded shadow-xs flex items-center gap-1.5 transition-all disabled:opacity-50 border ${
-              roundConfig.is_published
-                ? 'bg-white hover:bg-slate-50 text-slate-700 border-slate-300'
-                : 'bg-blue-900 hover:bg-blue-800 text-white border-blue-900'
-            }`}
-          >
-            {roundConfig.is_published ? (
-              <>
-                <EyeOff className="w-3.5 h-3.5 text-slate-500" />
-                Unpublish Results
-              </>
-            ) : (
-              <>
-                <Eye className="w-3.5 h-3.5" />
-                Publish Round 1 Results
-              </>
-            )}
-          </button>
-
           {/* CSV Export */}
           <a
             href={`/api/admin/export?filter=${filterType}`}
@@ -406,14 +518,223 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
             Export CSV
           </a>
 
-          {/* Reset Demo */}
+          {/* Reset Demo Database */}
           <button
             onClick={handleResetDb}
-            title="Reset database to seed defaults"
-            className="p-2 bg-white hover:bg-slate-50 border border-slate-300 text-slate-500 hover:text-slate-800 rounded transition-colors shadow-xs"
+            title="Reset full database to seed defaults"
+            className="px-3 py-2 bg-white hover:bg-slate-50 border border-slate-300 text-slate-600 hover:text-slate-900 text-xs font-semibold rounded transition-colors shadow-xs flex items-center gap-1.5"
           >
             <RotateCcw className="w-3.5 h-3.5" />
+            Reset Database Seed
           </button>
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* MULTI-ROUND ALLOTMENT & 2-HOUR INTERVAL GOVERNANCE CONSOLE                */}
+      {/* ========================================================================= */}
+      <div className="bg-white border-2 border-blue-900/40 rounded-lg p-5 shadow-xs space-y-5">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-100 pb-4">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 bg-blue-100 text-blue-900 text-[10px] font-bold uppercase rounded">
+                Multi-Stage JOSAA Engine
+              </span>
+              <span className="text-xs text-slate-500 font-mono">
+                {roundConfig.total_rounds || 5} Regular Rounds + 1 Final Spot Round
+              </span>
+            </div>
+            <h2 className="text-lg font-bold text-slate-900 mt-1 flex items-center gap-2">
+              <span>Merit-Quintile Multi-Round Allocation &amp; Automated Release</span>
+            </h2>
+            <p className="text-xs text-slate-600 max-w-2xl mt-0.5">
+              Applicants are partitioned into 5 equal merit quintiles per cohort. Results are automatically published every 2 hours, or immediately upon administrative trigger. Unallotted students enter the Final Spot Round choice filling.
+            </p>
+          </div>
+
+          {/* Live Action Buttons & Countdown */}
+          <div className="flex flex-wrap items-center gap-3">
+            {/* Auto-Release Interval Badge / Countdown */}
+            {roundConfig.is_published && roundConfig.round_number < 5 && (
+              <div className="px-3.5 py-2 bg-amber-50 border border-amber-300 rounded text-amber-900 flex items-center gap-2 shadow-xs">
+                <Timer className="w-4 h-4 text-amber-600 animate-pulse" />
+                <div className="text-xs">
+                  <span className="font-semibold block text-[10px] uppercase tracking-wider text-amber-800">
+                    Auto-Release Round {roundConfig.round_number + 1} In:
+                  </span>
+                  <span className="font-mono font-bold text-sm text-amber-950">
+                    {timeRemaining || 'Calculating...'}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Action Trigger Buttons */}
+            {!roundConfig.is_published ? (
+              <button
+                onClick={handlePublishNextRound}
+                disabled={isRunningAllotment}
+                className="px-4 py-2.5 bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs rounded shadow-xs flex items-center gap-2 transition-all disabled:opacity-50"
+              >
+                <Play className={`w-4 h-4 ${isRunningAllotment ? 'animate-spin' : ''}`} />
+                {isRunningAllotment ? 'Calculating Round 1...' : 'Start & Publish Round 1 (Top 20%)'}
+              </button>
+            ) : roundConfig.round_number < 5 ? (
+              isChoiceWindowActive ? (
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="px-3.5 py-2 bg-amber-50 border border-amber-300 rounded text-amber-950 flex items-center gap-2 shadow-xs">
+                    <Clock className="w-4 h-4 text-amber-700 animate-pulse" />
+                    <div className="text-xs">
+                      <span className="font-semibold block text-[10px] uppercase tracking-wider text-amber-800">
+                        Student Choice Window Active:
+                      </span>
+                      <span className="font-mono font-bold text-xs text-amber-950">
+                        Choices Lock in: {choiceLockRemaining || '30:00'} (Early Publish Blocked)
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    disabled={true}
+                    title="Admins cannot publish next round during the 30-minute student choice modification window. Early publish will unlock once choices lock."
+                    className="px-4 py-2.5 bg-slate-200 border border-slate-300 text-slate-500 font-bold text-xs rounded shadow-xs flex items-center gap-2 cursor-not-allowed opacity-75"
+                  >
+                    <Lock className="w-4 h-4 text-slate-500" />
+                    Publish Round {roundConfig.round_number + 1} Locked ({choiceLockRemaining})
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={handlePublishNextRound}
+                  disabled={isRunningAllotment}
+                  className="px-4 py-2.5 bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs rounded shadow-xs flex items-center gap-2 transition-all disabled:opacity-50"
+                  title="30-minute student choice window has ended. You can override the remaining 1h 30m timer and release Round next round now."
+                >
+                  <Zap className={`w-4 h-4 text-amber-300 ${isRunningAllotment ? 'animate-spin' : ''}`} />
+                  {isRunningAllotment
+                    ? `Calculating Round ${roundConfig.round_number + 1}...`
+                    : `Publish Round ${roundConfig.round_number + 1} Early (Override 1h 30m Timer)`}
+                </button>
+              )
+            ) : roundConfig.final_round_active ? (
+              <button
+                onClick={handleRunFinalRound}
+                disabled={isRunningAllotment}
+                className="px-4 py-2.5 bg-emerald-800 hover:bg-emerald-700 text-white font-bold text-xs rounded shadow-xs flex items-center gap-2 transition-all disabled:opacity-50"
+              >
+                <Sparkles className={`w-4 h-4 ${isRunningAllotment ? 'animate-spin' : ''}`} />
+                {isRunningAllotment ? 'Executing Spot Round...' : 'Execute & Publish Final Spot Round'}
+              </button>
+            ) : roundConfig.final_round_completed ? (
+              <div className="px-3.5 py-2 bg-emerald-50 border border-emerald-300 rounded text-emerald-800 text-xs font-bold flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                Allotment Process Completed
+              </div>
+            ) : null}
+
+            {/* Reset Allotment Cycle */}
+            <button
+              onClick={handleResetRounds}
+              title="Reset all allotment rounds and room assignments"
+              className="px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 text-xs font-semibold rounded flex items-center gap-1.5 transition-colors shadow-xs"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              Reset Rounds
+            </button>
+          </div>
+        </div>
+
+        {/* 6-STEP MULTI-ROUND VISUAL PROGRESSION */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+          {[
+            { round: 1, title: 'Round 1', bracket: 'Top 20% Merit' },
+            { round: 2, title: 'Round 2', bracket: '20% – 40% Merit' },
+            { round: 3, title: 'Round 3', bracket: '40% – 60% Merit' },
+            { round: 4, title: 'Round 4', bracket: '60% – 80% Merit' },
+            { round: 5, title: 'Round 5', bracket: '80% – 100% Merit' },
+            { round: 6, title: 'Final Round', bracket: 'Spot Round (Vacant Rooms)' },
+          ].map((item) => {
+            const isCompleted =
+              item.round < roundConfig.round_number ||
+              (item.round === roundConfig.round_number && roundConfig.is_published) ||
+              (item.round === 6 && roundConfig.final_round_completed);
+
+            const isNextToRelease =
+              roundConfig.is_published &&
+              roundConfig.round_number < 5 &&
+              item.round === roundConfig.round_number + 1;
+
+            const isFinalRoundActive =
+              item.round === 6 && roundConfig.final_round_active && !roundConfig.final_round_completed;
+
+            return (
+              <div
+                key={item.round}
+                className={`p-3.5 rounded border transition-all flex flex-col justify-between ${
+                  isCompleted
+                    ? 'bg-emerald-50/70 border-emerald-300 text-emerald-950'
+                    : isNextToRelease
+                    ? 'bg-blue-50/80 border-blue-400 text-blue-950 ring-2 ring-blue-300/60 shadow-xs'
+                    : isFinalRoundActive
+                    ? 'bg-amber-50 border-amber-400 text-amber-950 ring-2 ring-amber-300/60 shadow-xs'
+                    : 'bg-slate-50 border-slate-200 text-slate-500'
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider">{item.title}</span>
+                    {isCompleted ? (
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    ) : isNextToRelease ? (
+                      <Timer className="w-4 h-4 text-blue-700 animate-pulse" />
+                    ) : isFinalRoundActive ? (
+                      <Sparkles className="w-4 h-4 text-amber-600 animate-bounce" />
+                    ) : (
+                      <Clock className="w-4 h-4 text-slate-400" />
+                    )}
+                  </div>
+                  <div className="text-[11px] font-medium mt-1 opacity-90">{item.bracket}</div>
+                </div>
+
+                <div className="mt-3 pt-2 border-t border-black/5 flex items-center justify-between text-[11px] font-semibold">
+                  {isCompleted ? (
+                    <span className="text-emerald-800">Declared &amp; Published</span>
+                  ) : isNextToRelease ? (
+                    <span className="text-blue-900 font-mono">{timeRemaining || 'Releasing Next'}</span>
+                  ) : isFinalRoundActive ? (
+                    <span className="text-amber-800 font-bold">Choice Filling Open</span>
+                  ) : (
+                    <span className="text-slate-400">Scheduled</span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Auto-Release Settings Bar */}
+        <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-600 border-t border-slate-100">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-slate-800">Automated Release Cycle:</span>
+            <span>2 Hours per Quintile</span>
+            <span className="text-slate-300">•</span>
+            <label className="inline-flex items-center gap-1.5 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={roundConfig.auto_release_enabled ?? true}
+                onChange={(e) => handleToggleAutoRelease(e.target.checked)}
+                className="w-3.5 h-3.5 text-blue-900 rounded border-slate-300"
+              />
+              <span className="text-slate-700">Auto-release background scheduler active</span>
+            </label>
+          </div>
+
+          <div className="text-[11px] text-slate-500 font-mono">
+            {roundConfig.published_at ? (
+              <span>Last Published: {new Date(roundConfig.published_at).toLocaleTimeString()}</span>
+            ) : (
+              <span>Cycle Not Yet Initialized</span>
+            )}
+          </div>
         </div>
       </div>
 
@@ -737,6 +1058,53 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
       {/* TAB 2: ROOMS & HOSTELS MATRIX */}
       {activeTab === 'rooms' && (
         <div className="space-y-4">
+          {/* Top Campus Occupancy & Vacancy KPI Row */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-xs">
+              <span className="text-[11px] font-bold text-slate-500 uppercase block">Total Campus Rooms</span>
+              <div className="flex items-center justify-between mt-1">
+                <span className="text-2xl font-black text-slate-900 font-mono">{rooms.length}</span>
+                <span className="text-xs text-slate-400 font-medium">17 Hostels</span>
+              </div>
+            </div>
+
+            <div className="bg-emerald-50/70 border border-emerald-300 rounded-lg p-4 shadow-xs">
+              <span className="text-[11px] font-bold text-emerald-800 uppercase block">Available Rooms Left</span>
+              <div className="flex items-center justify-between mt-1">
+                <span className="text-2xl font-black text-emerald-950 font-mono">
+                  {rooms.filter((r) => r.status === 'free').length}
+                </span>
+                <span className="px-2 py-0.5 bg-emerald-200/80 text-emerald-900 text-[10px] font-bold rounded">
+                  Vacant
+                </span>
+              </div>
+            </div>
+
+            <div className="bg-blue-50/70 border border-blue-200 rounded-lg p-4 shadow-xs">
+              <span className="text-[11px] font-bold text-blue-900 uppercase block">Occupied / Allotted</span>
+              <div className="flex items-center justify-between mt-1">
+                <span className="text-2xl font-black text-blue-950 font-mono">
+                  {rooms.filter((r) => r.status === 'locked' || r.status === 'occupied').length}
+                </span>
+                <span className="px-2 py-0.5 bg-blue-200 text-blue-900 text-[10px] font-bold rounded">
+                  Allotted
+                </span>
+              </div>
+            </div>
+
+            <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-xs">
+              <span className="text-[11px] font-bold text-slate-500 uppercase block">Occupancy Rate</span>
+              <div className="flex items-center justify-between mt-1">
+                <span className="text-2xl font-black text-slate-900 font-mono">
+                  {rooms.length > 0
+                    ? ((rooms.filter((r) => r.status === 'locked' || r.status === 'occupied').length / rooms.length) * 100).toFixed(1)
+                    : 0}%
+                </span>
+                <span className="text-xs text-slate-500 font-mono">Campus wide</span>
+              </div>
+            </div>
+          </div>
+
           {/* Hostel Filters Strip */}
           <div className="bg-white border border-slate-200 rounded-lg p-4 shadow-xs flex flex-wrap items-center justify-between gap-3">
             <div className="flex flex-wrap items-center gap-1.5">
@@ -780,18 +1148,22 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                       : 'text-slate-600 hover:bg-slate-100 border border-slate-200'
                   }`}
                 >
-                  {status === 'locked' ? 'Allotted' : status}
+                  {status === 'locked' ? 'Occupied' : status === 'free' ? 'Available' : 'All'}
                 </button>
               ))}
             </div>
           </div>
 
           {filteredHostels.map((hostel) => {
-            let hostelRooms = rooms.filter((r) => r.hostel_id === hostel.hostel_id);
+            const allHostelRooms = rooms.filter((r) => r.hostel_id === hostel.hostel_id);
+            const freeHostelRooms = allHostelRooms.filter((r) => r.status === 'free');
+            const occupiedHostelRooms = allHostelRooms.filter((r) => r.status === 'locked' || r.status === 'occupied');
+
+            let hostelRooms = allHostelRooms;
             if (roomStatusFilter === 'free') {
-              hostelRooms = hostelRooms.filter((r) => r.status === 'free');
+              hostelRooms = freeHostelRooms;
             } else if (roomStatusFilter === 'locked') {
-              hostelRooms = hostelRooms.filter((r) => r.status === 'locked');
+              hostelRooms = occupiedHostelRooms;
             }
 
             return (
@@ -799,18 +1171,21 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
                 key={hostel.hostel_id}
                 className="bg-white border border-slate-200 rounded-lg p-5 shadow-xs space-y-3"
               >
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
                   <div>
                     <h3 className="text-sm font-bold text-slate-900">{hostel.name}</h3>
                     <p className="text-xs text-slate-500 mt-0.5">
-                      Allowed: {hostel.gender_allowed} • Warden: {hostel.warden_name} ({hostel.warden_phone})
+                      Allowed: {hostel.gender_allowed} • Warden: {hostel.warden_name}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-600 font-mono">
-                      Showing {hostelRooms.length} rooms
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                      {freeHostelRooms.length} Available Left
                     </span>
-                    <span className="text-xs text-slate-700 font-mono font-semibold bg-slate-50 px-2 py-1 rounded border border-slate-200">
+                    <span className="text-xs font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded border border-slate-300">
+                      {occupiedHostelRooms.length} Occupied
+                    </span>
+                    <span className="text-xs text-slate-600 font-mono font-medium bg-slate-50 px-2 py-0.5 rounded border border-slate-200">
                       Curfew: {hostel.curfew_time}
                     </span>
                   </div>
@@ -818,25 +1193,29 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
                   {hostelRooms.map((room) => {
-                    const isLocked = room.status === 'locked';
-                    const occupants = allotments
-                      .filter((a) => a.room_id === room.room_id)
-                      .map((a) => a.student?.name)
+                    const isOccupied = room.status === 'locked' || room.status === 'occupied';
+                    const roomAllotments = allotments.filter((a) => a.room_id === room.room_id);
+                    const occupants = roomAllotments
+                      .map((a) => a.student?.name || a.roll_no)
                       .filter(Boolean);
 
                     return (
                       <div
                         key={room.room_id}
                         className={`p-2 rounded border text-center transition-all ${
-                          isLocked
-                            ? 'bg-slate-100 border-slate-300 text-slate-800'
-                            : 'bg-white border-slate-200 text-slate-800 hover:border-blue-900'
+                          isOccupied
+                            ? 'bg-blue-50/70 border-blue-200 text-blue-950'
+                            : 'bg-emerald-50/40 border-emerald-300 text-emerald-950 hover:border-emerald-600'
                         }`}
-                        title={isLocked ? `Occupants: ${occupants.join(', ')}` : 'Vacant'}
+                        title={isOccupied ? `Occupants: ${occupants.join(', ')} (Round ${roomAllotments[0]?.round_number || 1})` : 'Available Room'}
                       >
                         <div className="text-xs font-bold font-mono">Room {room.room_number}</div>
-                        <div className="text-[10px] text-slate-500 mt-0.5">
-                          {room.capacity} Bed • {isLocked ? 'Allotted' : 'Free'}
+                        <div className="text-[10px] mt-0.5 font-medium flex items-center justify-center gap-1">
+                          <span>{room.capacity} Bed</span>
+                          <span>•</span>
+                          <span className={`font-bold ${isOccupied ? 'text-blue-800' : 'text-emerald-700'}`}>
+                            {isOccupied ? `Occupied (${occupants.length})` : 'Vacant'}
+                          </span>
                         </div>
                       </div>
                     );

@@ -5,9 +5,12 @@ import { HostelRepository } from '../src/lib/db/repository';
 import { mockDb, getStudentHostelPathway } from '../src/lib/db/mock-store';
 import { gateDb } from '../src/lib/db/gate-db';
 import { JosaaAllotmentEngine } from '../src/lib/engine/allotment-engine';
+import { createAdminClient } from '../src/lib/supabase/admin';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const STUDENT_EMAIL_REGEX = /^[0-9]{2}[a-z]{3}[0-9]{3}@\.?nith\.ac\.in$/i;
+const ADMIN_EMAIL_REGEX = /@\.?nith\.ac\.in$/i;
 
 app.use(
   cors({
@@ -19,20 +22,96 @@ app.use(express.json());
 app.use(cookieParser());
 
 // --------------------------------------------------------------------------
+// Multi-Round Automated 2-Hour Release Engine
+// --------------------------------------------------------------------------
+async function checkAutoAdvanceRound() {
+  try {
+    const config = mockDb.roundsConfig[0];
+    if (!config || !config.is_published) return;
+
+    // Check if 30-minute choice modification window has expired
+    if (config.choice_filling_end_time) {
+      const choiceEndTime = new Date(config.choice_filling_end_time).getTime();
+      if (Date.now() >= choiceEndTime) {
+        // Auto-lock all unallotted groups who have submitted preferences
+        const allottedGroupIds = new Set(
+          mockDb.allotments.filter((a) => a.is_active).map((a) => a.group_id).filter(Boolean)
+        );
+        for (const g of mockDb.groups) {
+          if (!allottedGroupIds.has(g.group_id)) {
+            const hasPrefs = mockDb.preferences.some((p) => p.group_id === g.group_id);
+            if (hasPrefs) {
+              g.is_locked = true;
+            }
+          }
+        }
+      }
+    }
+
+    if (!config.auto_release_enabled || !config.next_release_time) return;
+
+    const releaseTime = new Date(config.next_release_time).getTime();
+    if (Date.now() >= releaseTime) {
+      if (config.round_number < 5) {
+        console.log(`[AUTO-RELEASE] 2-Hour Interval reached: Auto-publishing Round ${config.round_number + 1}...`);
+        await JosaaAllotmentEngine.advanceToNextRound(config.academic_year);
+      } else if (config.round_number === 5 && !config.final_round_active && !config.final_round_completed) {
+        console.log(`[AUTO-RELEASE] Round 5 concluded: Activating Final Spot Round for remaining unallotted students.`);
+        config.final_round_active = true;
+        config.next_release_time = null;
+      }
+    }
+  } catch (err) {
+    console.error('[AUTO-RELEASE] Round auto-advance check error:', err);
+  }
+}
+
+// Background poll every 10 seconds for timely auto-release
+setInterval(checkAutoAdvanceRound, 10000);
+
+// --------------------------------------------------------------------------
 // Public Portal Status (Round publication state for homepage & banners)
 // --------------------------------------------------------------------------
 app.get('/api/public/status', async (_req: Request, res: Response) => {
   try {
+    await checkAutoAdvanceRound();
     const roundConfig = await HostelRepository.getRoundConfig(1);
+    const roomReport = await HostelRepository.getRoomOccupancyReport();
+
     return res.json({
       success: true,
       is_published: Boolean(roundConfig.is_published),
       round_number: roundConfig.round_number,
+      total_rounds: roundConfig.total_rounds || 5,
       academic_year: roundConfig.academic_year,
       published_at: roundConfig.published_at,
+      choice_filling_end_time: roundConfig.choice_filling_end_time,
+      choice_window_duration_ms: roundConfig.choice_window_duration_ms,
+      next_release_time: roundConfig.next_release_time,
+      auto_release_enabled: Boolean(roundConfig.auto_release_enabled),
+      final_round_active: Boolean(roundConfig.final_round_active),
+      final_round_completed: Boolean(roundConfig.final_round_completed),
+      room_summary: roomReport.summary,
     });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Status error';
+    return res.status(500).json({ success: false, error: message });
+  }
+});
+
+// --------------------------------------------------------------------------
+// Public Room Occupancy (Available Rooms Left vs Occupied Rooms with occupants)
+// --------------------------------------------------------------------------
+app.get('/api/public/room-occupancy', async (_req: Request, res: Response) => {
+  try {
+    await checkAutoAdvanceRound();
+    const report = await HostelRepository.getRoomOccupancyReport();
+    return res.json({
+      success: true,
+      ...report,
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Error fetching room occupancy';
     return res.status(500).json({ success: false, error: message });
   }
 });
@@ -44,7 +123,23 @@ app.get('/api/public/status', async (_req: Request, res: Response) => {
 // GET /api/auth/me
 app.get('/api/auth/me', async (req: Request, res: Response) => {
   try {
-    const studentRoll = req.cookies.student_session || req.cookies.student_roll;
+    let studentRoll = req.cookies.student_session || req.cookies.student_roll;
+
+    // Check Bearer token from Supabase OAuth session if present
+    if (!studentRoll && req.headers.authorization?.startsWith('Bearer ')) {
+      const token = req.headers.authorization.split(' ')[1];
+      const adminClient = createAdminClient();
+      if (adminClient) {
+        const { data } = await adminClient.auth.getUser(token);
+        if (data?.user?.email && STUDENT_EMAIL_REGEX.test(data.user.email)) {
+          const student = await HostelRepository.getStudentByCollegeId(data.user.email);
+          if (student) {
+            return res.json({ authenticated: true, student });
+          }
+        }
+      }
+    }
+
     if (!studentRoll) {
       return res.json({ authenticated: false, student: null });
     }
@@ -56,6 +151,214 @@ app.get('/api/auth/me', async (req: Request, res: Response) => {
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Auth verification error';
     return res.status(500).json({ authenticated: false, error: message });
+  }
+});
+
+// POST /api/auth/google-session (Student Portal)
+app.post('/api/auth/google-session', async (req: Request, res: Response) => {
+  try {
+    const { email, access_token } = req.body;
+    if (!email || typeof email !== 'string') {
+      return res.status(400).json({ success: false, error: 'Email is required' });
+    }
+
+    const cleanEmail = email.trim().toLowerCase();
+
+    // Enforce student regex: ^[0-9]{2}[a-z]{3}[0-9]{3}@.nith.ac.in$
+    if (!STUDENT_EMAIL_REGEX.test(cleanEmail)) {
+      return res.status(403).json({
+        success: false,
+        error: 'Access denied: Student email must be in the format roll_number@nith.ac.in',
+      });
+    }
+
+    // Verify token with Supabase if provided
+    if (access_token) {
+      const adminClient = createAdminClient();
+      if (adminClient) {
+        const { data: userData } = await adminClient.auth.getUser(access_token);
+        if (userData?.user?.email) {
+          const verifiedEmail = userData.user.email.toLowerCase();
+          if (!STUDENT_EMAIL_REGEX.test(verifiedEmail)) {
+            return res.status(403).json({
+              success: false,
+              error: 'Access denied: Student email must be in the format roll_number@nith.ac.in',
+            });
+          }
+        }
+      }
+    }
+
+    let student = await HostelRepository.getStudentByCollegeId(cleanEmail);
+
+    if (!student) {
+      const rollMatch = cleanEmail.match(/^([0-9]{2})([a-z]{3})([0-9]{3})/i);
+      if (rollMatch) {
+        const batchYear = parseInt(rollMatch[1], 10);
+        const rollNo = `${rollMatch[1]}${rollMatch[2]}${rollMatch[3]}`.toUpperCase();
+        const year = batchYear === 25 ? 2 : batchYear === 24 ? 3 : batchYear === 23 ? 4 : 2;
+        const newStudent = {
+          roll_no: rollNo,
+          name: rollNo,
+          email: cleanEmail,
+          gender: 'Male' as const,
+          year,
+          cgpa: 8.0,
+          phone: '+91 9800000000',
+          guardian_contact: 'GUARDIAN (+91 9400000000)',
+          barcode_id: `BARCODE-${rollNo}`,
+          is_active: true,
+        };
+
+        const adminClient = createAdminClient();
+        if (adminClient) {
+          await adminClient.from('students').upsert(newStudent);
+        }
+        mockDb.students.push(newStudent);
+        student = newStudent;
+      }
+    }
+
+    if (!student) {
+      return res.status(404).json({
+        success: false,
+        error: 'Access denied: Student record not found. Expected format: roll_number@nith.ac.in',
+      });
+    }
+
+    const cookieOptions = {
+      httpOnly: true,
+      sameSite: 'lax' as const,
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    };
+
+    res.cookie('student_session', student.roll_no, cookieOptions);
+    res.cookie('student_roll', student.roll_no, cookieOptions);
+
+    return res.json({
+      success: true,
+      message: `Welcome back, ${student.name}!`,
+      student,
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Google session failed';
+    return res.status(500).json({ success: false, error: message });
+  }
+});
+
+// POST /api/auth/google-admin-session (Admin Portal)
+// Checks for "@nith.ac.in" and does NOT require any roll number
+app.post('/api/auth/google-admin-session', async (req: Request, res: Response) => {
+  try {
+    const { email, access_token } = req.body;
+    if (!email || typeof email !== 'string') {
+      return res.status(400).json({ success: false, error: 'Email is required' });
+    }
+
+    const cleanEmail = email.trim().toLowerCase();
+
+    // Check for @nith.ac.in (no roll number required)
+    if (!ADMIN_EMAIL_REGEX.test(cleanEmail)) {
+      return res.status(403).json({
+        success: false,
+        error: 'Access denied: Admin email must end with @nith.ac.in',
+      });
+    }
+
+    // Verify token with Supabase if provided
+    if (access_token) {
+      const adminClient = createAdminClient();
+      if (adminClient) {
+        const { data: userData } = await adminClient.auth.getUser(access_token);
+        if (userData?.user?.email) {
+          const verifiedEmail = userData.user.email.toLowerCase();
+          if (!ADMIN_EMAIL_REGEX.test(verifiedEmail)) {
+            return res.status(403).json({
+              success: false,
+              error: 'Access denied: Admin email must end with @nith.ac.in',
+            });
+          }
+        }
+      }
+    }
+
+    // Lookup admin in gateDb
+    let admin = gateDb.admins.find((a) => a.email.toLowerCase() === cleanEmail);
+
+    if (!admin) {
+      // Lookup in Supabase gate_admins
+      const adminClient = createAdminClient();
+      if (adminClient) {
+        const { data } = await adminClient
+          .from('gate_admins')
+          .select('*')
+          .ilike('email', cleanEmail)
+          .single();
+        if (data) {
+          admin = data;
+        }
+      }
+    }
+
+    // If official @nith.ac.in email is logging in as admin, provision role
+    if (!admin) {
+      const adminId = `ADMIN-${Date.now().toString(36).toUpperCase()}`;
+      const prefix = cleanEmail.split('@')[0];
+      const isSecurity = prefix.includes('security');
+      const isChief = prefix.includes('admin') || prefix.includes('chief') || prefix.includes('dean');
+      const role = isChief ? 'super_admin' : isSecurity ? 'security_officer' : 'warden';
+      const formattedName = prefix
+        .split(/[._]/)
+        .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+        .join(' ');
+
+      const newAdmin = {
+        admin_id: adminId,
+        name: formattedName || 'Institute Administrator',
+        email: cleanEmail,
+        role: role as 'super_admin' | 'warden' | 'security_officer',
+        designation: isChief ? 'Dean & Chief Warden' : isSecurity ? 'Campus Security Officer' : 'Hostel Warden',
+        assigned_hostel: isSecurity ? null : 'HBH',
+        password: '',
+      };
+
+      gateDb.admins.push(newAdmin);
+      const adminClient = createAdminClient();
+      if (adminClient) {
+        await adminClient.from('gate_admins').insert({
+          admin_id: newAdmin.admin_id,
+          name: newAdmin.name,
+          email: newAdmin.email,
+          password_hash: 'google_oauth',
+          role: newAdmin.role,
+          designation: newAdmin.designation,
+          assigned_hostel: newAdmin.assigned_hostel,
+          is_active: true,
+        });
+      }
+      admin = newAdmin;
+    }
+
+    const { password, ...safeAdmin } = admin as any;
+
+    const cookieOptions = {
+      httpOnly: true,
+      sameSite: 'lax' as const,
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    };
+
+    res.cookie('admin_session', safeAdmin.admin_id, cookieOptions);
+
+    return res.json({
+      success: true,
+      message: `Welcome, ${safeAdmin.name}!`,
+      admin: safeAdmin,
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Google admin session failed';
+    return res.status(500).json({ success: false, error: message });
   }
 });
 
@@ -249,6 +552,7 @@ app.post('/api/auth/admin/logout', (_req: Request, res: Response) => {
 // GET /api/admin/data (Supports pagination: page, limit, offset, search, filter, tab, log_page, log_limit)
 app.get('/api/admin/data', async (req: Request, res: Response) => {
   try {
+    await checkAutoAdvanceRound();
     const students = await HostelRepository.getStudents();
     const hostels = await HostelRepository.getHostels();
     const rooms = await HostelRepository.getRooms();
@@ -413,6 +717,97 @@ app.post('/api/admin/publish', async (req: Request, res: Response) => {
   }
 });
 
+// POST /api/admin/publish-next-round (Immediate admin trigger to release next round)
+app.post('/api/admin/publish-next-round', async (req: Request, res: Response) => {
+  try {
+    const currentConfig = await HostelRepository.getRoundConfig(1);
+
+    // Rule: Admins cannot immediately publish during the 30-minute choice modification window
+    if (currentConfig.is_published && currentConfig.choice_filling_end_time) {
+      const lockTime = new Date(currentConfig.choice_filling_end_time).getTime();
+      if (Date.now() < lockTime) {
+        const remainingSeconds = Math.ceil((lockTime - Date.now()) / 1000);
+        const remainingMinutes = Math.ceil(remainingSeconds / 60);
+        return res.status(403).json({
+          success: false,
+          error: `Choice filling is currently active! Students have 30 minutes to modify or add choices following round publication. Early publishing is locked for another ${remainingMinutes}m (${remainingSeconds}s remaining).`,
+          remaining_seconds: remainingSeconds,
+          choice_filling_end_time: currentConfig.choice_filling_end_time,
+        });
+      }
+    }
+
+    const academicYear = req.body.academic_year || '2026-2027';
+    const result = await JosaaAllotmentEngine.advanceToNextRound(academicYear);
+    const config = await HostelRepository.getRoundConfig(result.roundNumber);
+    return res.json({
+      success: true,
+      message: `Round ${result.roundNumber === 6 ? 'FINAL (Spot Round)' : result.roundNumber} published successfully!`,
+      config,
+      result,
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Error publishing next round';
+    return res.status(500).json({ success: false, error: message });
+  }
+});
+
+// POST /api/admin/run-final-round (Execute Final Spot Round after choice filling)
+app.post('/api/admin/run-final-round', async (req: Request, res: Response) => {
+  try {
+    const academicYear = req.body.academic_year || '2026-2027';
+    const result = await JosaaAllotmentEngine.runFinalRound(academicYear);
+    const config = await HostelRepository.getRoundConfig(6);
+    return res.json({
+      success: true,
+      message: 'Final Spot Round has been executed and published for all unallotted groups.',
+      config,
+      result,
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Error executing final spot round';
+    return res.status(500).json({ success: false, error: message });
+  }
+});
+
+// POST /api/admin/reset-rounds (Full reset of rounds and room allocations)
+app.post('/api/admin/reset-rounds', (_req: Request, res: Response) => {
+  try {
+    JosaaAllotmentEngine.resetAllRounds();
+    return res.json({
+      success: true,
+      message: 'Allotment rounds and room occupancy have been reset to Round 1 (unpublished).',
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Reset error';
+    return res.status(500).json({ success: false, error: message });
+  }
+});
+
+// POST /api/admin/toggle-auto-release (Configure auto-release schedule & timer)
+app.post('/api/admin/toggle-auto-release', async (req: Request, res: Response) => {
+  try {
+    const config = await HostelRepository.getRoundConfig(1);
+    if (typeof req.body.enabled === 'boolean') {
+      config.auto_release_enabled = req.body.enabled;
+    }
+    if (typeof req.body.interval_ms === 'number' && req.body.interval_ms > 0) {
+      config.auto_release_interval_ms = req.body.interval_ms;
+      if (config.is_published && config.round_number < 5) {
+        config.next_release_time = new Date(Date.now() + config.auto_release_interval_ms).toISOString();
+      }
+    }
+    return res.json({
+      success: true,
+      message: `Auto-release updated (Enabled: ${config.auto_release_enabled}, Interval: ${Math.round((config.auto_release_interval_ms || 7200000) / 60000)} mins)`,
+      config,
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Error configuring auto-release';
+    return res.status(500).json({ success: false, error: message });
+  }
+});
+
 // POST /api/admin/run-allotment
 app.post('/api/admin/run-allotment', async (req: Request, res: Response) => {
   try {
@@ -515,6 +910,8 @@ app.get('/api/admin/export', async (req: Request, res: Response) => {
 // GET /api/student/me
 app.get('/api/student/me', async (req: Request, res: Response) => {
   try {
+    await checkAutoAdvanceRound();
+
     let rollNo = req.query.roll_no as string;
     if (!rollNo) {
       rollNo = req.cookies.student_session || req.cookies.student_roll;
@@ -540,6 +937,15 @@ app.get('/api/student/me', async (req: Request, res: Response) => {
     const roundConfig = await HostelRepository.getRoundConfig(1);
     const allotment = await HostelRepository.getStudentAllotment(student.roll_no, false);
 
+    const assignedRound = groupDetails ? JosaaAllotmentEngine.getGroupAssignedRound(groupDetails.group_id) : 1;
+    let remainingRooms: (Room & { hostel: Hostel })[] = [];
+    if (roundConfig.final_round_active) {
+      remainingRooms = await HostelRepository.getRemainingRooms(
+        allowedHostelIds,
+        groupDetails?.required_capacity
+      );
+    }
+
     return res.json({
       student: {
         ...student,
@@ -548,10 +954,13 @@ app.get('/api/student/me', async (req: Request, res: Response) => {
       pathway,
       allowedHostels,
       availableRooms,
+      remainingRooms,
       groupDetails,
       incomingInvites,
       roundConfig,
       allotment,
+      assignedRound,
+      canFillFinalChoices: Boolean(roundConfig.final_round_active && !allotment && groupDetails),
     });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Error fetching student data';
@@ -864,6 +1273,32 @@ app.post('/api/group/preferences', async (req: Request, res: Response) => {
     });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : 'Failed to submit preferences';
+    return res.status(500).json({ success: false, error: message });
+  }
+});
+
+// POST /api/group/unlock
+app.post('/api/group/unlock', async (req: Request, res: Response) => {
+  try {
+    const { group_id, leader_roll_no } = req.body;
+    if (!group_id || !leader_roll_no) {
+      return res.status(400).json({
+        success: false,
+        error: 'group_id and leader_roll_no are required',
+      });
+    }
+
+    const result = await HostelRepository.unlockPreferences(group_id, leader_roll_no);
+    if (!result.success) {
+      return res.status(400).json({ success: false, error: result.error });
+    }
+
+    return res.json({
+      success: true,
+      message: 'Preferences unlocked! You can now modify and re-lock your preferences.',
+    });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Failed to unlock preferences';
     return res.status(500).json({ success: false, error: message });
   }
 });

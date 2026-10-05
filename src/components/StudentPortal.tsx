@@ -7,12 +7,14 @@ import {
   RoundConfig,
   AllotmentResultDetails,
   GroupInvite,
+  RoomOccupancyReport,
 } from '@/lib/db/types';
 import {
   Users,
   Building,
   CheckCircle2,
   Lock,
+  Unlock,
   ArrowUp,
   ArrowDown,
   Trash2,
@@ -30,6 +32,12 @@ import {
   Mail,
   User,
   Layers,
+  Timer,
+  Clock,
+  RotateCcw,
+  DoorOpen,
+  DoorClosed,
+  Filter,
 } from 'lucide-react';
 
 interface StudentPortalProps {
@@ -40,6 +48,9 @@ interface StudentPortalProps {
   };
   allowedHostels: Hostel[];
   availableRooms: (Room & { hostel: Hostel })[];
+  remainingRooms?: (Room & { hostel: Hostel })[];
+  assignedRound?: number;
+  canFillFinalChoices?: boolean;
   groupDetails: (GroupDetails & { outgoing_invites?: GroupInvite[] }) | null;
   incomingInvites?: (GroupInvite & {
     leader_name: string;
@@ -57,12 +68,101 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
   pathway,
   allowedHostels,
   availableRooms,
+  remainingRooms = [],
+  assignedRound = 1,
+  canFillFinalChoices = false,
   groupDetails,
   incomingInvites = [],
   roundConfig,
   allotment,
   onRefresh,
 }) => {
+  // Live countdown timer for multi-round releases
+  const [studentCountdown, setStudentCountdown] = useState<string>('');
+
+  useEffect(() => {
+    if (!roundConfig.is_published || !roundConfig.next_release_time || roundConfig.round_number >= 5) {
+      setStudentCountdown('');
+      return;
+    }
+
+    const updateTimer = () => {
+      const target = new Date(roundConfig.next_release_time!).getTime();
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        setStudentCountdown('Updating results...');
+        onRefresh();
+      } else {
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+        setStudentCountdown(
+          `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+        );
+      }
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+    return () => clearInterval(interval);
+  }, [roundConfig.next_release_time, roundConfig.is_published, roundConfig.round_number]);
+
+  // Live countdown timer for 30-minute choice filling modification window
+  const [choiceLockCountdown, setChoiceLockCountdown] = useState<string>('');
+  const [isChoiceWindowActive, setIsChoiceWindowActive] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!roundConfig.is_published || !roundConfig.choice_filling_end_time) {
+      setChoiceLockCountdown('');
+      setIsChoiceWindowActive(false);
+      return;
+    }
+
+    const updateChoiceTimer = () => {
+      const target = new Date(roundConfig.choice_filling_end_time!).getTime();
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        setChoiceLockCountdown('Window Closed');
+        setIsChoiceWindowActive(false);
+      } else {
+        setIsChoiceWindowActive(true);
+        const mins = Math.floor(diff / (1000 * 60));
+        const secs = Math.floor((diff % (1000 * 60)) / 1000);
+        setChoiceLockCountdown(`${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`);
+      }
+    };
+
+    updateChoiceTimer();
+    const interval = setInterval(updateChoiceTimer, 1000);
+    return () => clearInterval(interval);
+  }, [roundConfig.choice_filling_end_time, roundConfig.is_published]);
+
+  // Room Occupancy Report State (Available vs Occupied Rooms)
+  const [occupancyReport, setOccupancyReport] = useState<RoomOccupancyReport | null>(null);
+  const [isLoadingOccupancy, setIsLoadingOccupancy] = useState<boolean>(false);
+  const [occupancyHostelFilter, setOccupancyHostelFilter] = useState<string>('all');
+  const [occupancyTab, setOccupancyTab] = useState<'available' | 'occupied'>('available');
+
+  const loadOccupancyReport = async () => {
+    if (!roundConfig.is_published) return;
+    setIsLoadingOccupancy(true);
+    try {
+      const res = await fetch('/api/public/room-occupancy');
+      const data = await res.json();
+      if (data.success) {
+        setOccupancyReport(data);
+      }
+    } catch (err) {
+      console.error('Failed to load room occupancy report', err);
+    } finally {
+      setIsLoadingOccupancy(false);
+    }
+  };
+
+  useEffect(() => {
+    loadOccupancyReport();
+  }, [roundConfig.is_published, roundConfig.round_number]);
+
   // Local form states
   const [sharingTypeChoice, setSharingTypeChoice] = useState<'Fourlets' | 'Triplets'>('Fourlets');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -126,8 +226,16 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     groupDetails?.sharing_type || (groupDetails?.required_capacity === 3 ? 'Triplets' : sharingTypeChoice);
   const requiredCapacity = activeSharingType === 'Fourlets' ? 4 : 3;
 
+  const isFinalSpotActive = Boolean(
+    (roundConfig.final_round_active || roundConfig.round_number >= 5) && !allotment
+  );
+
+  // Active pool of rooms: if final spot round is active and unallotted, use remainingRooms (free vacant rooms)
+  const activeRoomsPool =
+    isFinalSpotActive && remainingRooms.length > 0 ? remainingRooms : availableRooms;
+
   // Compute available floors for the selected hostel
-  const roomsForSelectedHostel = availableRooms.filter((r) => r.hostel_id === selectedHostelId);
+  const roomsForSelectedHostel = activeRoomsPool.filter((r) => r.hostel_id === selectedHostelId);
   const uniqueFloors = Array.from(new Set(roomsForSelectedHostel.map((r) => r.floor))).sort((a, b) => a - b);
 
   // Ensure selected floor is valid for selected hostel
@@ -141,7 +249,8 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
   const roomsForSelectedFloorAndType = roomsForSelectedHostel.filter(
     (r) =>
       r.floor === selectedFloor &&
-      (r.sharing_type ? r.sharing_type === activeSharingType : r.capacity === requiredCapacity)
+      (r.sharing_type ? r.sharing_type === activeSharingType : r.capacity === requiredCapacity) &&
+      (!isFinalSpotActive || r.status === 'free')
   );
 
   // Create Lobby (Custom Room)
@@ -337,6 +446,50 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     }
   };
 
+  const handleUnlockPreferences = async () => {
+    if (!groupDetails) return;
+    setIsSubmitting(true);
+    setStatusMessage(null);
+    try {
+      const res = await fetch('/api/group/unlock', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          group_id: groupDetails.group_id,
+          leader_roll_no: student.roll_no,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setStatusMessage({ type: 'error', text: data.error || 'Failed to unlock preferences' });
+      } else {
+        setStatusMessage({ type: 'success', text: data.message });
+        onRefresh();
+      }
+    } catch {
+      setStatusMessage({ type: 'error', text: 'Network error unlocking preferences' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleAddRoomDirectly = (roomId: string) => {
+    if (rankedChoices.includes(roomId)) {
+      setStatusMessage({ type: 'error', text: `Room ${roomId} is already in your preference list` });
+      return;
+    }
+    const updated = [...rankedChoices, roomId];
+    setRankedChoices(updated);
+    setStatusMessage({
+      type: 'success',
+      text: `Room ${roomId} added to your preferences list! Remember to freeze choices before the timer ends.`,
+    });
+    const element = document.getElementById('choice-filling-section');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   // Helper to format floor label nicely
   const getFloorButtonLabel = (fl: number) => {
     if (selectedHostelId === 'HBH') {
@@ -451,23 +604,37 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
       </div>
 
       {/* ========================================================================= */}
-      {/* 2. ROUND 1 ALLOCATION RESULT                                              */}
+      {/* 2. MULTI-ROUND ALLOCATION RESULT & STATUS                                 */}
       {/* ========================================================================= */}
       <div className="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div className="flex items-center space-x-2">
             <Award className="w-5 h-5 text-blue-900" />
-            <h2 className="text-base font-bold text-slate-900">Round 1 Allotment Result</h2>
+            <h2 className="text-base font-bold text-slate-900">
+              Hostel Allocation Result{' '}
+              {roundConfig.is_published && (
+                <span className="text-blue-900 font-semibold font-mono text-sm">
+                  ({roundConfig.round_number === 6 ? 'Final Spot Round' : `Round ${roundConfig.round_number} of 5`})
+                </span>
+              )}
+            </h2>
           </div>
-          <span
-            className={`px-3 py-1 text-xs font-semibold rounded ${
-              roundConfig.is_published
-                ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                : 'bg-slate-100 text-slate-700 border border-slate-200'
-            }`}
-          >
-            {roundConfig.is_published ? 'Declared &amp; Published' : 'Confidential (Pending Declaration)'}
-          </span>
+          <div className="flex items-center gap-2">
+            {groupDetails && (
+              <span className="px-2.5 py-1 text-xs font-semibold rounded bg-blue-50 text-blue-900 border border-blue-200">
+                Merit Batch #{assignedRound} (Round {assignedRound})
+              </span>
+            )}
+            <span
+              className={`px-3 py-1 text-xs font-semibold rounded ${
+                roundConfig.is_published
+                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                  : 'bg-slate-100 text-slate-700 border border-slate-200'
+              }`}
+            >
+              {roundConfig.is_published ? 'Declared &amp; Published' : 'Confidential (Pending Declaration)'}
+            </span>
+          </div>
         </div>
 
         {!roundConfig.is_published ? (
@@ -475,8 +642,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
             <Calendar className="w-6 h-6 text-slate-500 mx-auto" />
             <h3 className="text-slate-900 font-bold text-sm">Results Not Yet Published</h3>
             <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
-              Hostel allocations are currently undergoing administrative verification. Results remain
-              hidden until the Chief Warden formally publishes the list.
+              Hostel allocations are currently undergoing administrative verification. The 5-stage merit release cycle will commence shortly in 2-hour intervals.
             </p>
           </div>
         ) : allotment ? (
@@ -484,7 +650,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
               <div>
                 <span className="text-[11px] uppercase tracking-wider text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                  Confirmed Room Allocation
+                  Confirmed Room Allocation • Allotted in Round {allotment.allotment.round_number === 6 ? 'Final Spot Round' : allotment.allotment.round_number}
                 </span>
                 <h3 className="text-xl font-bold text-slate-900 mt-2">
                   {allotment.hostel.name}
@@ -498,7 +664,6 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
               <div className="text-left sm:text-right text-xs">
                 <span className="text-slate-500 block font-medium text-[11px]">Assigned Warden</span>
                 <span className="font-bold text-slate-900">{allotment.hostel.warden_name}</span>
-                <span className="text-slate-600 block font-mono text-[11px]">{allotment.hostel.warden_phone}</span>
               </div>
             </div>
 
@@ -530,16 +695,297 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
               </div>
             </div>
           </div>
-        ) : (
-          <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200 text-center space-y-2">
-            <AlertTriangle className="w-8 h-8 text-amber-600 mx-auto" />
-            <h3 className="text-slate-900 font-bold text-base">No Room Allotted in Round 1</h3>
+        ) : assignedRound > roundConfig.round_number && roundConfig.round_number < 5 ? (
+          <div className="p-6 bg-blue-50/70 rounded-lg border border-blue-200 text-center space-y-2">
+            <Clock className="w-8 h-8 text-blue-900 mx-auto" />
+            <h3 className="text-slate-900 font-bold text-base">
+              Your Group is Scheduled for Round {assignedRound}
+            </h3>
             <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
-              Your group could not be allocated any of your preferences due to merit cutoffs. You are eligible for Round 2 spot round.
+              Based on your team&apos;s merit score, your group will be evaluated and published in <strong>Round {assignedRound}</strong>. The portal is currently publishing Round {roundConfig.round_number} of 5.
             </p>
+            {studentCountdown && (
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-blue-300 rounded font-mono text-xs font-bold text-blue-950 mt-2">
+                <Timer className="w-3.5 h-3.5 text-blue-700 animate-pulse" />
+                <span>Next Round releases in: {studentCountdown}</span>
+              </div>
+            )}
+          </div>
+        ) : roundConfig.final_round_active || (roundConfig.round_number >= 5 && !roundConfig.final_round_completed) ? (
+          <div className="p-6 bg-amber-50 rounded-lg border-2 border-amber-400 text-center space-y-3">
+            <Sparkles className="w-8 h-8 text-amber-600 mx-auto animate-bounce" />
+            <div>
+              <h3 className="text-amber-950 font-bold text-base">
+                Rounds 1–5 Concluded — Final Spot Round Now Active!
+              </h3>
+              <p className="text-xs text-amber-800 max-w-lg mx-auto leading-relaxed mt-1">
+                Your group was not allotted a room in the regular 5 rounds. All remaining unoccupied/vacant rooms across hostels are now open for choice filling below. Please select and lock your choices from the vacant rooms to participate in the Final Round.
+              </p>
+            </div>
+            <a
+              href="#choice-filling-section"
+              className="inline-block px-4 py-2 bg-amber-700 hover:bg-amber-800 text-white font-bold text-xs rounded transition-colors shadow-xs"
+            >
+              Fill Choices for Final Spot Round &darr;
+            </a>
+          </div>
+        ) : roundConfig.final_round_completed ? (
+          <div className="p-6 bg-slate-50 rounded-lg border border-slate-300 text-center space-y-2">
+            <AlertTriangle className="w-8 h-8 text-slate-500 mx-auto" />
+            <h3 className="text-slate-900 font-bold text-base">Allotment Cycle Concluded</h3>
+            <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
+              All 5 regular rounds and the Final Spot Round have concluded. All rooms matching your group capacity have been allotted. Please contact the Chief Warden office for administrative allocation assistance.
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {isChoiceWindowActive ? (
+              <div className="p-6 bg-amber-50/90 rounded-lg border-2 border-amber-400 text-center space-y-3">
+                <div className="flex items-center justify-center gap-2 text-amber-950 font-bold text-base">
+                  <Clock className="w-5 h-5 text-amber-700 animate-pulse" />
+                  <span>No Room Allotted in Round {roundConfig.round_number} — 30-Minute Choice Window Active</span>
+                </div>
+                <p className="text-xs text-amber-900 max-w-xl mx-auto leading-relaxed">
+                  None of your group&apos;s preferences were available at your merit cut-off in Round {roundConfig.round_number} (or your group had not submitted preferences previously).
+                  You have a <strong>30-minute window</strong> following round declaration to modify, add, or reorder your room choices for <strong>Round {roundConfig.round_number + 1}</strong>.
+                </p>
+                <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-white border border-amber-300 rounded font-mono text-xs font-bold text-amber-950 shadow-xs">
+                    <Timer className="w-4 h-4 text-amber-600 animate-pulse" />
+                    <span>Choices Lock In: {choiceLockCountdown || '30:00'}</span>
+                  </div>
+                  {isLeader && groupDetails?.is_locked && (
+                    <button
+                      onClick={handleUnlockPreferences}
+                      disabled={isSubmitting}
+                      className="px-3.5 py-1.5 bg-amber-700 hover:bg-amber-800 text-white font-bold text-xs rounded transition-colors flex items-center gap-1.5 shadow-xs disabled:opacity-50"
+                    >
+                      <Unlock className="w-3.5 h-3.5" /> Unlock Choices to Edit
+                    </button>
+                  )}
+                  <a
+                    href="#choice-filling-section"
+                    className="px-3.5 py-1.5 bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs rounded transition-colors flex items-center gap-1.5 shadow-xs"
+                  >
+                    Go to Choice Filling &darr;
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <div className="p-6 bg-slate-50 rounded-lg border border-slate-300 text-center space-y-2">
+                <Lock className="w-6 h-6 text-slate-500 mx-auto" />
+                <h3 className="text-slate-900 font-bold text-base">
+                  No Room Allotted in Round {roundConfig.round_number} — Choices Locked
+                </h3>
+                <p className="text-xs text-slate-600 max-w-md mx-auto leading-relaxed">
+                  The 30-minute post-round choice window has concluded. Preferences are locked for Round {roundConfig.round_number + 1} merit processing.
+                </p>
+                {studentCountdown && (
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-slate-300 rounded font-mono text-xs font-bold text-slate-800 mt-2">
+                    <Timer className="w-3.5 h-3.5 text-blue-900 animate-pulse" />
+                    <span>Round {roundConfig.round_number + 1} releases in: {studentCountdown}</span>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         )}
       </div>
+
+      {/* ========================================================================= */}
+      {/* 2.5 AVAILABLE ROOMS LEFT & OCCUPIED ROOMS (Whenever a round is published) */}
+      {/* ========================================================================= */}
+      {roundConfig.is_published && occupancyReport && (
+        <div className="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+            <div>
+              <div className="inline-flex items-center gap-1.5 text-blue-900 text-xs font-bold uppercase tracking-wider mb-1">
+                <DoorOpen className="w-4 h-4" />
+                <span>Round {roundConfig.round_number} Live Allocation Status</span>
+              </div>
+              <h2 className="text-xl font-bold text-slate-900">
+                Available Rooms Left &amp; Occupied Rooms
+              </h2>
+              <p className="text-xs text-slate-600 mt-0.5">
+                Inspect vacant rooms remaining across hostels after Round {roundConfig.round_number} allocation vs rooms already occupied.
+              </p>
+            </div>
+
+            {/* Quick Stats Pill */}
+            <div className="flex flex-wrap items-center gap-2 text-xs">
+              <span className="px-3 py-1.5 bg-emerald-50 border border-emerald-300 text-emerald-800 rounded font-semibold flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-600 animate-ping"></span>
+                <strong>{occupancyReport.summary.available_rooms}</strong> Vacant Rooms Left
+              </span>
+              <span className="px-3 py-1.5 bg-slate-100 border border-slate-300 text-slate-700 rounded font-semibold">
+                <strong>{occupancyReport.summary.occupied_rooms}</strong> Occupied ({occupancyReport.summary.occupancy_rate}%)
+              </span>
+            </div>
+          </div>
+
+          {/* Filter Bar: Tabs & Hostel Filter */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+            {/* View Switcher Tabs */}
+            <div className="flex items-center gap-1 p-1 bg-slate-100 rounded-lg border border-slate-200">
+              <button
+                type="button"
+                onClick={() => setOccupancyTab('available')}
+                className={`flex-1 sm:flex-none px-4 py-1.5 text-xs font-bold rounded-md transition-all flex items-center justify-center gap-1.5 ${
+                  occupancyTab === 'available'
+                    ? 'bg-white text-emerald-800 shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <DoorOpen className="w-3.5 h-3.5 text-emerald-600" />
+                Available Rooms Left ({occupancyReport.available_rooms.filter(r => occupancyHostelFilter === 'all' || r.hostel_id === occupancyHostelFilter).length})
+              </button>
+              <button
+                type="button"
+                onClick={() => setOccupancyTab('occupied')}
+                className={`flex-1 sm:flex-none px-4 py-1.5 text-xs font-bold rounded-md transition-all flex items-center justify-center gap-1.5 ${
+                  occupancyTab === 'occupied'
+                    ? 'bg-white text-blue-900 shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                <DoorClosed className="w-3.5 h-3.5 text-blue-800" />
+                Occupied Rooms ({occupancyReport.occupied_rooms.filter(r => occupancyHostelFilter === 'all' || r.hostel_id === occupancyHostelFilter).length})
+              </button>
+            </div>
+
+            {/* Hostel Selector Filter */}
+            <div className="flex items-center gap-2 text-xs">
+              <Filter className="w-3.5 h-3.5 text-slate-500" />
+              <span className="text-slate-600 font-semibold">Hostel:</span>
+              <select
+                value={occupancyHostelFilter}
+                onChange={(e) => setOccupancyHostelFilter(e.target.value)}
+                className="bg-white border border-slate-300 rounded px-2.5 py-1 text-xs text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-900 shadow-xs"
+              >
+                <option value="all">All Hostels ({occupancyReport.summary.total_rooms} rooms)</option>
+                {occupancyReport.summary.by_hostel.map((bh) => (
+                  <option key={bh.hostel_id} value={bh.hostel_id}>
+                    {bh.hostel_name.split(' ')[0]} ({bh.available} free / {bh.total} total)
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* TAB CONTENT: Available Rooms */}
+          {occupancyTab === 'available' && (
+            <div className="space-y-3">
+              {occupancyReport.available_rooms.filter(r => occupancyHostelFilter === 'all' || r.hostel_id === occupancyHostelFilter).length === 0 ? (
+                <div className="p-8 bg-slate-50 rounded border border-slate-200 text-center text-xs text-slate-500">
+                  No vacant rooms remain in this category.
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5 max-h-[360px] overflow-y-auto p-1 pr-1.5">
+                  {occupancyReport.available_rooms
+                    .filter(r => occupancyHostelFilter === 'all' || r.hostel_id === occupancyHostelFilter)
+                    .map((room) => {
+                      const isAlreadyInChoices = rankedChoices.includes(room.room_id);
+                      const matchesGroupCapacity = !groupDetails || room.capacity === groupDetails.required_capacity;
+
+                      return (
+                        <div
+                          key={room.room_id}
+                          className="p-3 bg-white hover:bg-emerald-50/40 border border-emerald-200 rounded-lg text-xs space-y-1.5 shadow-xs transition-colors"
+                        >
+                          <div className="flex items-center justify-between">
+                            <span className="font-mono font-bold text-slate-900 text-sm">
+                              {room.room_number}
+                            </span>
+                            <span className="px-1.5 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-bold rounded">
+                              Vacant
+                            </span>
+                          </div>
+                          <div className="text-[11px] text-slate-600 truncate" title={room.hostel_name}>
+                            {room.hostel_name.split(' ')[0]} ({room.hostel_id})
+                          </div>
+                          <div className="text-[10px] text-slate-500 flex items-center justify-between">
+                            <span>Floor {room.floor}</span>
+                            <span>{room.capacity === 4 ? 'Fourlet' : 'Triplet'}</span>
+                          </div>
+
+                          {/* Quick Add Button for Unallotted Leader during Choice Window */}
+                          {isChoiceWindowActive && !allotment && isLeader && matchesGroupCapacity && (
+                            <button
+                              type="button"
+                              onClick={() => handleAddRoomDirectly(room.room_id)}
+                              disabled={isAlreadyInChoices}
+                              className={`w-full mt-1 py-1 rounded text-[10px] font-bold transition-all flex items-center justify-center gap-1 ${
+                                isAlreadyInChoices
+                                  ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                                  : 'bg-emerald-700 hover:bg-emerald-800 text-white shadow-xs'
+                              }`}
+                            >
+                              {isAlreadyInChoices ? 'In Choices' : '+ Add to Choices'}
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB CONTENT: Occupied Rooms */}
+          {occupancyTab === 'occupied' && (
+            <div className="space-y-3">
+              {occupancyReport.occupied_rooms.filter(r => occupancyHostelFilter === 'all' || r.hostel_id === occupancyHostelFilter).length === 0 ? (
+                <div className="p-8 bg-slate-50 rounded border border-slate-200 text-center text-xs text-slate-500">
+                  No rooms occupied in this hostel yet.
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 max-h-[400px] overflow-y-auto p-1 pr-1.5">
+                  {occupancyReport.occupied_rooms
+                    .filter(r => occupancyHostelFilter === 'all' || r.hostel_id === occupancyHostelFilter)
+                    .map((room) => (
+                      <div
+                        key={room.room_id}
+                        className="p-3.5 bg-slate-50 border border-slate-200 rounded-lg space-y-2 text-xs shadow-xs"
+                      >
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <span className="font-mono font-bold text-slate-900 text-sm">
+                              Room {room.room_number}
+                            </span>
+                            <span className="text-[11px] text-slate-500 ml-1.5">
+                              ({room.hostel_name.split(' ')[0]} • Floor {room.floor})
+                            </span>
+                          </div>
+                          <span className="px-2 py-0.5 bg-blue-100 text-blue-900 font-bold text-[10px] rounded">
+                            {room.occupants.length}/{room.capacity} Allotted
+                          </span>
+                        </div>
+
+                        {/* Occupants list */}
+                        <div className="space-y-1 pt-1 border-t border-slate-200">
+                          <span className="text-[10px] uppercase font-bold text-slate-500 block">
+                            Allotted Students:
+                          </span>
+                          <div className="space-y-1">
+                            {room.occupants.map((occ) => (
+                              <div
+                                key={occ.roll_no}
+                                className="flex items-center justify-between text-[11px] bg-white px-2 py-1 rounded border border-slate-200 font-mono"
+                              >
+                                <span className="font-bold text-slate-800">{occ.name}</span>
+                                <span className="text-slate-500">{occ.roll_no} • CG {occ.cgpa.toFixed(2)}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* ========================================================================= */}
       {/* 3. ROOMMATE TEAM FORMATION (LOBBY)                                       */}
@@ -963,17 +1409,32 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
       {/* 4. STEP-BY-STEP CHOICE FILLING (Hostel -> Floor -> Room)                 */}
       {/* ========================================================================= */}
       {groupDetails && (
-        <div className="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-6">
+        <div id="choice-filling-section" className="bg-white rounded-lg border border-slate-200 p-5 sm:p-6 shadow-xs space-y-6">
+          {isFinalSpotActive && (
+            <div className="p-4 bg-amber-50 border-2 border-amber-400 rounded-lg space-y-2">
+              <div className="flex items-center gap-2 text-amber-950 font-bold text-sm">
+                <Sparkles className="w-5 h-5 text-amber-600" />
+                <span>Final Spot Round Choice Filling Active</span>
+              </div>
+              <p className="text-xs text-amber-800 leading-relaxed">
+                All 5 regular rounds have concluded. All remaining vacant rooms are displayed below.
+                As group leader, you can select and re-order any available vacant rooms matching your group ({activeSharingType}) and freeze your choices for the Final Round allocation.
+              </p>
+            </div>
+          )}
+
           <div>
             <div className="inline-flex items-center gap-1.5 text-blue-900 text-xs font-bold uppercase tracking-wider mb-1">
               <Layers className="w-4 h-4" />
-              <span>Preference Submission</span>
+              <span>{isFinalSpotActive ? 'Final Spot Round Preference Submission' : 'Preference Submission'}</span>
             </div>
             <h2 className="text-xl font-bold text-slate-900">
-              Hostel &amp; Room Choice Filling
+              {isFinalSpotActive ? 'Remaining Vacant Rooms Choice Filling' : 'Hostel & Room Choice Filling'}
             </h2>
             <p className="text-xs text-slate-600 mt-0.5">
-              Select hostel, floor, and room according to your group&apos;s sharing capacity ({activeSharingType}).
+              {isFinalSpotActive
+                ? `Select from all currently unoccupied rooms matching your group capacity (${activeSharingType}).`
+                : `Select hostel, floor, and room according to your group's sharing capacity (${activeSharingType}).`}
             </p>
           </div>
 
@@ -1083,7 +1544,13 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                       >
                         <span className="text-xs">{room.room_number}</span>
                         <span className="text-[9px] uppercase font-sans font-medium opacity-80">
-                          {isAlreadyPicked ? 'Added' : isSelected ? 'Selected' : room.sharing_type || `${room.capacity} Bed`}
+                          {isAlreadyPicked
+                            ? 'Added'
+                            : isSelected
+                            ? 'Selected'
+                            : isFinalSpotActive
+                            ? 'Vacant'
+                            : room.sharing_type || `${room.capacity} Bed`}
                         </span>
                       </button>
                     );
@@ -1110,7 +1577,47 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
 
             {/* STEP 4: ORDERED PREFERENCE LIST (Choices 1, 2, 3...) */}
             <div className="pt-4 border-t border-slate-100 space-y-3">
-              <div className="flex items-center justify-between">
+              {/* 30-Minute Choice Window / Lock Status Banner */}
+              {roundConfig.is_published && !allotment && (
+                isChoiceWindowActive ? (
+                  <div className="p-3.5 bg-amber-50 border border-amber-300 rounded text-xs text-amber-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xs">
+                    <div className="flex items-center gap-2 font-medium">
+                      <Clock className="w-4 h-4 text-amber-700 shrink-0 animate-pulse" />
+                      <span>Round {roundConfig.round_number} Choice Window Open: You have 30 minutes to adjust your ranked room choices.</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono font-bold text-amber-950 bg-white px-2.5 py-1 rounded border border-amber-300 text-[11px] flex items-center gap-1 shadow-xs">
+                        <Timer className="w-3.5 h-3.5 text-amber-600 animate-pulse" />
+                        Locks in: {choiceLockCountdown}
+                      </span>
+                      {isLeader && isGroupLocked && (
+                        <button
+                          type="button"
+                          onClick={handleUnlockPreferences}
+                          disabled={isSubmitting}
+                          className="px-2.5 py-1 bg-amber-700 hover:bg-amber-800 text-white font-bold text-[11px] rounded transition-colors flex items-center gap-1 shadow-xs disabled:opacity-50"
+                        >
+                          <Unlock className="w-3 h-3" /> Unlock Choices
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-3.5 bg-slate-100 border border-slate-300 rounded text-xs text-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <Lock className="w-4 h-4 text-slate-500 shrink-0" />
+                      <span>The 30-minute choice window has closed. Preferences are locked for Round {roundConfig.round_number + 1} allocation.</span>
+                    </div>
+                    {studentCountdown && (
+                      <span className="font-mono font-bold text-slate-900 bg-white px-2.5 py-1 rounded border border-slate-300 text-[11px]">
+                        Next Round in: {studentCountdown}
+                      </span>
+                    )}
+                  </div>
+                )
+              )}
+
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
                     <BedDouble className="w-3.5 h-3.5 text-blue-900" />
@@ -1121,16 +1628,41 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                   </p>
                 </div>
 
-                {isLeader && !isGroupLocked && isGroupFull && (
-                  <button
-                    onClick={handleLockPreferences}
-                    disabled={isSubmitting || rankedChoices.length === 0}
-                    className="px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs rounded shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50"
-                  >
-                    <Lock className="w-3.5 h-3.5" /> Freeze &amp; Lock Preferences
-                  </button>
-                )}
+                <div className="flex items-center gap-2">
+                  {isLeader && isGroupLocked && isChoiceWindowActive && !allotment && (
+                    <button
+                      onClick={handleUnlockPreferences}
+                      disabled={isSubmitting}
+                      className="px-3.5 py-2 bg-amber-700 hover:bg-amber-800 text-white font-bold text-xs rounded shadow-xs transition-colors flex items-center gap-1.5 disabled:opacity-50"
+                    >
+                      <Unlock className="w-3.5 h-3.5" />
+                      Unlock to Edit Choices
+                    </button>
+                  )}
+
+                  {isLeader && (!isGroupLocked || isFinalSpotActive) && isGroupFull && (!roundConfig.is_published || isChoiceWindowActive || isFinalSpotActive) && (
+                    <button
+                      onClick={handleLockPreferences}
+                      disabled={isSubmitting || rankedChoices.length === 0}
+                      className={`px-4 py-2 text-white font-bold text-xs rounded shadow-xs transition-colors flex items-center gap-2 disabled:opacity-50 ${
+                        isFinalSpotActive ? 'bg-amber-700 hover:bg-amber-800' : 'bg-blue-900 hover:bg-blue-800'
+                      }`}
+                    >
+                      <Lock className="w-3.5 h-3.5" />
+                      {isFinalSpotActive ? 'Freeze & Lock Final Round Choices' : 'Freeze & Lock Preferences'}
+                    </button>
+                  )}
+                </div>
               </div>
+
+              {isGroupLocked && !isFinalSpotActive && !isChoiceWindowActive && (
+                <div className="p-3 bg-slate-50 border border-slate-300 rounded text-xs text-slate-700 flex items-center gap-2">
+                  <Lock className="w-4 h-4 text-slate-500 shrink-0" />
+                  <span>
+                    Your preferences are locked for round allocation. Processing will proceed according to your ranked list.
+                  </span>
+                </div>
+              )}
 
               {!isGroupFull && !isGroupLocked && (
                 <div className="p-3 bg-slate-50 border border-slate-300 rounded text-xs text-slate-700 flex items-center gap-2">
@@ -1143,12 +1675,13 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
 
               {rankedChoices.length === 0 ? (
                 <div className="p-5 bg-slate-50 rounded border border-slate-200 text-center text-xs text-slate-500">
-                  No room choices added yet. Use the selection steps above to add room preferences.
+                  No room choices added yet. Use the selection steps above or the vacant rooms list to add room preferences.
                 </div>
               ) : (
                 <div className="space-y-1.5">
                   {rankedChoices.map((roomId, idx) => {
-                    const roomInfo = availableRooms.find((r) => r.room_id === roomId);
+                    const roomInfo = activeRoomsPool.find((r) => r.room_id === roomId) || availableRooms.find((r) => r.room_id === roomId);
+                    const canEditItem = (!isGroupLocked || isFinalSpotActive) && isLeader && (!roundConfig.is_published || isChoiceWindowActive || isFinalSpotActive);
 
                     return (
                       <div
@@ -1170,7 +1703,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                           </div>
                         </div>
 
-                        {!isGroupLocked && isLeader && (
+                        {canEditItem && (
                           <div className="flex items-center gap-1">
                             <button
                               type="button"

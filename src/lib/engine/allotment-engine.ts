@@ -1,5 +1,5 @@
 import { mockDb } from '../db/mock-store';
-import { Group, Allotment, Room, Student } from '../db/types';
+import { Group, Allotment, Room, Student, RoundConfig } from '../db/types';
 import { createAdminClient } from '../supabase/admin';
 
 export interface AllotmentLogEntry {
@@ -17,6 +17,7 @@ export interface AllotmentLogEntry {
   allocatedHostelName?: string;
   matchedChoiceRank?: number;
   tieBreakerApplied?: boolean;
+  roundNumber?: number;
   notes: string;
 }
 
@@ -34,46 +35,98 @@ export interface AllotmentRunResult {
 
 export class JosaaAllotmentEngine {
   /**
-   * Run the batch JOSAA allocation process.
-   * Can be executed offline or via Admin API.
+   * Helper: Partition locked groups into 5 equal parts (rounds 1-5) per academic cohort.
+   * Higher merit (CGPA) groups are assigned to earlier rounds.
    */
-  static async runBatchAllotment(
+  static computeGroupBatchRounds(): Map<string, number> {
+    const lockedGroups = mockDb.groups.filter((g) => g.is_locked);
+    const cohortMap = new Map<string, Group[]>();
+
+    for (const group of lockedGroups) {
+      const leader = mockDb.students.find((s) => s.roll_no === group.leader_roll_no);
+      const year = leader ? leader.year : 2;
+      const gender = leader ? leader.gender : 'Male';
+      const key = `${year}_${gender}`;
+
+      if (!cohortMap.has(key)) cohortMap.set(key, []);
+      cohortMap.get(key)!.push(group);
+    }
+
+    const groupRoundMap = new Map<string, number>();
+
+    for (const [_key, groups] of cohortMap.entries()) {
+      // Sort groups descending by max_cgpa, then ascending by created_at timestamp for ties
+      groups.sort((a, b) => {
+        if (b.max_cgpa !== a.max_cgpa) {
+          return b.max_cgpa - a.max_cgpa;
+        }
+        return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
+      });
+
+      const batchSize = Math.max(1, Math.ceil(groups.length / 5));
+      groups.forEach((group, index) => {
+        // Distribute into rounds 1 to 5
+        const assignedRound = Math.min(5, Math.floor(index / batchSize) + 1);
+        groupRoundMap.set(group.group_id, assignedRound);
+      });
+    }
+
+    return groupRoundMap;
+  }
+
+  /**
+   * Get the assigned round (1-5) for a specific group.
+   */
+  static getGroupAssignedRound(groupId: string): number {
+    const roundMap = this.computeGroupBatchRounds();
+    return roundMap.get(groupId) || 1;
+  }
+
+  /**
+   * Run allocation for a specific round (1 to 5 regular rounds, or 6 for Final Spot Round).
+   */
+  static async runRoundAllotment(
     roundNumber: number = 1,
     academicYear: string = '2026-2027'
   ): Promise<AllotmentRunResult> {
-    const supabase = createAdminClient();
+    console.log(`\n======================================================`);
+    console.log(`[JOSAA ENGINE] Executing Round ${roundNumber === 6 ? 'FINAL (Spot Round)' : roundNumber} (${academicYear})`);
+    console.log(`======================================================\n`);
 
-    // If connected to a real Supabase instance, call the PostgreSQL Stored Procedure for strict ACID transaction
-    if (supabase && process.env.NEXT_PUBLIC_SUPABASE_URL !== 'https://placeholder.supabase.co') {
-      try {
-        const { data, error } = await supabase.rpc('run_josaa_allotment_procedure', {
-          p_round_number: roundNumber,
-          p_academic_year: academicYear,
-        });
-
-        if (!error && data) {
-          console.log('[PostgreSQL RPC] JOSAA Allotment transaction executed successfully:', data);
-        }
-      } catch (err) {
-        console.warn('[PostgreSQL RPC] Falling back to engine simulation:', err);
+    // Auto-lock any unallotted group that has submitted choices
+    for (const g of mockDb.groups) {
+      const hasPrefs = mockDb.preferences.some((p) => p.group_id === g.group_id);
+      const alreadyAllotted = mockDb.allotments.some((a) => a.group_id === g.group_id && a.is_active);
+      if (hasPrefs && !alreadyAllotted) {
+        g.is_locked = true;
       }
     }
 
-    // Engine allocation logic (Simulated ACID Transaction with strict row locking)
-    console.log(`\n======================================================`);
-    console.log(`[JOSAA ENGINE] Starting Round ${roundNumber} Batch Allotment (${academicYear})`);
-    console.log(`======================================================\n`);
+    const roundMap = this.computeGroupBatchRounds();
+    const lockedGroups = mockDb.groups.filter((g) => g.is_locked);
 
-    // 1. Fetch only locked groups
-    const eligibleGroups = mockDb.groups.filter((g) => g.is_locked);
+    let candidateGroups: Group[] = [];
 
-    // 2. Sort all GROUPS in descending order by max_cgpa.
-    // Tie-Breaker: In the event of a tie, use the group's created_at timestamp (earlier group wins).
-    eligibleGroups.sort((a, b) => {
+    if (roundNumber <= 5) {
+      // For Round R: Evaluate groups assigned to Round <= R that do NOT have an active room allotment yet
+      candidateGroups = lockedGroups.filter((g) => {
+        const assigned = roundMap.get(g.group_id) || 1;
+        const alreadyAllotted = mockDb.allotments.some((a) => a.group_id === g.group_id && a.is_active);
+        return assigned <= roundNumber && !alreadyAllotted;
+      });
+    } else {
+      // Round 6: Final Spot Round
+      // Any locked group that has NO active room allotment across all rounds 1-5
+      candidateGroups = lockedGroups.filter((g) => {
+        return !mockDb.allotments.some((a) => a.group_id === g.group_id && a.is_active);
+      });
+    }
+
+    // Sort candidate groups by merit
+    candidateGroups.sort((a, b) => {
       if (b.max_cgpa !== a.max_cgpa) {
-        return b.max_cgpa - a.max_cgpa; // Descending max_cgpa
+        return b.max_cgpa - a.max_cgpa;
       }
-      // Earlier created_at timestamp wins
       return new Date(a.created_at).getTime() - new Date(b.created_at).getTime();
     });
 
@@ -82,33 +135,22 @@ export class JosaaAllotmentEngine {
     let totalUnallotted = 0;
     let totalStudentsPlaced = 0;
 
-    // Release any previous allocations for this round to ensure idempotency if re-run
-    const existingRoundAllotments = mockDb.allotments.filter((a) => a.round_number === roundNumber);
-    for (const alloc of existingRoundAllotments) {
-      const room = mockDb.rooms.find((r) => r.room_id === alloc.room_id);
-      if (room) room.status = 'free';
-    }
-    mockDb.allotments = mockDb.allotments.filter((a) => a.round_number !== roundNumber);
-
-    // 3. Iterate through sorted groups
-    for (let index = 0; index < eligibleGroups.length; index++) {
-      const group = eligibleGroups[index];
+    for (let index = 0; index < candidateGroups.length; index++) {
+      const group = candidateGroups[index];
       const rank = index + 1;
 
-      // Check if tie-breaker was applied with adjacent group
-      const prevGroup = eligibleGroups[index - 1];
-      const nextGroup = eligibleGroups[index + 1];
+      const prevGroup = candidateGroups[index - 1];
+      const nextGroup = candidateGroups[index + 1];
       const tieBreakerApplied =
         (prevGroup && prevGroup.max_cgpa === group.max_cgpa) ||
         (nextGroup && nextGroup.max_cgpa === group.max_cgpa);
 
-      // Fetch accepted group members
       const acceptedMembers = mockDb.groupMembers.filter(
         (m) => m.group_id === group.group_id && m.status === 'accepted'
       );
       const memberRolls = acceptedMembers.map((m) => m.roll_no);
 
-      // Fetch group preferences in order: Choice 1, 2, 3...
+      // Ranked choices for the group
       const preferences = mockDb.preferences
         .filter((p) => p.group_id === group.group_id)
         .sort((a, b) => a.preference_rank - b.preference_rank);
@@ -116,46 +158,25 @@ export class JosaaAllotmentEngine {
       let allottedRoom: Room | null = null;
       let matchedChoiceRank: number | undefined;
 
-      // Check Choice 1, 2, 3... in order
       for (const pref of preferences) {
-        // Strict row check: Must match capacity AND status must be 'free'
-        // Simulates `SELECT * FROM rooms WHERE room_id = $1 FOR UPDATE`
         const targetRoom = mockDb.rooms.find(
           (r) => r.room_id === pref.room_id && r.status === 'free' && r.capacity === group.required_capacity
         );
 
         if (targetRoom) {
-          // Lock room atomically
           targetRoom.status = 'locked';
           allottedRoom = targetRoom;
           matchedChoiceRank = pref.preference_rank;
-          break; // Successfully found best available preference
+          break;
         }
       }
 
       if (allottedRoom) {
         const hostel = mockDb.hostels.find((h) => h.hostel_id === allottedRoom.hostel_id)!;
 
-        // Assign all group members to that room in ALLOTMENTS simultaneously
         for (const roll of memberRolls) {
-          // Archive old allotment to history if any
-          const oldAllotment = mockDb.allotments.find((a) => a.roll_no === roll && a.is_active);
-          if (oldAllotment) {
-            const oldRoom = mockDb.rooms.find((r) => r.room_id === oldAllotment.room_id);
-            const oldHostel = oldRoom ? mockDb.hostels.find((h) => h.hostel_id === oldRoom.hostel_id) : null;
-            mockDb.hostelHistory.push({
-              history_id: `hist-${Date.now()}-${roll}`,
-              roll_no: roll,
-              old_hostel: oldHostel ? oldHostel.name : 'Unknown',
-              old_room: oldRoom ? oldRoom.room_number : 'Unknown',
-              year: oldAllotment.academic_year,
-              archived_at: new Date().toISOString(),
-            });
-            oldAllotment.is_active = false;
-          }
-
           const newAllotment: Allotment = {
-            allotment_id: `alt-${Date.now()}-${roll}`,
+            allotment_id: `alt-r${roundNumber}-${Date.now()}-${roll}`,
             roll_no: roll,
             room_id: allottedRoom.room_id,
             group_id: group.group_id,
@@ -182,10 +203,11 @@ export class JosaaAllotmentEngine {
           status: 'ALLOTTED',
           allocatedRoomId: allottedRoom.room_id,
           allocatedRoomNumber: allottedRoom.room_number,
-          allocatedHostelName: hostel.name,
+          allocatedHostelName: hostel ? hostel.name : 'Unknown Hostel',
           matchedChoiceRank,
           tieBreakerApplied,
-          notes: `Allotted Choice #${matchedChoiceRank} (${hostel.name}, Room ${allottedRoom.room_number}) to ${memberRolls.length} students.`,
+          roundNumber,
+          notes: `Round ${roundNumber}: Allotted Choice #${matchedChoiceRank} (${hostel?.name || ''}, Room ${allottedRoom.room_number}) to ${memberRolls.length} students.`,
         });
       } else {
         totalUnallotted++;
@@ -200,19 +222,72 @@ export class JosaaAllotmentEngine {
           memberRolls,
           status: 'NO_CHOICE_AVAILABLE',
           tieBreakerApplied,
-          notes: `None of the group's ${preferences.length} choices were available at their merit rank.`,
+          roundNumber,
+          notes: `Round ${roundNumber}: None of the group's ${preferences.length} choices were available at merit rank #${rank}.`,
         });
       }
     }
 
-    // Update Round Config
-    const roundConfig = mockDb.roundsConfig.find((r) => r.round_number === roundNumber);
-    if (roundConfig) {
+    // Update Round Configuration
+    const choiceWindowMs = 30 * 60 * 1000; // 30 minutes choice modification window
+    const totalCycleMs = 120 * 60 * 1000; // 2 hours total cycle (30m choices + 90m allocation processing)
+
+    // Unlock choices for unallotted groups so students can modify/add choice filling for Round N+1
+    const allottedGroupIds = new Set(mockDb.allotments.map((a) => a.group_id).filter(Boolean));
+    for (const g of mockDb.groups) {
+      if (!allottedGroupIds.has(g.group_id)) {
+        g.is_locked = false; // Unlocked for choice filling in the 30-min window
+      }
+    }
+
+    let roundConfig = mockDb.roundsConfig[0];
+    if (!roundConfig) {
+      roundConfig = {
+        round_number: roundNumber,
+        academic_year: academicYear,
+        is_published: true,
+        is_active: true,
+        allotment_run_at: new Date().toISOString(),
+        published_at: new Date().toISOString(),
+        total_allotted_groups: totalAllotted,
+        total_unallotted_groups: totalUnallotted,
+        auto_release_interval_ms: totalCycleMs,
+        auto_release_enabled: true,
+        total_rounds: 5,
+        final_round_active: roundNumber === 5,
+        final_round_completed: roundNumber === 6,
+        choice_filling_end_time: new Date(Date.now() + choiceWindowMs).toISOString(),
+        choice_window_duration_ms: choiceWindowMs,
+      };
+      mockDb.roundsConfig = [roundConfig];
+    } else {
+      roundConfig.round_number = roundNumber;
+      roundConfig.academic_year = academicYear;
+      roundConfig.is_published = true;
       roundConfig.allotment_run_at = new Date().toISOString();
-      roundConfig.total_allotted_groups = totalAllotted;
-      roundConfig.total_unallotted_groups = totalUnallotted;
-      // Note: Results remain HIDDEN until explicitly published!
-      // roundConfig.is_published remains false until admin publishes
+      roundConfig.published_at = new Date().toISOString();
+      roundConfig.total_allotted_groups = mockDb.allotments.length;
+      roundConfig.total_unallotted_groups = lockedGroups.length - mockDb.allotments.length;
+      roundConfig.choice_window_duration_ms = choiceWindowMs;
+      roundConfig.choice_filling_end_time = new Date(Date.now() + choiceWindowMs).toISOString();
+
+      if (roundNumber < 5) {
+        // Set next auto-release time to 2 hours from now
+        roundConfig.auto_release_interval_ms = totalCycleMs;
+        roundConfig.next_release_time = new Date(Date.now() + totalCycleMs).toISOString();
+        roundConfig.final_round_active = false;
+        roundConfig.final_round_completed = false;
+      } else if (roundNumber === 5) {
+        // Concluded all 5 regular rounds: Activate Final Spot Round!
+        roundConfig.next_release_time = null;
+        roundConfig.final_round_active = true;
+        roundConfig.final_round_completed = false;
+      } else if (roundNumber === 6) {
+        // Final Round complete!
+        roundConfig.next_release_time = null;
+        roundConfig.final_round_active = false;
+        roundConfig.final_round_completed = true;
+      }
     }
 
     return {
@@ -220,11 +295,77 @@ export class JosaaAllotmentEngine {
       roundNumber,
       academicYear,
       timestamp: new Date().toISOString(),
-      totalGroupsConsidered: eligibleGroups.length,
+      totalGroupsConsidered: candidateGroups.length,
       totalAllottedGroups: totalAllotted,
       totalUnallottedGroups: totalUnallotted,
       totalStudentsPlaced,
       auditTrail,
     };
+  }
+
+  /**
+   * Advance immediately to the next round (Publish Next Round Now).
+   * Round 1 -> Round 2 -> Round 3 -> Round 4 -> Round 5 -> Round 6 (Final).
+   */
+  static async advanceToNextRound(academicYear: string = '2026-2027'): Promise<AllotmentRunResult> {
+    const config = mockDb.roundsConfig[0];
+    let nextRound = 1;
+
+    if (!config || !config.is_published) {
+      nextRound = 1;
+    } else if (config.round_number < 5) {
+      nextRound = config.round_number + 1;
+    } else if (config.round_number === 5 && config.final_round_active) {
+      nextRound = 6; // Final Spot Round
+    } else {
+      nextRound = 6;
+    }
+
+    return await this.runRoundAllotment(nextRound, academicYear);
+  }
+
+  /**
+   * Run the Final Spot Round specifically for unallotted students after Round 5.
+   */
+  static async runFinalRound(academicYear: string = '2026-2027'): Promise<AllotmentRunResult> {
+    return await this.runRoundAllotment(6, academicYear);
+  }
+
+  /**
+   * Full reset: Clears all allotments, unlocks all rooms, resets rounds back to round 1 (unpublished).
+   */
+  static resetAllRounds() {
+    mockDb.rooms.forEach((r) => {
+      r.status = 'free';
+    });
+    mockDb.allotments = [];
+    mockDb.roundsConfig = [
+      {
+        round_number: 1,
+        academic_year: '2026-2027',
+        is_published: false,
+        is_active: true,
+        allotment_run_at: null,
+        published_at: null,
+        total_allotted_groups: 0,
+        total_unallotted_groups: 0,
+        next_release_time: null,
+        auto_release_interval_ms: 2 * 60 * 60 * 1000,
+        auto_release_enabled: true,
+        total_rounds: 5,
+        final_round_active: false,
+        final_round_completed: false,
+      },
+    ];
+  }
+
+  /**
+   * Legacy runBatchAllotment: default alias for running round allotment.
+   */
+  static async runBatchAllotment(
+    roundNumber: number = 1,
+    academicYear: string = '2026-2027'
+  ): Promise<AllotmentRunResult> {
+    return await this.runRoundAllotment(roundNumber, academicYear);
   }
 }

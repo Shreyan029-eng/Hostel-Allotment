@@ -46,3 +46,9 @@ next-env.d.ts
 .claude/
 .cursor/
 .gemini/
+
+# local scratch / runner files
+tempCodeRunnerFile*
+*.exe
+Source 1.txt
+Source 2.txt

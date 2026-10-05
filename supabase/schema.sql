@@ -425,26 +425,42 @@ ALTER TABLE rounds_config ENABLE ROW LEVEL SECURITY;
 ALTER TABLE gate_logs ENABLE ROW LEVEL SECURITY;
 
 -- Hostels & Rooms: Publicly readable for all authenticated/anon for choice filling
+DROP POLICY IF EXISTS "Public Read Hostels" ON hostels;
 CREATE POLICY "Public Read Hostels" ON hostels FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public Read Rooms" ON rooms;
 CREATE POLICY "Public Read Rooms" ON rooms FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Public Read Rounds Config" ON rounds_config;
 CREATE POLICY "Public Read Rounds Config" ON rounds_config FOR SELECT USING (true);
 
 -- Students: Read public student directory or self
+DROP POLICY IF EXISTS "Students Directory View" ON students;
 CREATE POLICY "Students Directory View" ON students FOR SELECT USING (true);
 
 -- Groups: View groups
+DROP POLICY IF EXISTS "View Groups" ON groups;
 CREATE POLICY "View Groups" ON groups FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Manage Groups" ON groups;
 CREATE POLICY "Manage Groups" ON groups FOR ALL USING (true);
 
 -- Group Members
+DROP POLICY IF EXISTS "View Group Members" ON group_members;
 CREATE POLICY "View Group Members" ON group_members FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Manage Group Members" ON group_members;
 CREATE POLICY "Manage Group Members" ON group_members FOR ALL USING (true);
 
 -- Preferences
+DROP POLICY IF EXISTS "View Preferences" ON preferences;
 CREATE POLICY "View Preferences" ON preferences FOR SELECT USING (true);
+
+DROP POLICY IF EXISTS "Manage Preferences" ON preferences;
 CREATE POLICY "Manage Preferences" ON preferences FOR ALL USING (true);
 
 -- Allotments: Students can only view if round is published OR if service role / admin
+DROP POLICY IF EXISTS "View Allotments When Published" ON allotments;
 CREATE POLICY "View Allotments When Published" ON allotments FOR SELECT USING (
     EXISTS (
         SELECT 1 FROM rounds_config rc 
@@ -453,4 +469,6 @@ CREATE POLICY "View Allotments When Published" ON allotments FOR SELECT USING (
 );
 
 -- Gate Logs: Read/Write
+DROP POLICY IF EXISTS "Gate Logs Access" ON gate_logs;
 CREATE POLICY "Gate Logs Access" ON gate_logs FOR ALL USING (true);
+

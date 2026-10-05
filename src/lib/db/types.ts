@@ -119,6 +119,73 @@ export interface RoundConfig {
   published_at?: string | null;
   total_allotted_groups?: number;
   total_unallotted_groups?: number;
+  next_release_time?: string | null;
+  auto_release_interval_ms?: number;
+  auto_release_enabled?: boolean;
+  total_rounds?: number;
+  final_round_active?: boolean;
+  final_round_completed?: boolean;
+  choice_filling_end_time?: string | null;
+  choice_window_duration_ms?: number;
+}
+
+export interface OccupiedRoomDetail {
+  room_id: string;
+  room_number: string;
+  floor: number;
+  capacity: number;
+  hostel_id: string;
+  hostel_name: string;
+  gender_allowed: string;
+  round_number?: number;
+  occupants: {
+    roll_no: string;
+    name: string;
+    cgpa: number;
+    round_number: number;
+    gender: string;
+  }[];
+}
+
+export interface AvailableRoomDetail {
+  room_id: string;
+  room_number: string;
+  floor: number;
+  capacity: number;
+  hostel_id: string;
+  hostel_name: string;
+  gender_allowed: string;
+  curfew_time?: string;
+}
+
+export interface RoomOccupancySummary {
+  total_rooms: number;
+  available_rooms: number;
+  occupied_rooms: number;
+  occupancy_rate: number;
+  by_hostel: {
+    hostel_id: string;
+    hostel_name: string;
+    total: number;
+    available: number;
+    occupied: number;
+    gender_allowed: string;
+    triplets_available?: number;
+    triplets_occupied?: number;
+    fourlets_available?: number;
+    fourlets_occupied?: number;
+  }[];
+}
+
+export interface RoomOccupancyReport {
+  summary: RoomOccupancySummary;
+  available_rooms: AvailableRoomDetail[];
+  occupied_rooms: OccupiedRoomDetail[];
+  is_published: boolean;
+  round_number: number;
+  published_at?: string | null;
+  choice_filling_end_time?: string | null;
+  next_release_time?: string | null;
 }
 
 export interface GroupDetails extends Group {

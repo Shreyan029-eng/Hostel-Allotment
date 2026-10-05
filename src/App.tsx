@@ -7,6 +7,7 @@ import GatePage from '@/pages/GatePage';
 import LoginPage from '@/pages/LoginPage';
 import StudentLoginPage from '@/pages/StudentLoginPage';
 import AdminLoginPage from '@/pages/AdminLoginPage';
+import AuthCallbackPage from '@/pages/AuthCallbackPage';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/login/student" element={<StudentLoginPage />} />
           <Route path="/login/admin" element={<AdminLoginPage />} />
+          <Route path="/auth/callback" element={<AuthCallbackPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>

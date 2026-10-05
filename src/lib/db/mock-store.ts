@@ -313,6 +313,12 @@ const initialRoundsConfig: RoundConfig[] = [
     published_at: null,
     total_allotted_groups: 0,
     total_unallotted_groups: 0,
+    next_release_time: null,
+    auto_release_interval_ms: 2 * 60 * 60 * 1000, // 2 hours in ms
+    auto_release_enabled: true,
+    total_rounds: 5,
+    final_round_active: false,
+    final_round_completed: false,
   },
 ];
 

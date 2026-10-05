@@ -194,6 +194,122 @@ async function runTestSuite() {
   assert(gateScan.success && Boolean(gateScan.student), 'Gate scanner scanned student barcode successfully');
   assert(typeof gateScan.is_late === 'boolean', 'Gate entry evaluated curfew time accurately');
 
+  // ---------------------------------------------------------------------------
+  // TEST 6: MULTI-ROUND CYCLE, ROOM OCCUPANCY REPORT & 30-MIN CHOICE WINDOW
+  // ---------------------------------------------------------------------------
+  console.log(`\n--- Test Suite 6: Multi-Round Cycle, Room Occupancy & 30-Min Choice Window ---`);
+
+  // 1. Initial Room Occupancy Report (Unpublished / initial state)
+  const initialOccupancy = await HostelRepository.getRoomOccupancyReport();
+  assert(initialOccupancy.summary.total_rooms > 0, `Total rooms counted: ${initialOccupancy.summary.total_rooms}`);
+  assert(
+    initialOccupancy.available_rooms.length + initialOccupancy.occupied_rooms.length === initialOccupancy.summary.total_rooms,
+    'Room conservation holds: Available rooms + Occupied rooms === Total campus rooms'
+  );
+
+  // 2. Publish Round 1
+  console.log('Publishing Round 1 results...');
+  const round1Result = await JosaaAllotmentEngine.runRoundAllotment(1, '2026-2027');
+  assert(round1Result.success && round1Result.roundNumber === 1, 'Round 1 executed and published');
+
+  const roundConfig1 = await HostelRepository.getRoundConfig(1);
+  assert(roundConfig1.is_published === true, 'Round 1 is now marked as published');
+  assert(Boolean(roundConfig1.choice_filling_end_time), 'Choice filling end time is set');
+  assert(Boolean(roundConfig1.next_release_time), 'Next release time (2-hour timer) is set');
+
+  const choiceWindowDurationMs = new Date(roundConfig1.choice_filling_end_time!).getTime() - Date.now();
+  assert(
+    choiceWindowDurationMs > 28 * 60 * 1000 && choiceWindowDurationMs <= 30 * 60 * 1000,
+    `Choice window is exactly 30 minutes (Remaining: ${Math.round(choiceWindowDurationMs / 60000)} mins)`
+  );
+
+  const totalCycleDurationMs = new Date(roundConfig1.next_release_time!).getTime() - Date.now();
+  assert(
+    totalCycleDurationMs > 118 * 60 * 1000 && totalCycleDurationMs <= 120 * 60 * 1000,
+    `Total cycle duration is exactly 2 hours (120 minutes, Remaining: ${Math.round(totalCycleDurationMs / 60000)} mins)`
+  );
+
+  // 3. Post-Round 1 Occupancy Report: Available vs Occupied
+  const postRound1Occupancy = await HostelRepository.getRoomOccupancyReport();
+  assert(postRound1Occupancy.occupied_rooms.length > 0, `Occupied rooms correctly identified after Round 1: ${postRound1Occupancy.occupied_rooms.length}`);
+  assert(postRound1Occupancy.available_rooms.length > 0, `Available rooms remaining: ${postRound1Occupancy.available_rooms.length}`);
+  assert(
+    postRound1Occupancy.occupied_rooms.every((r) => r.occupants && r.occupants.length > 0),
+    'Occupied rooms carry complete occupant details (names, rolls, round numbers)'
+  );
+
+  // 4. Unallotted Groups unlocked for 30-min Choice Modification
+  const allottedGroupIds = new Set(mockDb.allotments.map((a) => a.group_id).filter(Boolean));
+  const unallottedGroups = mockDb.groups.filter((g) => !allottedGroupIds.has(g.group_id));
+  assert(
+    unallottedGroups.every((g) => g.is_locked === false),
+    'All unallotted groups unlocked to add or modify choices during the 30-minute window'
+  );
+
+  // 5. Unallotted student modifies choice filling during 30-min window
+  if (unallottedGroups.length > 0) {
+    const testUnallottedGroup = unallottedGroups[0];
+    const matchingAvailableRoom = postRound1Occupancy.available_rooms.find(
+      (r) => r.capacity === testUnallottedGroup.required_capacity
+    );
+    assert(Boolean(matchingAvailableRoom), 'Found matching available room for unallotted group');
+
+    // Submit new preference
+    const prefResult = await HostelRepository.submitAndLockPreferences(
+      testUnallottedGroup.group_id,
+      testUnallottedGroup.leader_roll_no,
+      [matchingAvailableRoom!.room_id]
+    );
+    assert(prefResult.success, 'Unallotted student successfully submitted choices during 30-minute window');
+
+    // Unlock choices to modify
+    const unlockResult = await HostelRepository.unlockPreferences(
+      testUnallottedGroup.group_id,
+      testUnallottedGroup.leader_roll_no
+    );
+    assert(unlockResult.success, 'Unallotted leader successfully unlocked choices to edit');
+    assert(testUnallottedGroup.is_locked === false, 'Group state is unlocked');
+  }
+
+  // 6. Already Allotted Group BLOCKED from modifying choices
+  const allottedGroup = mockDb.groups.find((g) => allottedGroupIds.has(g.group_id));
+  if (allottedGroup) {
+    const blockedPref = await HostelRepository.submitAndLockPreferences(
+      allottedGroup.group_id,
+      allottedGroup.leader_roll_no,
+      ['any-room']
+    );
+    assert(!blockedPref.success, 'Already allotted group is strictly blocked from modifying choices');
+
+    const blockedUnlock = await HostelRepository.unlockPreferences(
+      allottedGroup.group_id,
+      allottedGroup.leader_roll_no
+    );
+    assert(!blockedUnlock.success, 'Already allotted group is strictly blocked from unlocking choices');
+  }
+
+  // 7. Expired Choice Window Enforcement
+  const origEndTime = roundConfig1.choice_filling_end_time;
+  roundConfig1.choice_filling_end_time = new Date(Date.now() - 1000).toISOString();
+
+  if (unallottedGroups.length > 0) {
+    const testUnallottedGroup = unallottedGroups[0];
+    const expiredSubmit = await HostelRepository.submitAndLockPreferences(
+      testUnallottedGroup.group_id,
+      testUnallottedGroup.leader_roll_no,
+      ['some-room']
+    );
+    assert(!expiredSubmit.success, 'Choice submission rejected after 30-minute window expired');
+
+    const expiredUnlock = await HostelRepository.unlockPreferences(
+      testUnallottedGroup.group_id,
+      testUnallottedGroup.leader_roll_no
+    );
+    assert(!expiredUnlock.success, 'Choice unlock rejected after 30-minute window expired');
+  }
+
+  roundConfig1.choice_filling_end_time = origEndTime;
+
   console.log(`\n=============================================================`);
   console.log(`🏁 TEST RESULTS: ${passedTests}/${totalTests} TESTS PASSED (100%)`);
   console.log(`=============================================================\n`);
