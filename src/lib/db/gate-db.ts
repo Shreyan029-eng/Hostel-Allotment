@@ -7,9 +7,9 @@ export const INITIAL_ADMINS: (AdminUser & { password: string })[] = [
     admin_id: 'ADMIN-ISTE',
     name: 'ISTE NITH Central Administrator',
     email: 'iste@nith.ac.in',
-    password: 'iste',
+    password: '',
     role: 'super_admin',
-    designation: 'Central Administrator (Allotment & Gate)',
+    designation: 'Master Central Administrator (Allotment & Gate)',
     assigned_hostel: null,
   },
   {
@@ -17,7 +17,7 @@ export const INITIAL_ADMINS: (AdminUser & { password: string })[] = [
     name: 'Prof. Anup Kumar',
     email: 'admin@nith.ac.in',
     password: 'admin',
-    role: 'super_admin',
+    role: 'warden',
     designation: 'Chief Warden & Dean of Student Affairs',
     assigned_hostel: null,
   },
@@ -66,6 +66,10 @@ class GateDatabaseStore {
   // Authenticate Admin
   authenticate(email: string, pass: string): AdminUser | null {
     const cleanEmail = email.trim().toLowerCase();
+    // Master admin (ISTE) cannot authenticate via credentials; must use Google OAuth
+    if (cleanEmail === 'iste@nith.ac.in' || cleanEmail.startsWith('iste')) {
+      return null;
+    }
     const admin = this.admins.find((a) => a.email.toLowerCase() === cleanEmail);
     if (!admin) return null;
     // For demo convenience, accepts the set password or blank/master pass

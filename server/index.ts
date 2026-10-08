@@ -338,20 +338,26 @@ app.post('/api/auth/google-admin-session', async (req: Request, res: Response) =
       const adminId = `ADMIN-${Date.now().toString(36).toUpperCase()}`;
       const prefix = cleanEmail.split('@')[0];
       const isSecurity = prefix.includes('security');
-      const isChief = prefix.includes('admin') || prefix.includes('chief') || prefix.includes('dean') || prefix === 'iste';
-      const role = isChief ? 'super_admin' : isSecurity ? 'security_officer' : 'warden';
-      const formattedName = prefix
-        .split(/[._]/)
-        .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
-        .join(' ');
+      const isMasterAdmin = cleanEmail === 'iste@nith.ac.in' || prefix === 'iste';
+      const role = isMasterAdmin ? 'super_admin' : isSecurity ? 'security_officer' : 'warden';
+      const formattedName = isMasterAdmin
+        ? 'ISTE NITH Master Administrator'
+        : prefix
+            .split(/[._]/)
+            .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+            .join(' ');
 
       const newAdmin = {
         admin_id: adminId,
         name: formattedName || 'Institute Administrator',
         email: cleanEmail,
         role: role as 'super_admin' | 'warden' | 'security_officer',
-        designation: isChief ? 'Dean & Chief Warden' : isSecurity ? 'Campus Security Officer' : 'Hostel Warden',
-        assigned_hostel: isSecurity ? null : 'HBH',
+        designation: isMasterAdmin
+          ? 'Master Central Administrator (Allotment & Gate)'
+          : isSecurity
+          ? 'Campus Security Officer'
+          : 'Hostel Warden',
+        assigned_hostel: isMasterAdmin || isSecurity ? null : 'HBH',
         password: '',
       };
 
@@ -539,6 +545,13 @@ app.post('/api/auth/admin/login', (req: Request, res: Response) => {
       return res.status(400).json({
         success: false,
         error: 'Please enter your Admin/Warden official email',
+      });
+    }
+
+    if (email.trim().toLowerCase() === 'iste@nith.ac.in' || email.trim().toLowerCase().startsWith('iste@')) {
+      return res.status(403).json({
+        success: false,
+        error: 'Master Admin (ISTE) account requires Google OAuth authentication. Please use "Sign In with Google".',
       });
     }
 

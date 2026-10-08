@@ -14,8 +14,8 @@ export default function AdminLoginPage() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [loginEmail, setLoginEmail] = useState('iste@nith.ac.in');
-  const [loginPassword, setLoginPassword] = useState('iste');
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
 
   const handleCredentialLogin = async (emailToUse: string, passwordToUse: string) => {
     try {
@@ -118,30 +118,8 @@ export default function AdminLoginPage() {
               </div>
             )}
 
-              {/* Option 1: Direct One-Click / Credential Authentication for ISTE Admin */}
+              {/* Credential Authentication */}
               <div className="space-y-3">
-                <button
-                  type="button"
-                  onClick={() => handleCredentialLogin(loginEmail || 'iste@nith.ac.in', loginPassword || 'iste')}
-                  disabled={isLoading}
-                  className="w-full py-3 px-4 bg-blue-900 hover:bg-blue-800 text-white font-semibold text-sm rounded-lg shadow-xs transition-all flex items-center justify-center gap-2.5 cursor-pointer disabled:opacity-50"
-                >
-                  {isLoading ? (
-                    <Loader2 className="w-4 h-4 animate-spin text-white" />
-                  ) : (
-                    <ShieldCheck className="w-4 h-4 text-orange-400" />
-                  )}
-                  <span>Sign In as ISTE Administrator (iste@nith.ac.in)</span>
-                </button>
-
-                <div className="relative flex py-1 items-center">
-                  <div className="flex-grow border-t border-slate-200"></div>
-                  <span className="shrink mx-3 text-[11px] text-slate-600 uppercase tracking-wider font-semibold">
-                    Or Enter Credentials / Google Sign-In
-                  </span>
-                  <div className="flex-grow border-t border-slate-200"></div>
-                </div>
-
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -157,7 +135,7 @@ export default function AdminLoginPage() {
                       type="email"
                       value={loginEmail}
                       onChange={(e) => setLoginEmail(e.target.value)}
-                      placeholder="iste@nith.ac.in"
+                      placeholder="admin@nith.ac.in"
                       className="w-full px-3 py-2 text-xs border border-slate-300 rounded focus:outline-none focus:border-blue-900 font-mono"
                       required
                     />
@@ -171,7 +149,7 @@ export default function AdminLoginPage() {
                       type="password"
                       value={loginPassword}
                       onChange={(e) => setLoginPassword(e.target.value)}
-                      placeholder="iste"
+                      placeholder="Enter password"
                       className="w-full px-3 py-2 text-xs border border-slate-300 rounded focus:outline-none focus:border-blue-900 font-mono"
                     />
                   </div>

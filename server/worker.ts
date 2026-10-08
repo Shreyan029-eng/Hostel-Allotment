@@ -299,20 +299,26 @@ app.post('/api/auth/google-admin-session', async (c) => {
       const adminId = `ADMIN-${Date.now().toString(36).toUpperCase()}`;
       const prefix = cleanEmail.split('@')[0];
       const isSecurity = prefix.includes('security');
-      const isChief = prefix.includes('admin') || prefix.includes('chief') || prefix.includes('dean') || prefix === 'iste';
-      const role = isChief ? 'super_admin' : isSecurity ? 'security_officer' : 'warden';
-      const formattedName = prefix
-        .split(/[._]/)
-        .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
-        .join(' ');
+      const isMasterAdmin = cleanEmail === 'iste@nith.ac.in' || prefix === 'iste';
+      const role = isMasterAdmin ? 'super_admin' : isSecurity ? 'security_officer' : 'warden';
+      const formattedName = isMasterAdmin
+        ? 'ISTE NITH Master Administrator'
+        : prefix
+            .split(/[._]/)
+            .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
+            .join(' ');
 
       const newAdmin = {
         admin_id: adminId,
         name: formattedName || 'Institute Administrator',
         email: cleanEmail,
         role: role as 'super_admin' | 'warden' | 'security_officer',
-        designation: isChief ? 'Dean & Chief Warden' : isSecurity ? 'Campus Security Officer' : 'Hostel Warden',
-        assigned_hostel: isSecurity ? null : 'HBH',
+        designation: isMasterAdmin
+          ? 'Master Central Administrator (Allotment & Gate)'
+          : isSecurity
+          ? 'Campus Security Officer'
+          : 'Hostel Warden',
+        assigned_hostel: isMasterAdmin || isSecurity ? null : 'HBH',
         password: '',
       };
 
@@ -500,6 +506,16 @@ app.post('/api/auth/admin/login', async (c) => {
           error: 'Please enter your Admin/Warden official email',
         },
         400
+      );
+    }
+
+    if (email.trim().toLowerCase() === 'iste@nith.ac.in' || email.trim().toLowerCase().startsWith('iste@')) {
+      return c.json(
+        {
+          success: false,
+          error: 'Master Admin (ISTE) account requires Google OAuth authentication. Please use "Sign In with Google".',
+        },
+        403
       );
     }
 
