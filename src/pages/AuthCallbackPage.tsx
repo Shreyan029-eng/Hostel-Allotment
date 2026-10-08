@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/client';
 import { Navbar } from '@/components/Navbar';
 import { CheckCircle2, Loader2, ArrowLeft, RefreshCw, ShieldAlert } from 'lucide-react';
 
-const STUDENT_EMAIL_REGEX = /^[0-9]{2}[a-z]{3}[0-9]{3}@\.?nith\.ac\.in$/i;
+const STUDENT_EMAIL_REGEX = /^[0-9]{2}[a-z]{2,4}[0-9]{2,4}@\.?nith\.ac\.in$/i;
 const ADMIN_EMAIL_REGEX = /@\.?nith\.ac\.in$/i;
 
 export default function AuthCallbackPage() {
@@ -141,24 +141,30 @@ export default function AuthCallbackPage() {
             body: JSON.stringify({ email: cleanEmail, access_token: accessToken }),
           });
 
-          const data = await response.json();
+          let data: { success?: boolean; error?: string; admin?: { role?: string } } | null = null;
+          try {
+            data = await response.json();
+          } catch {
+            throw new Error('Backend server returned non-JSON response. Ensure Express backend is running on port 5000.');
+          }
 
-          if (!response.ok || !data.success) {
+          if (!response.ok || !data?.success) {
             setStatus('error');
             setExpectedFormat('@nith.ac.in');
-            setErrorMessage(data.error || 'Access denied: Admin email must end with @nith.ac.in');
+            setErrorMessage(data?.error || 'Access denied: Admin email must end with @nith.ac.in');
             return;
           }
 
           setStatus('success');
           setTimeout(() => {
-            if (data.admin?.role === 'security_officer') {
+            if (data?.admin?.role === 'security_officer') {
               navigate('/admin/gate');
             } else {
               navigate('/admin');
             }
           }, 800);
-        } catch {
+        } catch (err: unknown) {
+          console.error('Administrator verification failed:', err);
           setStatus('error');
           setErrorMessage('Failed to connect to NITH backend server to verify administrator session.');
         }
@@ -187,13 +193,18 @@ export default function AuthCallbackPage() {
           body: JSON.stringify({ email: cleanEmail, access_token: accessToken }),
         });
 
-        const data = await response.json();
+        let data: { success?: boolean; error?: string } | null = null;
+        try {
+          data = await response.json();
+        } catch {
+          throw new Error('Backend server returned non-JSON response. Ensure Express backend is running on port 5000.');
+        }
 
-        if (!response.ok || !data.success) {
+        if (!response.ok || !data?.success) {
           setStatus('error');
           setExpectedFormat('roll_number@nith.ac.in');
           setErrorMessage(
-            data.error || 'Access denied: Student email must be in the format roll_number@nith.ac.in'
+            data?.error || 'Access denied: Student email must be in the format roll_number@nith.ac.in'
           );
           return;
         }
@@ -202,7 +213,8 @@ export default function AuthCallbackPage() {
         setTimeout(() => {
           navigate('/student');
         }, 800);
-      } catch {
+      } catch (err: unknown) {
+        console.error('Student session verification failed:', err);
         setStatus('error');
         setErrorMessage('Failed to connect to NITH backend server to verify student session.');
       }
@@ -261,15 +273,41 @@ export default function AuthCallbackPage() {
               <div className="p-4 bg-red-50 border border-red-200 rounded-lg text-xs text-red-900 space-y-2.5">
                 <div className="flex items-center gap-2 font-bold text-red-800">
                   <ShieldAlert className="w-4 h-4 text-red-600 shrink-0" />
-                  <span>Authentication Denied</span>
+                  <span>
+                    {errorMessage?.includes('Failed to connect')
+                      ? 'Server Connection Issue'
+                      : 'Authentication Denied'}
+                  </span>
                 </div>
                 <p className="text-red-700 leading-relaxed font-medium">{errorMessage}</p>
-                <div className="pt-2 border-t border-red-200/60 text-[11px] text-red-700 flex items-center justify-between">
-                  <span>Expected format:</span>
-                  <code className="font-mono font-bold bg-white text-red-900 px-2 py-0.5 rounded border border-red-200">
-                    {expectedFormat}
-                  </code>
-                </div>
+
+                {/* Show format helper ONLY when relevant to institutional email format failure */}
+                {Boolean(
+                  errorMessage &&
+                    !errorMessage.includes('Failed to connect') &&
+                    (errorMessage.toLowerCase().includes('format') ||
+                      errorMessage.toLowerCase().includes('criteria') ||
+                      errorMessage.toLowerCase().includes('denied') ||
+                      errorMessage.toLowerCase().includes('expected'))
+                ) && (
+                  <div className="pt-2 border-t border-red-200/60 text-[11px] text-red-700 flex items-center justify-between">
+                    <span>Expected format:</span>
+                    <code className="font-mono font-bold bg-white text-red-900 px-2 py-0.5 rounded border border-red-200">
+                      {expectedFormat}
+                    </code>
+                  </div>
+                )}
+
+                {/* Show troubleshooting steps if connection to backend failed */}
+                {Boolean(errorMessage && errorMessage.includes('Failed to connect')) && (
+                  <div className="pt-2 border-t border-red-200/60 text-[11px] text-red-800 space-y-1">
+                    <p className="font-semibold text-slate-800">How to resolve:</p>
+                    <ul className="list-disc list-inside text-[11px] text-slate-600 space-y-0.5">
+                      <li>Start both backend and frontend together with <code className="bg-slate-100 text-slate-900 px-1 py-0.5 rounded font-mono font-bold">npm run dev</code></li>
+                      <li>Check that the API server is listening on port 5000</li>
+                    </ul>
+                  </div>
+                )}
               </div>
 
               <div className="flex flex-col gap-2 pt-2">

@@ -4,6 +4,15 @@ import { mockDb } from './mock-store';
 // Default Authorized Admins & Wardens
 export const INITIAL_ADMINS: (AdminUser & { password: string })[] = [
   {
+    admin_id: 'ADMIN-ISTE',
+    name: 'ISTE NITH Central Administrator',
+    email: 'iste@nith.ac.in',
+    password: 'iste',
+    role: 'super_admin',
+    designation: 'Central Administrator (Allotment & Gate)',
+    assigned_hostel: null,
+  },
+  {
     admin_id: 'ADMIN-CHIEF',
     name: 'Prof. Anup Kumar',
     email: 'admin@nith.ac.in',

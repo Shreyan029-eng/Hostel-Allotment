@@ -8,6 +8,7 @@ import {
   Preference,
   Allotment,
   HostelHistory,
+  SharingType,
   RoundConfig,
   GateLog,
 } from './types';
@@ -106,7 +107,7 @@ export const initialHostels: Hostel[] = [
     warden_id: 'WARDEN-AGH',
     warden_name: 'Dr. Sunita Rao',
     warden_phone: '+91 98765 43213',
-    capacity: 300,
+    capacity: 204,
     curfew_time: '21:30:00',
   },
   {
@@ -203,7 +204,7 @@ function buildPreSeededGroups(students: Student[], rooms: Room[]) {
   const preferences: Preference[] = [];
 
   // Exclude test and demo students so they can freely test creating lobbies in test suite and demo
-  const reservedRolls = new Set(['25BEE012', '25BCH076']);
+  const reservedRolls = new Set(['25BEE012', '25BCH076', '25BME076']);
 
   // Pool students by year and gender
   const pools = {
@@ -218,12 +219,12 @@ function buildPreSeededGroups(students: Student[], rooms: Room[]) {
   let groupCounter = 1;
   const createCohort = (
     pool: Student[],
-    sharingType: 'Triplets' | 'Fourlets',
+    sharingType: SharingType,
     hostelId: string,
     prefix: string,
     count: number
   ) => {
-    const capacity = sharingType === 'Fourlets' ? 4 : 3;
+    const capacity = sharingType === 'Fourlets' ? 4 : sharingType === 'Triplets' ? 3 : 2;
     const availableRooms = rooms.filter((r) => r.hostel_id === hostelId && r.capacity === capacity);
 
     for (let c = 0; c < count; c++) {
@@ -278,9 +279,9 @@ function buildPreSeededGroups(students: Student[], rooms: Room[]) {
   createCohort(pools.y2m, 'Fourlets', 'HBH', 'HBH-F', 5);
   createCohort(pools.y2m, 'Triplets', 'HBH', 'HBH-T', 3);
 
-  // Year 2 Girls: 3 Fourlets & 2 Triplets in Ambika (AGH)
-  createCohort(pools.y2f, 'Fourlets', 'AGH', 'AGH-F', 3);
-  createCohort(pools.y2f, 'Triplets', 'AGH', 'AGH-T', 2);
+  // Year 2 Girls: 2 Fourlets & 3 Twolets in Ambika (AGH)
+  createCohort(pools.y2f, 'Fourlets', 'AGH', 'AGH-F', 2);
+  createCohort(pools.y2f, 'Twolets', 'AGH', 'AGH-TW', 3);
 
   // Year 3 Boys: 4 Triplets in Dhauladhar (DBH)
   createCohort(pools.y3m, 'Triplets', 'DBH', 'DBH-T', 4);

@@ -235,8 +235,29 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span>Student Dashboard / छात्र डैशबोर्ड</span>
               </Link>
             ) : admin ? (
-              /* Case 2: Admin is Logged In -> Strictly show ONLY their assigned module */
-              admin.role === 'security_officer' ? (
+              /* Case 2: Admin is Logged In */
+              admin.role === 'super_admin' ? (
+                <div className="flex items-center space-x-1">
+                  <Link
+                    to="/admin"
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded transition-colors ${
+                      pathname === '/admin' ? 'bg-blue-950 text-white font-bold' : 'text-blue-100 hover:bg-blue-800'
+                    }`}
+                  >
+                    <Shield className="w-3.5 h-3.5 text-orange-400" />
+                    <span>Hostel Allotment / आवंटन</span>
+                  </Link>
+                  <Link
+                    to="/admin/gate"
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded transition-colors ${
+                      pathname === '/admin/gate' ? 'bg-blue-950 text-white font-bold' : 'text-blue-100 hover:bg-blue-800'
+                    }`}
+                  >
+                    <QrCode className="w-3.5 h-3.5 text-orange-400" />
+                    <span>Gate Terminal / गेट टर्मिनल</span>
+                  </Link>
+                </div>
+              ) : admin.role === 'security_officer' ? (
                 <Link
                   to="/admin/gate"
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-blue-950 text-white font-bold"

@@ -6,8 +6,8 @@ export interface RoomDefinition {
   room_number: string;
   floor: number;
   floor_label: string;
-  capacity: number; // 3 for Triplets, 4 for Fourlets
-  sharing_type: 'Triplets' | 'Fourlets';
+  capacity: number; // 2 for Twolets, 3 for Triplets, 4 for Fourlets
+  sharing_type: 'Twolets' | 'Triplets' | 'Fourlets';
   status: 'free' | 'locked';
 }
 
@@ -217,10 +217,14 @@ export function generateAllHostelRooms(): RoomDefinition[] {
   }
 
   // ===========================================================================
-  // 2. OTHER HOSTELS (AGH, DBH, NBH, PGH, SGH, HGBH, VBH, UBH, MMGH)
+  // 2. AMBIKA GIRLS HOSTEL (AGH - Exact Specification from Document)
+  // ===========================================================================
+  rooms.push(...generateAmbikaRooms());
+
+  // ===========================================================================
+  // 3. OTHER HOSTELS (DBH, NBH, PGH, SGH, HGBH, VBH, UBH, MMGH)
   // ===========================================================================
   const otherHostels = [
-    { id: 'AGH', floors: 4, fourletsPerFloor: 10, tripletsPerFloor: 10 },
     { id: 'DBH', floors: 4, fourletsPerFloor: 12, tripletsPerFloor: 8 },
     { id: 'NBH', floors: 4, fourletsPerFloor: 10, tripletsPerFloor: 10 },
     { id: 'PGH', floors: 4, fourletsPerFloor: 8, tripletsPerFloor: 12 },
@@ -268,12 +272,287 @@ export function generateAllHostelRooms(): RoomDefinition[] {
   return rooms;
 }
 
+export function generateAmbikaRooms(): RoomDefinition[] {
+  const rooms: RoomDefinition[] = [];
+  const hostelId = 'AGH';
+
+  // ---------------------------------------------------------------------------
+  // OLD AGH
+  // ---------------------------------------------------------------------------
+
+  // Series 3: (Fourlets)
+  // Block A: A-301 - A-303
+  for (let num = 301; num <= 303; num++) {
+    const rm = `A-${num}`;
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 3,
+      floor_label: 'Series 3 (Old Wing)',
+      capacity: 4,
+      sharing_type: 'Fourlets',
+      status: 'free',
+    });
+  }
+  // Block B: B-301 - B-303
+  for (let num = 301; num <= 303; num++) {
+    const rm = `B-${num}`;
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 3,
+      floor_label: 'Series 3 (Old Wing)',
+      capacity: 4,
+      sharing_type: 'Fourlets',
+      status: 'free',
+    });
+  }
+  // Block C: C-301 - C-304
+  for (let num = 301; num <= 304; num++) {
+    const rm = `C-${num}`;
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 3,
+      floor_label: 'Series 3 (Old Wing)',
+      capacity: 4,
+      sharing_type: 'Fourlets',
+      status: 'free',
+    });
+  }
+
+  // Series 4: (Fourlets)
+  // Block B: B-401 - B-403
+  for (let num = 401; num <= 403; num++) {
+    const rm = `B-${num}`;
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 4,
+      floor_label: 'Series 4 (Old Wing)',
+      capacity: 4,
+      sharing_type: 'Fourlets',
+      status: 'free',
+    });
+  }
+  // Block A: A-401 - A-404
+  for (let num = 401; num <= 404; num++) {
+    const rm = `A-${num}`;
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 4,
+      floor_label: 'Series 4 (Old Wing)',
+      capacity: 4,
+      sharing_type: 'Fourlets',
+      status: 'free',
+    });
+  }
+
+  // Series 5: (Twolets)
+  // Block C: C-501 - C-512
+  for (let num = 501; num <= 512; num++) {
+    const rm = `C-${num}`;
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 5,
+      floor_label: 'Series 5 (Old Wing)',
+      capacity: 2,
+      sharing_type: 'Twolets',
+      status: 'free',
+    });
+  }
+
+  // Series 6:
+  // Block C: (Twolets): C-601 - C-612
+  for (let num = 601; num <= 612; num++) {
+    const rm = `C-${num}`;
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 6,
+      floor_label: 'Series 6 (Old Wing)',
+      capacity: 2,
+      sharing_type: 'Twolets',
+      status: 'free',
+    });
+  }
+  // Block A: (Fourlets): A-601 - A-603
+  for (let num = 601; num <= 603; num++) {
+    const rm = `A-${num}`;
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 6,
+      floor_label: 'Series 6 (Old Wing)',
+      capacity: 4,
+      sharing_type: 'Fourlets',
+      status: 'free',
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // NEW AGH: (All Twolets)
+  // ---------------------------------------------------------------------------
+
+  // Series 2:
+  // Block F: F-201 - F-208
+  for (let num = 201; num <= 208; num++) {
+    const rm = `F-${num}`;
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 2,
+      floor_label: 'Series 2 (New Wing)',
+      capacity: 2,
+      sharing_type: 'Twolets',
+      status: 'free',
+    });
+  }
+  // Block G: G-201, G-202
+  ['G-201', 'G-202'].forEach((rm) => {
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 2,
+      floor_label: 'Series 2 (New Wing)',
+      capacity: 2,
+      sharing_type: 'Twolets',
+      status: 'free',
+    });
+  });
+  // Block E: E-201, E-101
+  ['E-201', 'E-101'].forEach((rm) => {
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 2,
+      floor_label: 'Series 2 (New Wing)',
+      capacity: 2,
+      sharing_type: 'Twolets',
+      status: 'free',
+    });
+  });
+
+  // Series 3:
+  // Block F: F-301 - F-308
+  for (let num = 301; num <= 308; num++) {
+    const rm = `F-${num}`;
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 3,
+      floor_label: 'Series 3 (New Wing)',
+      capacity: 2,
+      sharing_type: 'Twolets',
+      status: 'free',
+    });
+  }
+  // Block G: G-301, G-302
+  ['G-301', 'G-302'].forEach((rm) => {
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 3,
+      floor_label: 'Series 3 (New Wing)',
+      capacity: 2,
+      sharing_type: 'Twolets',
+      status: 'free',
+    });
+  });
+  // Block E: E-301
+  rooms.push({
+    room_id: `${hostelId}-E-301`,
+    hostel_id: hostelId,
+    room_number: 'E-301',
+    floor: 3,
+    floor_label: 'Series 3 (New Wing)',
+    capacity: 2,
+    sharing_type: 'Twolets',
+    status: 'free',
+  });
+  // Block H: H-301 - H-304
+  for (let num = 301; num <= 304; num++) {
+    const rm = `H-${num}`;
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 3,
+      floor_label: 'Series 3 (New Wing)',
+      capacity: 2,
+      sharing_type: 'Twolets',
+      status: 'free',
+    });
+  }
+
+  // Series 4:
+  // Block F: F-401 - F-408
+  for (let num = 401; num <= 408; num++) {
+    const rm = `F-${num}`;
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 4,
+      floor_label: 'Series 4 (New Wing)',
+      capacity: 2,
+      sharing_type: 'Twolets',
+      status: 'free',
+    });
+  }
+  // Block G: G-401, G-402
+  ['G-401', 'G-402'].forEach((rm) => {
+    rooms.push({
+      room_id: `${hostelId}-${rm}`,
+      hostel_id: hostelId,
+      room_number: rm,
+      floor: 4,
+      floor_label: 'Series 4 (New Wing)',
+      capacity: 2,
+      sharing_type: 'Twolets',
+      status: 'free',
+    });
+  });
+  // Block E: E-401
+  rooms.push({
+    room_id: `${hostelId}-E-401`,
+    hostel_id: hostelId,
+    room_number: 'E-401',
+    floor: 4,
+    floor_label: 'Series 4 (New Wing)',
+    capacity: 2,
+    sharing_type: 'Twolets',
+    status: 'free',
+  });
+
+  return rooms;
+}
+
 if (process.argv[1]?.includes('generate-himadri-rooms')) {
   const allRooms = generateAllHostelRooms();
   fs.writeFileSync('src/lib/db/nith-rooms.json', JSON.stringify(allRooms, null, 2), 'utf-8');
   const hbhRooms = allRooms.filter((r) => r.hostel_id === 'HBH');
+  const aghRooms = allRooms.filter((r) => r.hostel_id === 'AGH');
   console.log(`Generated ${allRooms.length} total rooms.`);
   console.log(`Himadri Boys Hostel (HBH): ${hbhRooms.length} rooms generated.`);
   console.log(`- Fourlets in HBH: ${hbhRooms.filter((r) => r.sharing_type === 'Fourlets').length}`);
   console.log(`- Triplets in HBH: ${hbhRooms.filter((r) => r.sharing_type === 'Triplets').length}`);
+  console.log(`Ambika Girls Hostel (AGH): ${aghRooms.length} rooms generated.`);
+  console.log(`- Fourlets in AGH: ${aghRooms.filter((r) => r.sharing_type === 'Fourlets').length}`);
+  console.log(`- Twolets in AGH: ${aghRooms.filter((r) => r.sharing_type === 'Twolets').length}`);
 }

@@ -23,7 +23,7 @@ export default function GatePage() {
         return;
       }
 
-      if (authData.admin.role !== 'security_officer') {
+      if (authData.admin.role !== 'security_officer' && authData.admin.role !== 'super_admin') {
         navigate('/admin', { replace: true });
         return;
       }
@@ -103,6 +103,15 @@ export default function GatePage() {
                   <QrCode className="w-3.5 h-3.5" />
                   <span>Gate Entry Terminal</span>
                 </div>
+                {admin.role === 'super_admin' && (
+                  <Link
+                    to="/admin"
+                    className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs rounded border border-slate-300 flex items-center gap-1.5 transition-colors"
+                  >
+                    <span>Allotment Admin</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                )}
               </div>
             </div>
 

@@ -113,6 +113,53 @@ async function runTestSuite() {
   assert(l5Triplets.length === 13, 'Level 5: Exactly 13 Triplets (526-538)');
 
   // ---------------------------------------------------------------------------
+  // TEST 2B: AMBIKA GIRLS HOSTEL (AGH) EXACT ROOM LAYOUT (SPECIFICATION)
+  // ---------------------------------------------------------------------------
+  console.log(`\n--- Test Suite 2B: Ambika Girls Hostel Room Layout ---`);
+  const aghRooms = allRooms.filter((r) => r.hostel_id === 'AGH');
+  assert(aghRooms.length === 82, `Ambika has exactly 82 rooms generated (Found: ${aghRooms.length})`);
+
+  const aghFourlets = aghRooms.filter((r) => r.sharing_type === 'Fourlets');
+  const aghTwolets = aghRooms.filter((r) => r.sharing_type === 'Twolets');
+  const aghTriplets = aghRooms.filter((r) => r.sharing_type === 'Triplets');
+  assert(aghFourlets.length === 20, `Ambika has exactly 20 Fourlets (Found: ${aghFourlets.length})`);
+  assert(aghTwolets.length === 62, `Ambika has exactly 62 Twolets (Found: ${aghTwolets.length})`);
+  assert(aghTriplets.length === 0, `Ambika has 0 Triplets (Found: ${aghTriplets.length})`);
+
+  // OLD AGH: Series 3 (Fourlets: A 301-303, B 301-303, C 301-304) -> 10 Fourlets
+  // OLD AGH: Series 3 (Fourlets: A 301-303, B 301-303, C 301-304) -> 10 Fourlets
+  const oldS3 = aghRooms.filter((r) => r.floor_label.includes('Old Wing') && r.floor === 3);
+  assert(oldS3.length === 10 && oldS3.every((r) => r.capacity === 4), 'OLD AGH Series 3: Exactly 10 Fourlets (A-301..303, B-301..303, C-301..304)');
+
+  // OLD AGH: Series 4 (Fourlets: B 401-403, A 401-404) -> 7 Fourlets
+  const oldS4 = aghRooms.filter((r) => r.floor_label.includes('Old Wing') && r.floor === 4);
+  assert(oldS4.length === 7 && oldS4.every((r) => r.capacity === 4), 'OLD AGH Series 4: Exactly 7 Fourlets (B-401..403, A-401..404)');
+
+  // OLD AGH: Series 5 (Twolets: C 501-512) -> 12 Twolets
+  const oldS5 = aghRooms.filter((r) => r.floor_label.includes('Old Wing') && r.floor === 5);
+  assert(oldS5.length === 12 && oldS5.every((r) => r.capacity === 2), 'OLD AGH Series 5: Exactly 12 Twolets (C-501..512)');
+
+  // OLD AGH: Series 6 (Twolets: C 601-612 [12], Fourlets: A 601-603 [3]) -> 15 rooms
+  const oldS6 = aghRooms.filter((r) => r.floor_label.includes('Old Wing') && r.floor === 6);
+  const oldS6Twolets = oldS6.filter((r) => r.capacity === 2);
+  const oldS6Fourlets = oldS6.filter((r) => r.capacity === 4);
+  assert(oldS6Twolets.length === 12, 'OLD AGH Series 6: Exactly 12 Twolets (C-601..612)');
+  assert(oldS6Fourlets.length === 3, 'OLD AGH Series 6: Exactly 3 Fourlets (A-601..603)');
+
+  // NEW AGH: All Twolets
+  // Series 2: F 201-208, G 201-202, E 201, E 101 -> 12 Twolets
+  const newS2 = aghRooms.filter((r) => r.floor_label.includes('New Wing') && r.floor === 2);
+  assert(newS2.length === 12 && newS2.every((r) => r.capacity === 2), 'NEW AGH Series 2: Exactly 12 Twolets (F 201..208, G 201..202, E 201, E 101)');
+
+  // Series 3: F 301-308, G 301-302, E 301, H 301-304 -> 15 Twolets
+  const newS3 = aghRooms.filter((r) => r.floor_label.includes('New Wing') && r.floor === 3);
+  assert(newS3.length === 15 && newS3.every((r) => r.capacity === 2), 'NEW AGH Series 3: Exactly 15 Twolets (F 301..308, G 301..302, E 301, H 301..304)');
+
+  // Series 4: F 401-408, G 401-402, E 401 -> 11 Twolets
+  const newS4 = aghRooms.filter((r) => r.floor_label.includes('New Wing') && r.floor === 4);
+  assert(newS4.length === 11 && newS4.every((r) => r.capacity === 2), 'NEW AGH Series 4: Exactly 11 Twolets (F 401..408, G 401..402, E 401)');
+
+  // ---------------------------------------------------------------------------
   // TEST 3: 6-DIGIT OTP AUTHENTICATION
   // ---------------------------------------------------------------------------
   console.log(`\n--- Test Suite 3: 6-Digit OTP Authentication ---`);
@@ -185,6 +232,18 @@ async function runTestSuite() {
     'Peer occupies slot in the custom room lobby'
   );
 
+  // 6. Twolet Lobby Creation for Year 2 Girl
+  const candidateGirlRoll = '25BME076';
+  await HostelRepository.leaveOrDisbandGroup(candidateGirlRoll);
+  const twoletLobbyRes = await HostelRepository.createLobby(candidateGirlRoll, 'Twolets');
+  assert(
+    twoletLobbyRes.success &&
+      twoletLobbyRes.group?.required_capacity === 2 &&
+      twoletLobbyRes.group?.sharing_type === 'Twolets',
+    'Twolet lobby created successfully for Year 2 Girl (2 slots, Twolets)'
+  );
+  await HostelRepository.leaveOrDisbandGroup(candidateGirlRoll);
+
   // ---------------------------------------------------------------------------
   // TEST 5: GATE SCANNER & LATE ARRIVAL NOTIFICATIONS
   // ---------------------------------------------------------------------------
@@ -236,6 +295,12 @@ async function runTestSuite() {
   assert(
     postRound1Occupancy.occupied_rooms.every((r) => r.occupants && r.occupants.length > 0),
     'Occupied rooms carry complete occupant details (names, rolls, round numbers)'
+  );
+
+  const aghReport = postRound1Occupancy.summary.by_hostel.find((h) => h.hostel_id === 'AGH');
+  assert(
+    Boolean(aghReport) && (aghReport?.twolets_total ?? 0) === 62 && (aghReport?.fourlets_total ?? 0) === 20,
+    'Occupancy report includes AGH breakdown: 62 Twolets, 20 Fourlets'
   );
 
   // 4. Unallotted Groups unlocked for 30-min Choice Modification

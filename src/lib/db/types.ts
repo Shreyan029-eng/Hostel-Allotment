@@ -1,5 +1,5 @@
 export type Gender = 'Male' | 'Female' | 'Other';
-export type RoomStatus = 'free' | 'locked';
+export type RoomStatus = 'free' | 'locked' | 'occupied';
 export type MemberStatus = 'pending' | 'accepted';
 export type GateDirection = 'ENTRY' | 'EXIT';
 export type AdminRole = 'super_admin' | 'warden' | 'security_officer';
@@ -35,14 +35,16 @@ export interface Hostel {
   curfew_time: string; // e.g. "22:00:00"
 }
 
+export type SharingType = 'Twolets' | 'Triplets' | 'Fourlets';
+
 export interface Room {
   room_id: string; // Primary Key e.g. "HBH-G-101"
   hostel_id: string;
   room_number: string;
   floor: number;
   floor_label?: string;
-  capacity: number; // 3 or 4
-  sharing_type?: 'Triplets' | 'Fourlets';
+  capacity: number; // 2, 3, or 4
+  sharing_type?: SharingType;
   status: RoomStatus;
   created_at?: string;
 }
@@ -51,7 +53,7 @@ export interface Group {
   group_id: string; // UUID Primary Key
   group_code: string; // Unique invite code / Lobby ID e.g. "LOBBY-24B-01"
   leader_roll_no: string;
-  sharing_type?: 'Triplets' | 'Fourlets';
+  sharing_type?: SharingType;
   max_cgpa: number;
   required_capacity: number;
   is_locked: boolean;
@@ -65,7 +67,7 @@ export interface GroupInvite {
   from_name: string;
   to_roll_no: string;
   to_name: string;
-  sharing_type: 'Triplets' | 'Fourlets';
+  sharing_type: SharingType;
   status: 'pending' | 'accepted' | 'declined';
   created_at: string;
 }
@@ -170,8 +172,13 @@ export interface RoomOccupancySummary {
     available: number;
     occupied: number;
     gender_allowed: string;
+    twolets_total?: number;
+    twolets_available?: number;
+    twolets_occupied?: number;
+    triplets_total?: number;
     triplets_available?: number;
     triplets_occupied?: number;
+    fourlets_total?: number;
     fourlets_available?: number;
     fourlets_occupied?: number;
   }[];

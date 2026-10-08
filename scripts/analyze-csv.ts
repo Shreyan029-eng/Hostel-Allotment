@@ -70,7 +70,7 @@ export async function parseActiveNithStudents(): Promise<ProcessedStudent[]> {
     const rawStudentName = line.substring(secondComma + 1, thirdComma).trim().replace(/^"|"$/g, '');
     const rawFatherName = fourthComma !== -1
       ? line.substring(thirdComma + 1, fourthComma).trim().replace(/^"|"$/g, '')
-      : 'Father of ' + rawStudentName;
+      : '';
 
     // Academic Year Mapping in 2026-2027:
     // Batch 2025 -> Year 2
@@ -106,13 +106,8 @@ export async function parseActiveNithStudents(): Promise<ProcessedStudent[]> {
     const email = `${rawRoll}@nith.ac.in`;
     const barcode_id = `BARCODE-${roll_no}`;
     
-    // Hash phone numbers consistently based on roll number
-    let hash = 0;
-    for (let i = 0; i < rawRoll.length; i++) {
-      hash = (hash * 31 + rawRoll.charCodeAt(i)) % 100000;
-    }
-    const phone = `+91 98${String(10000000 + hash).padStart(8, '0')}`;
-    const guardian_contact = `${rawFatherName} (+91 94${String(20000000 + hash).padStart(8, '0')})`;
+    const phone = '';
+    const guardian_contact = rawFatherName;
 
     studentsMap.set(roll_no, {
       roll_no,

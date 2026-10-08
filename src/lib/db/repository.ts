@@ -15,6 +15,7 @@ import {
   RoomOccupancyReport,
   AvailableRoomDetail,
   OccupiedRoomDetail,
+  SharingType,
 } from './types';
 import { createAdminClient } from '../supabase/admin';
 
@@ -146,7 +147,7 @@ export class HostelRepository {
   // ===========================================================================
   static async createLobby(
     leaderRollNo: string,
-    sharingType: 'Triplets' | 'Fourlets'
+    sharingType: SharingType
   ): Promise<{ success: boolean; group?: Group; error?: string }> {
     const leader = await this.getStudentByRoll(leaderRollNo);
     if (!leader) return { success: false, error: 'Leader student record not found' };
@@ -157,7 +158,7 @@ export class HostelRepository {
       return { success: false, error: 'Student is already a member or leader of a group' };
     }
 
-    const requiredCapacity = sharingType === 'Fourlets' ? 4 : 3;
+    const requiredCapacity = sharingType === 'Fourlets' ? 4 : sharingType === 'Triplets' ? 3 : 2;
     const lobbyCode = `LOBBY-${leader.gender === 'Female' ? 'G' : 'B'}${leader.year}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
 
     const newGroup: Group = {
@@ -186,7 +187,7 @@ export class HostelRepository {
   }
 
   static async createGroup(leaderRollNo: string, requiredCapacity: number): Promise<{ success: boolean; group?: Group; error?: string }> {
-    const sharingType = requiredCapacity === 4 ? 'Fourlets' : 'Triplets';
+    const sharingType: SharingType = requiredCapacity === 4 ? 'Fourlets' : requiredCapacity === 3 ? 'Triplets' : 'Twolets';
     return this.createLobby(leaderRollNo, sharingType);
   }
 
@@ -342,7 +343,7 @@ export class HostelRepository {
       from_name: fromStudent.name,
       to_roll_no: toStudent.roll_no,
       to_name: toStudent.name,
-      sharing_type: group.sharing_type || (group.required_capacity === 4 ? 'Fourlets' : 'Triplets'),
+      sharing_type: group.sharing_type || (group.required_capacity === 4 ? 'Fourlets' : group.required_capacity === 3 ? 'Triplets' : 'Twolets'),
       status: 'pending',
       created_at: new Date().toISOString(),
     };
@@ -877,6 +878,10 @@ export class HostelRepository {
       const hOccupied = occupied_rooms.filter((r) => r.hostel_id === h.hostel_id);
       const hAvailable = available_rooms.filter((r) => r.hostel_id === h.hostel_id);
 
+      const twoletsTotal = hRooms.filter((r) => r.capacity === 2).length;
+      const twoletsOccupied = hOccupied.filter((r) => r.capacity === 2).length;
+      const twoletsAvailable = hAvailable.filter((r) => r.capacity === 2).length;
+
       const tripletsTotal = hRooms.filter((r) => r.capacity === 3).length;
       const tripletsOccupied = hOccupied.filter((r) => r.capacity === 3).length;
       const tripletsAvailable = hAvailable.filter((r) => r.capacity === 3).length;
@@ -892,6 +897,9 @@ export class HostelRepository {
         available: hAvailable.length,
         occupied: hOccupied.length,
         gender_allowed: h.gender_allowed,
+        twolets_total: twoletsTotal,
+        twolets_available: twoletsAvailable,
+        twolets_occupied: twoletsOccupied,
         triplets_total: tripletsTotal,
         triplets_available: tripletsAvailable,
         triplets_occupied: tripletsOccupied,

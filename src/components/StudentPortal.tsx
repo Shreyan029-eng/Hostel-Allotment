@@ -8,6 +8,7 @@ import {
   AllotmentResultDetails,
   GroupInvite,
   RoomOccupancyReport,
+  SharingType,
 } from '@/lib/db/types';
 import {
   Users,
@@ -164,7 +165,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
   }, [roundConfig.is_published, roundConfig.round_number]);
 
   // Local form states
-  const [sharingTypeChoice, setSharingTypeChoice] = useState<'Fourlets' | 'Triplets'>('Fourlets');
+  const [sharingTypeChoice, setSharingTypeChoice] = useState<SharingType>('Fourlets');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
@@ -222,9 +223,17 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
   const isGroupLocked = groupDetails?.is_locked || false;
 
   // Determine active sharing type (from group if in one, else local selection)
-  const activeSharingType: 'Fourlets' | 'Triplets' =
-    groupDetails?.sharing_type || (groupDetails?.required_capacity === 3 ? 'Triplets' : sharingTypeChoice);
-  const requiredCapacity = activeSharingType === 'Fourlets' ? 4 : 3;
+  const activeSharingType: SharingType =
+    groupDetails?.sharing_type ||
+    (groupDetails?.required_capacity === 4
+      ? 'Fourlets'
+      : groupDetails?.required_capacity === 3
+      ? 'Triplets'
+      : groupDetails?.required_capacity === 2
+      ? 'Twolets'
+      : sharingTypeChoice);
+  const requiredCapacity =
+    activeSharingType === 'Fourlets' ? 4 : activeSharingType === 'Triplets' ? 3 : 2;
 
   const isFinalSpotActive = Boolean(
     (roundConfig.final_round_active || roundConfig.round_number >= 5) && !allotment
@@ -263,7 +272,8 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           leader_roll_no: student.roll_no,
-          required_capacity: sharingTypeChoice === 'Fourlets' ? 4 : 3,
+          required_capacity:
+            sharingTypeChoice === 'Fourlets' ? 4 : sharingTypeChoice === 'Triplets' ? 3 : 2,
           sharing_type: sharingTypeChoice,
         }),
       });
@@ -495,6 +505,9 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     if (selectedHostelId === 'HBH') {
       return fl === 0 ? 'Level G1' : `Level ${fl}`;
     }
+    if (selectedHostelId === 'AGH') {
+      return `Series ${fl}`;
+    }
     return `Floor ${fl}`;
   };
 
@@ -658,7 +671,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                 <p className="text-xs text-slate-700 mt-1">
                   Room <strong className="text-slate-900 font-mono text-sm">{allotment.room.room_number}</strong>{' '}
                   ({allotment.room.floor_label || `Floor ${allotment.room.floor}`}) • Capacity:{' '}
-                  {allotment.room.capacity} Bed ({allotment.room.capacity === 4 ? 'Fourlet' : 'Triplet'})
+                  {allotment.room.capacity} Bed ({allotment.room.capacity === 4 ? 'Fourlet' : allotment.room.capacity === 3 ? 'Triplet' : 'Twolet'})
                 </p>
               </div>
               <div className="text-left sm:text-right text-xs">
@@ -904,8 +917,8 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                             {room.hostel_name.split(' ')[0]} ({room.hostel_id})
                           </div>
                           <div className="text-[10px] text-slate-500 flex items-center justify-between">
-                            <span>Floor {room.floor}</span>
-                            <span>{room.capacity === 4 ? 'Fourlet' : 'Triplet'}</span>
+                            <span>{room.hostel_id === 'AGH' ? `Series ${room.floor}` : `Floor ${room.floor}`}</span>
+                            <span>{room.capacity === 4 ? 'Fourlet' : room.capacity === 3 ? 'Triplet' : 'Twolet'}</span>
                           </div>
 
                           {/* Quick Add Button for Unallotted Leader during Choice Window */}
@@ -1076,7 +1089,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
               <div className="bg-slate-50 border border-slate-200 p-3.5 rounded">
                 <span className="text-[11px] text-slate-500 font-medium block">Room Type</span>
                 <span className="text-base font-bold text-slate-900 mt-0.5 block">
-                  {groupDetails.sharing_type || (groupDetails.required_capacity === 4 ? 'Fourlets' : 'Triplets')} ({groupDetails.required_capacity} Beds)
+                  {groupDetails.sharing_type || (groupDetails.required_capacity === 4 ? 'Fourlets' : groupDetails.required_capacity === 3 ? 'Triplets' : 'Twolets')} ({groupDetails.required_capacity} Beds)
                 </span>
                 <span className="text-[10px] text-slate-500 font-mono">Code: {groupDetails.group_code}</span>
               </div>
@@ -1253,7 +1266,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
               <label className="text-xs font-bold text-slate-700 block text-center">
                 Select Room Sharing Capacity:
               </label>
-              <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-xl mx-auto">
                 <button
                   type="button"
                   onClick={() => setSharingTypeChoice('Fourlets')}
@@ -1291,6 +1304,26 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                   </div>
                   <p className="text-[11px] text-slate-500 mt-1">
                     Room shared by 3 roommates.
+                  </p>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setSharingTypeChoice('Twolets')}
+                  className={`p-3.5 rounded border text-left transition-all ${
+                    sharingTypeChoice === 'Twolets'
+                      ? 'bg-blue-50 border-blue-900 text-blue-950 font-semibold'
+                      : 'bg-white border-slate-200 hover:border-slate-300'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-bold text-slate-900">Twolets</span>
+                    <span className="px-2 py-0.5 bg-blue-100 text-blue-900 text-[10px] font-bold rounded">
+                      2 Beds
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 mt-1">
+                    Room shared by 2 roommates.
                   </p>
                 </button>
               </div>

@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hostel-allotment",
+  "main": "server/worker.ts",
+  "compatibility_date": "2026-10-06",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
+  },
+  "vars": {
+    "SUPABASE_URL": "",
+    "NEXT_PUBLIC_COLLEGE_NAME": "National Institute of Technology Hamirpur",
+    "NEXT_PUBLIC_CURFEW_HOUR": "22",
+    "NEXT_PUBLIC_CURFEW_MINUTE": "00"
+  }
+}
